@@ -17,7 +17,7 @@
         
         /* Efecto Acero Industrial Iluminado para Título */
         .text-steel-elite { 
-            background: linear-gradient(to bottom, #ffffff 0%, #e2e8f0 45%, #94a3b8 50%, #f8fafc 100%); 
+            background: linear-gradient(to bottom, #ffffff 0%, #e2e8f0 45%, #94a3b8 50%, #f8fafc 100%);
             -webkit-background-clip: text; 
             color: transparent; 
             text-shadow: 0px 2px 4px rgba(0,0,0,0.3);
@@ -72,12 +72,12 @@
         .help-tip .tooltip-text::after { content: ""; position: absolute; top: 100%; left: 50%; margin-left: -6px; border-width: 6px; border-style: solid; border-color: rgba(245, 158, 11, 0.3) transparent transparent transparent; }
     </style>
 </head>
-<body class="min-h-screen flex flex-col items-center justify-center p-6 py-12">
+<body class="min-h-screen flex flex-col items-center justify-center p-3 md:p-6 py-8 md:py-12">
 
     <div id="loadingOverlay"><div class="blueprint-loader"><div class="hex-icon"></div></div><div id="loadingText" class="text-amber-500 font-bold uppercase tracking-widest text-sm animate-pulse mt-4">ARCHITECTING BLUEPRINT...</div></div>
 
-    <div id="leadModal" class="fixed inset-0 z-[100] modal-overlay hidden items-center justify-center p-4 opacity-0">
-        <div class="modal-content w-full max-w-lg rounded-3xl p-8 text-center relative transform scale-95 transition-transform duration-300" id="modalBox">
+    <div id="leadModal" class="fixed inset-0 z-[100] modal-overlay hidden items-center justify-center p-3 opacity-0">
+        <div class="modal-content w-full max-w-lg rounded-3xl p-6 md:p-8 text-center relative transform scale-95 transition-transform duration-300" id="modalBox">
             <button onclick="closeModal()" class="absolute top-4 right-5 text-slate-500 hover:text-white"><i class="fas fa-times text-xl"></i></button>
             <div id="modalIconContainer" class="w-16 h-16 bg-amber-500/20 rounded-full flex items-center justify-center mx-auto mb-4 border border-amber-500/50">
                 <i id="modalIcon" class="fas fa-lock text-amber-500 text-2xl"></i>
@@ -91,9 +91,9 @@
             <div id="resultPhase" class="hidden">
                 <div id="reportContent" class="text-left text-sm text-slate-300 bg-slate-900/50 p-5 rounded-xl mb-4 h-48 overflow-y-auto custom-scrollbar border border-white/10 font-mono leading-relaxed"></div>
                 <div id="dynamicLinks" class="flex flex-col gap-2"></div>
-                <p id="disclaimerText" class="text-[8px] text-slate-500 mt-5 leading-tight italic">Disclaimer: This is an AI-generated analysis for educational purposes, not certified financial advice.</p>
+                <p id="disclaimerText" class="text-[10px] md:text-[8px] text-slate-500 mt-5 leading-tight italic">Disclaimer: This is an AI-generated analysis for educational purposes, not certified financial advice.</p>
             </div>
-            <div class="flex items-center justify-center gap-2 text-[9px] text-slate-500 uppercase tracking-widest mt-4">
+            <div class="flex items-center justify-center gap-2 text-[11px] md:text-[9px] text-slate-500 uppercase tracking-widest mt-4">
                 <i class="fas fa-shield-alt text-amber-500/70"></i>
                 <span id="modalTrust">Bank-Level 256-bit Encryption | Zero Data Stored</span>
             </div>
@@ -101,7 +101,7 @@
     </div>
 
     <div class="relative flex flex-col xl:flex-row items-center w-full max-w-xl justify-center mt-10 xl:mt-0 mb-8">
-        <div class="w-full glass-card p-10 shadow-2xl text-center relative z-10 border-b-4 border-amber-500/50">
+        <div class="w-full glass-card p-6 md:p-10 shadow-2xl text-center relative z-10 border-b-4 border-amber-500/50">
             
             <div class="lang-selector">
                 <img src="https://flagcdn.com/w40/es.png" onclick="changeLang('es')" id="lang-es" class="lang-btn w-6 h-auto rounded-[2px]" title="Español" alt="ES">
@@ -110,9 +110,9 @@
             </div>
 
             <header class="mb-6 xl:mb-8 pt-4">
-                <h1 id="mainTitle" class="text-4xl font-black mb-1 text-steel-elite">QUANT REWARD PLAN</h1>
-                <p id="subTitle" class="text-amber-500 font-bold uppercase tracking-[0.2em] text-[9px]">ELITE FINANCIAL ENGINEERING - US MARKET</p>
-                <p id="valueProp" class="mt-3 text-xs text-slate-400 max-w-sm mx-auto leading-relaxed">Discover how many hundreds of dollars in travel and rewards you are leaving on the table. Our AI securely analyzes your spending and reveals your ideal strategy in seconds.</p>
+                <h1 id="mainTitle" class="text-3xl md:text-4xl font-black mb-1 text-steel-elite">QUANT REWARD PLAN</h1>
+                <p id="subTitle" class="text-amber-500 font-bold uppercase tracking-[0.2em] text-[11px] md:text-[9px]">ELITE FINANCIAL ENGINEERING - US MARKET</p>
+                <p id="valueProp" class="mt-3 text-sm md:text-xs text-slate-400 max-w-sm mx-auto leading-relaxed">Discover how many hundreds of dollars in travel and rewards you are leaving on the table. Our AI securely analyzes your spending and reveals your ideal strategy in seconds.</p>
             </header>
             
             <div class="card-3d-container">
@@ -127,7 +127,7 @@
             </div>
 
             <div class="mb-8 flex flex-col items-center justify-center opacity-70">
-                <p id="trustBarText" class="text-[8px] uppercase tracking-[0.2em] mb-2 text-slate-400">SUPPORTED NETWORKS</p>
+                <p id="trustBarText" class="text-[10px] md:text-[8px] uppercase tracking-[0.2em] mb-2 text-slate-400">SUPPORTED NETWORKS</p>
                 <div class="flex gap-4 text-2xl text-slate-300">
                     <i class="fab fa-cc-visa hover:text-white transition-colors"></i>
                     <i class="fab fa-cc-mastercard hover:text-white transition-colors"></i>
@@ -136,104 +136,104 @@
             </div>
             
             <div class="mb-8 relative">
-                <p class="text-slate-500 font-bold uppercase tracking-[0.2em] text-[9px] mb-3">
+                <p class="text-slate-500 font-bold uppercase tracking-[0.2em] text-[11px] md:text-[9px] mb-3">
                     <span id="step1Text">1. SELECT YOUR PROFILE</span>
                     <span class="help-tip">?<span class="tooltip-text" id="tt1">Select the tier that best fits your monthly spend. This allows our AI to recommend cards with real approval odds, preventing you from wasting time on out-of-reach options.</span></span>
                 </p>
-                <div class="flex gap-2 justify-center">
-                    <button onclick="setNiche('personal')" id="btn-personal" class="niche-btn active-personal px-4 py-2 rounded-full text-[10px] uppercase tracking-widest">STANDARD TIER</button>
-                    <button onclick="setNiche('business')" id="btn-business" class="niche-btn px-4 py-2 rounded-full text-[10px] uppercase tracking-widest">PREMIUM TIER</button>
-                    <button onclick="setNiche('elite')" id="btn-elite" class="niche-btn px-4 py-2 rounded-full text-[10px] uppercase tracking-widest">ELITE TIER</button>
+                <div class="flex flex-wrap gap-2 justify-center">
+                    <button onclick="setNiche('personal')" id="btn-personal" class="niche-btn active-personal px-3 md:px-4 py-2 rounded-full text-[11px] md:text-[10px] uppercase tracking-widest">STANDARD TIER</button>
+                    <button onclick="setNiche('business')" id="btn-business" class="niche-btn px-3 md:px-4 py-2 rounded-full text-[11px] md:text-[10px] uppercase tracking-widest">PREMIUM TIER</button>
+                    <button onclick="setNiche('elite')" id="btn-elite" class="niche-btn px-3 md:px-4 py-2 rounded-full text-[11px] md:text-[10px] uppercase tracking-widest">ELITE TIER</button>
                 </div>
             </div>
             <div class="mb-8 relative">
-                <p class="text-slate-500 font-bold uppercase tracking-[0.2em] text-[9px] mb-4">
+                <p class="text-slate-500 font-bold uppercase tracking-[0.2em] text-[11px] md:text-[9px] mb-4">
                     <span id="step2Text">2. SLIDE TO ADJUST YOUR MONTHLY SPEND ↔</span>
                     <span class="help-tip">?<span class="tooltip-text" id="tt2">Adjust the slider based on your monthly spend. With this data, the AI instantly calculates how much money and rewards you are leaving on the table.</span></span>
                 </p>
                 <input type="range" id="gastoSlider" min="500" max="5000" step="100" value="1500" class="mb-6">
-                <div class="text-6xl font-black text-white mb-8">$<span id="gastoValor">1,500</span></div>
+                <div class="text-5xl md:text-6xl font-black text-white mb-8">$<span id="gastoValor">1,500</span></div>
                 
-                <div class="grid grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="bg-slate-900/60 p-4 rounded-2xl border border-white/5 flex flex-col justify-center">
-                        <p id="riskLabel" class="text-[9px] text-slate-500 uppercase tracking-tighter mb-2">POINTS YOU ARE LOSING</p>
+                        <p id="riskLabel" class="text-[11px] md:text-[9px] text-slate-500 uppercase tracking-tighter mb-2">POINTS YOU ARE LOSING</p>
                         <div class="flex justify-between items-end mb-1">
-                            <span id="lblPuntosMensual" class="text-[10px] text-slate-400">Monthly:</span>
+                            <span id="lblPuntosMensual" class="text-[12px] md:text-[10px] text-slate-400">Monthly:</span>
                             <span id="puntosMensual" class="text-lg font-bold text-green-400">4,500</span>
                         </div>
                         <div class="flex justify-between items-end border-t border-white/5 pt-1">
-                            <span id="lblPuntosAnual" class="text-[10px] text-slate-400">Annually:</span>
+                            <span id="lblPuntosAnual" class="text-[12px] md:text-[10px] text-slate-400">Annually:</span>
                             <span id="puntosAnual" class="text-xl font-black text-green-500">54,000</span>
                         </div>
                     </div>
                     <div class="bg-slate-900/60 p-4 rounded-2xl border border-red-500/30 flex flex-col justify-center">
-                        <p id="recovLabel" class="text-[9px] text-red-400 uppercase tracking-tighter mb-2">MONEY LEFT ON THE TABLE</p>
+                        <p id="recovLabel" class="text-[11px] md:text-[9px] text-red-400 uppercase tracking-tighter mb-2">MONEY LEFT ON THE TABLE</p>
                         <div class="flex justify-between items-end mb-1">
-                            <span id="lblValorMensual" class="text-[10px] text-red-400/70">Monthly:</span>
+                            <span id="lblValorMensual" class="text-[12px] md:text-[10px] text-red-400/70">Monthly:</span>
                             <span id="valorMensual" class="text-lg font-bold text-red-400">$67.50</span>
                         </div>
                         <div class="flex justify-between items-end border-t border-red-500/10 pt-1">
-                            <span id="lblValorAnual" class="text-[10px] text-red-400/70">Annually:</span>
+                            <span id="lblValorAnual" class="text-[12px] md:text-[10px] text-red-400/70">Annually:</span>
                             <span id="valorAnual" class="text-xl font-black text-red-500">$810.00</span>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="relative group mb-8">
-                <p class="text-amber-500 font-bold uppercase tracking-[0.1em] text-[10px] mb-3">
+                <p class="text-amber-500 font-bold uppercase tracking-[0.1em] text-[11px] md:text-[10px] mb-3">
                     <span id="step3Text">3. NOW THAT YOU KNOW YOUR POTENTIAL, GET YOUR REAL DIAGNOSIS AND RECOVER THE MONEY YOU ARE LOSING NOW:</span>
                     <span class="help-tip">?<span class="tooltip-text" id="tt3">100% Secure. The fastest way is to take a clear photo with your phone. For your peace of mind, feel free to hide or cross out your name and account number. Our AI focuses only on numbers. To protect your privacy, we don't ask for personal data. Your identity remains 100% anonymous.</span></span>
                 </p>
-                <div class="relative border-2 border-dashed border-amber-500/50 rounded-3xl p-8 bg-slate-900/40 hover:border-amber-500 transition-all flex flex-col items-center justify-center cursor-pointer">
+                <div class="relative border-2 border-dashed border-amber-500/50 rounded-3xl p-6 md:p-8 bg-slate-900/40 hover:border-amber-500 transition-all flex flex-col items-center justify-center cursor-pointer">
                     <input type="file" id="fileInput" accept=".pdf, .jpg, .jpeg, .png, .htm" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-20">
                     <i class="fas fa-cloud-upload-alt text-4xl text-amber-500 mb-3 animate-pulse relative z-10 pointer-events-none"></i>
-                    <p id="fileName" class="font-bold text-white text-lg uppercase relative z-10 pointer-events-none tracking-wide">UPLOAD YOUR STATEMENT</p>
-                    <p id="fileSub" class="text-[10px] mt-1 text-amber-500 uppercase tracking-widest relative z-10 pointer-events-none">AS A PDF OR TAKE A PHOTO</p>
-                    <p id="privacyNote" class="text-[10px] mt-4 text-slate-400 italic relative z-10 pointer-events-none">Privacy Guaranteed: If you prefer, hide your name. We only read the numbers.</p>
+                    <p id="fileName" class="font-bold text-white text-base md:text-lg uppercase relative z-10 pointer-events-none tracking-wide">UPLOAD YOUR STATEMENT</p>
+                    <p id="fileSub" class="text-[12px] md:text-[10px] mt-1 text-amber-500 uppercase tracking-widest relative z-10 pointer-events-none">AS A PDF OR TAKE A PHOTO</p>
+                    <p id="privacyNote" class="text-[11px] md:text-[10px] mt-4 text-slate-400 italic relative z-10 pointer-events-none">Privacy Guaranteed: If you prefer, hide your name. We only read the numbers.</p>
                 </div>
             </div>
-            <button id="mainBtn" onclick="ejecutarAuditoria()" class="w-full btn-premium py-5 rounded-2xl font-black text-lg uppercase tracking-widest text-slate-900 shadow-2xl">
+            <button id="mainBtn" onclick="ejecutarAuditoria()" class="w-full btn-premium py-4 md:py-5 rounded-2xl font-black text-base md:text-lg uppercase tracking-widest text-slate-900 shadow-2xl">
                 START PRECISION AUDIT
             </button>
-            <p id="status" class="mt-6 text-[10px] font-bold text-slate-500 uppercase tracking-widest"></p>
+            <p id="status" class="mt-6 text-[12px] md:text-[10px] font-bold text-slate-500 uppercase tracking-widest"></p>
         </div>
     </div>
 
-    <div class="w-full max-w-xl glass-card p-8 shadow-xl text-center relative z-10 mx-auto border border-white/5">
+    <div class="w-full max-w-xl glass-card p-6 md:p-8 shadow-xl text-center relative z-10 mx-auto border border-white/5">
         <h2 id="contactTitle" class="text-xl font-bold text-slate-300 mb-2 uppercase tracking-widest">Contact Support</h2>
-        <p id="contactDesc" class="text-xs text-slate-400 mb-6">Need help with your analysis or have questions about our plans? We are here to assist.</p>
+        <p id="contactDesc" class="text-sm md:text-xs text-slate-400 mb-6">Need help with your analysis or have questions about our plans? We are here to assist.</p>
         
         <form id="contactForm" onsubmit="enviarContacto(event)" class="flex flex-col gap-4">
             <input type="text" id="contactName" placeholder="Full Name" required class="input-premium w-full px-4 py-3 rounded-xl text-sm placeholder-slate-500">
             <input type="email" id="contactEmail" placeholder="Email Address" required class="input-premium w-full px-4 py-3 rounded-xl text-sm placeholder-slate-500">
             <textarea id="contactMessage" placeholder="How can we help you?" rows="3" required class="input-premium w-full px-4 py-3 rounded-xl text-sm placeholder-slate-500 custom-scrollbar resize-none"></textarea>
-            <button type="submit" id="contactBtn" class="w-full bg-slate-800 hover:bg-slate-700 border border-slate-600 py-3 rounded-xl font-bold text-[10px] uppercase text-white shadow-xl hover:scale-[1.02] transition-transform">
+            <button type="submit" id="contactBtn" class="w-full bg-slate-800 hover:bg-slate-700 border border-slate-600 py-3 rounded-xl font-bold text-[12px] md:text-[10px] uppercase text-white shadow-xl hover:scale-[1.02] transition-transform">
                 Send Message
             </button>
         </form>
     </div>
     
-    <footer class="w-full max-w-xl text-center mt-12 mb-4 text-[10px] text-slate-600 px-4 mx-auto">
+    <footer class="w-full max-w-xl text-center mt-12 mb-4 text-[12px] md:text-[10px] text-slate-600 px-4 mx-auto">
         <p id="ftcText" class="mb-3 leading-relaxed">Advertiser Disclosure: Quant Reward Plan is an independent, advertising-supported service. We may receive compensation from the credit card companies whose products appear on our site.</p>
-        <div class="flex justify-center gap-6 mb-3 uppercase tracking-widest font-bold">
+        <div class="flex flex-wrap justify-center gap-4 md:gap-6 mb-3 uppercase tracking-widest font-bold text-[11px] md:text-[10px]">
             <a href="#" id="privacyText" class="hover:text-amber-500 transition-colors" onclick="openLegalModal('privacyModal'); return false;">Privacy Policy</a>
             <a href="#" id="termsText" class="hover:text-amber-500 transition-colors" onclick="openLegalModal('termsModal'); return false;">Terms of Service</a>
         </div>
         <p>&copy; 2026 Quant Reward Plan. All rights reserved.</p>
     </footer>
 
-    <div id="privacyModal" class="fixed inset-0 z-[110] modal-overlay hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300">
-        <div class="modal-content w-full max-w-2xl rounded-3xl p-8 text-left relative transform scale-95 transition-transform duration-300">
+    <div id="privacyModal" class="fixed inset-0 z-[110] modal-overlay hidden items-center justify-center p-3 opacity-0 transition-opacity duration-300">
+        <div class="modal-content w-full max-w-2xl rounded-3xl p-6 md:p-8 text-left relative transform scale-95 transition-transform duration-300">
             <button onclick="closeLegalModal('privacyModal')" class="absolute top-4 right-5 text-slate-500 hover:text-white"><i class="fas fa-times text-xl"></i></button>
-            <h2 id="privacyModalTitle" class="text-2xl font-bold text-amber-500 mb-4 uppercase tracking-widest text-center">Privacy Policy</h2>
+            <h2 id="privacyModalTitle" class="text-xl md:text-2xl font-bold text-amber-500 mb-4 uppercase tracking-widest text-center">Privacy Policy</h2>
             <div id="privacyModalBody" class="h-64 overflow-y-auto custom-scrollbar text-slate-300 text-sm space-y-4 pr-2"></div>
         </div>
     </div>
 
-    <div id="termsModal" class="fixed inset-0 z-[110] modal-overlay hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300">
-        <div class="modal-content w-full max-w-2xl rounded-3xl p-8 text-left relative transform scale-95 transition-transform duration-300">
+    <div id="termsModal" class="fixed inset-0 z-[110] modal-overlay hidden items-center justify-center p-3 opacity-0 transition-opacity duration-300">
+        <div class="modal-content w-full max-w-2xl rounded-3xl p-6 md:p-8 text-left relative transform scale-95 transition-transform duration-300">
             <button onclick="closeLegalModal('termsModal')" class="absolute top-4 right-5 text-slate-500 hover:text-white"><i class="fas fa-times text-xl"></i></button>
-            <h2 id="termsModalTitle" class="text-2xl font-bold text-amber-500 mb-4 uppercase tracking-widest text-center">Terms of Service</h2>
+            <h2 id="termsModalTitle" class="text-xl md:text-2xl font-bold text-amber-500 mb-4 uppercase tracking-widest text-center">Terms of Service</h2>
             <div id="termsModalBody" class="h-64 overflow-y-auto custom-scrollbar text-slate-300 text-sm space-y-4 pr-2"></div>
         </div>
     </div>
@@ -409,7 +409,6 @@
             document.getElementById('valorAnual').innerText = `$${valorAnual.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
         }
         slider.oninput = updateCalculos;
-        
         fileInput.addEventListener('change', (e) => {
             if(e.target.files.length > 0) {
                 document.getElementById('fileName').innerText = e.target.files[0].name.toUpperCase();
@@ -549,7 +548,6 @@
             const mensaje = document.getElementById('contactMessage').value;
             const btn = document.getElementById('contactBtn');
             const originalText = btn.innerText;
-
             btn.innerText = currentLang === 'en' ? 'SENDING...' : 'ENVIANDO...';
             btn.disabled = true;
 
@@ -578,4 +576,4 @@
         updateCalculos();
     </script>
 </body>
-</html>
+</html> 
