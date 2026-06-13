@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quant Reward Plan | Elite Reward Strategy</title>
+    <link rel="icon" type="image/png" href="/favicon.png?v=2">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body { background: radial-gradient(circle at top, #1e293b 0%, #0f172a 100%); color: white; font-family: 'Inter', sans-serif; transition: all 0.5s ease; overflow-x: hidden; }
+        .glass-card { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.1); border-radius: 2rem; position: relative; z-index: 10; }
+        .btn-premium { background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%); transition: all 0.3s ease; color: #0f172a; }
+        .btn-premium:hover { transform: translateY(-2px); box-shadow: 0 10px 20px -5px rgba(217, 119, 6, 0.5); }
+        .btn-affiliate { background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%); transition: all 0.3s ease; color: white; }
+        .btn-auto { background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); transition: all 0.3s ease; color: white; }
+        
+        /* Efecto Acero Industrial Iluminado para Título */
+        .text-steel-elite { 
+            background: linear-gradient(to bottom, #ffffff 0%, #e2e8f0 45%, #94a3b8 50%, #f8fafc 100%); 
+            -webkit-background-clip: text; 
+            color: transparent; 
+            text-shadow: 0px 2px 4px rgba(0,0,0,0.3);
+            letter-spacing: -1px;
+        }
+
+        /* Efecto VIP Vault */
+        .btn-vip { background: linear-gradient(270deg, #fbbf24, #fffbeb, #fbbf24); background-size: 200% 200%; animation: shimmer 2s infinite; color: #0f172a; transition: all 0.3s; }
+        @keyframes shimmer { 0% { background-position: 0% 50%; } 100% { background-position: 200% 50%; } }
+        .btn-vip:hover { transform: scale(1.02); box-shadow: 0 0 20px rgba(251, 191, 36, 0.6); }
+
+        .niche-btn { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); transition: all 0.3s; }
+        .niche-btn.active-personal { background: #1d4ed8; color: white; border-color: #1d4ed8; font-weight: 800; box-shadow: 0 0 15px rgba(29, 78, 216, 0.4); }
+        .niche-btn.active-business { background: #fbbf24; color: #0f172a; border-color: #fbbf24; font-weight: 800; box-shadow: 0 0 15px rgba(251, 191, 36, 0.4); }
+        .niche-btn.active-elite { background: #94a3b8; color: #0f172a; border-color: #94a3b8; font-weight: 800; box-shadow: 0 0 15px rgba(148, 163, 184, 0.4); }
+        input[type=range] { -webkit-appearance: none; background: #334155; height: 6px; border-radius: 5px; width: 100%; }
+        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 18px; width: 18px; border-radius: 50%; background: #fbbf24; cursor: pointer; border: 2px solid #0f172a; box-shadow: 0 0 10px rgba(251, 191, 36, 0.4); }
+        
+        /* Banderas selector de idiomas */
+        .lang-selector { position: absolute; top: 1.5rem; right: 1.5rem; display: flex; align-items: center; gap: 0.5rem; z-index: 50; }
+        .lang-btn { cursor: pointer; transition: all 0.3s; filter: grayscale(100%); opacity: 0.4; }
+        .lang-btn.active { filter: grayscale(0%); opacity: 1; transform: scale(1.15); }
+        
+        .card-3d-container { perspective: 1000px; position: relative; display: flex; justify-content: center; margin-bottom: 1rem; transform: scale(0.85); z-index: 20; }
+        @media (min-width: 1250px) { .card-3d-container { position: absolute; left: -340px; top: 50%; transform: translateY(-50%) scale(1); margin-bottom: 0; } }
+        
+        /* Efecto Glassmorphism Ultra-Realista para las Tarjetas */
+        .physical-card { width: 340px; height: 215px; border-radius: 15px; position: relative; transform-style: preserve-3d; animation: rotateCard 10s infinite linear; box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.8), inset 0 0 20px rgba(255, 255, 255, 0.15); border: 1px solid rgba(255,255,255,0.2); backdrop-filter: blur(15px); transition: all 1s cubic-bezier(0.4, 0, 0.2, 1); }
+        .card-personal { background: linear-gradient(135deg, rgba(30, 58, 138, 0.85) 0%, rgba(29, 78, 216, 0.65) 100%); } 
+        .card-business { background: linear-gradient(135deg, rgba(217, 119, 6, 0.85) 0%, rgba(251, 191, 36, 0.65) 100%); } 
+        .card-elite { background: linear-gradient(135deg, rgba(148, 163, 184, 0.85) 0%, rgba(226, 232, 240, 0.65) 100%); }    
+        
+        .card-chip { position: absolute; top: 80px; left: 30px; width: 45px; height: 35px; background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%); border-radius: 6px; border: 1px solid rgba(255,255,255,0.3); box-shadow: inset 1px 1px 2px rgba(255,255,255,0.5); overflow: hidden; }
+        .card-chip::after { content: ''; position: absolute; top: 50%; left: 0; width: 100%; height: 1px; background: rgba(0,0,0,0.2); }
+        .card-chip::before { content: ''; position: absolute; top: 0; left: 50%; width: 1px; height: 100%; background: rgba(0,0,0,0.2); }
+        .card-contactless { position: absolute; top: 30px; right: 30px; color: rgba(255,255,255,0.5); font-size: 20px; }
+        @keyframes rotateCard { 0% { transform: rotateY(0deg) rotateX(5deg); } 100% { transform: rotateY(360deg) rotateX(5deg); } }
+        .modal-overlay { background: rgba(15, 23, 42, 0.9); backdrop-filter: blur(8px); transition: opacity 0.3s; }
+        .modal-content { background: #1e293b; border: 1px solid rgba(251, 191, 36, 0.3); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8); max-height: 95vh; overflow-y: auto;}
+        .input-premium { background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); color: white; transition: all 0.3s; }
+        .input-premium:focus { border-color: #fbbf24; outline: none; box-shadow: 0 0 15px rgba(251, 191, 36, 0.2); }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #475569; border-radius: 4px; }
+        #loadingOverlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(15, 23, 42, 0.95); backdrop-filter: blur(5px); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 9999; opacity: 0; visibility: hidden; transition: opacity 0.5s ease, visibility 0.5s ease; }
+        #loadingOverlay.active { opacity: 1; visibility: visible; }
+        
+        /* Tooltips Flotantes */
+        .help-tip { display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; background: rgba(245, 158, 11, 0.15); color: #f59e0b; border-radius: 50%; font-size: 10px; font-weight: bold; cursor: help; margin-left: 6px; position: relative; bottom: 2px; z-index: 50; }
+        .help-tip .tooltip-text { visibility: hidden; width: 280px; background-color: #0f172a; color: #cbd5e1; text-align: left; border-radius: 8px; padding: 12px; position: absolute; z-index: 99999; bottom: 150%; left: 50%; transform: translateX(-50%); opacity: 0; transition: opacity 0.3s; border: 1px solid rgba(245, 158, 11, 0.3); box-shadow: 0 10px 30px rgba(0,0,0,0.9); font-size: 11px; text-transform: none; letter-spacing: normal; font-weight: normal; line-height: 1.5; pointer-events: none; }
+        .help-tip:hover .tooltip-text { visibility: visible; opacity: 1; }
+        .help-tip .tooltip-text::after { content: ""; position: absolute; top: 100%; left: 50%; margin-left: -6px; border-width: 6px; border-style: solid; border-color: rgba(245, 158, 11, 0.3) transparent transparent transparent; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center p-6 py-12">
+
+    <div id="loadingOverlay"><div class="blueprint-loader"><div class="hex-icon"></div></div><div id="loadingText" class="text-amber-500 font-bold uppercase tracking-widest text-sm animate-pulse mt-4">ARCHITECTING BLUEPRINT...</div></div>
+
+    <div id="leadModal" class="fixed inset-0 z-[100] modal-overlay hidden items-center justify-center p-4 opacity-0">
+        <div class="modal-content w-full max-w-lg rounded-3xl p-8 text-center relative transform scale-95 transition-transform duration-300" id="modalBox">
+            <button onclick="closeModal()" class="absolute top-4 right-5 text-slate-500 hover:text-white"><i class="fas fa-times text-xl"></i></button>
+            <div id="modalIconContainer" class="w-16 h-16 bg-amber-500/20 rounded-full flex items-center justify-center mx-auto mb-4 border border-amber-500/50">
+                <i id="modalIcon" class="fas fa-lock text-amber-500 text-2xl"></i>
+            </div>
+            <h2 id="modalTitle" class="text-2xl font-bold text-white mb-2">Diagnosis Ready</h2>
+            <p id="modalDesc" class="text-slate-400 text-sm mb-6">Enter your email to unlock your strategic report and the recommended exact cards.</p>
+            <div id="emailPhase">
+                <input type="email" id="userEmail" placeholder="ceo@company.com" class="input-premium w-full px-4 py-4 rounded-xl text-center mb-4">
+                <button onclick="unlockReport()" id="modalBtn" class="w-full btn-premium py-4 rounded-xl font-bold text-sm uppercase tracking-widest text-slate-900 shadow-xl mb-4">UNLOCK FULL BLUEPRINT</button>
+            </div>
+            <div id="resultPhase" class="hidden">
+                <div id="reportContent" class="text-left text-sm text-slate-300 bg-slate-900/50 p-5 rounded-xl mb-4 h-48 overflow-y-auto custom-scrollbar border border-white/10 font-mono leading-relaxed"></div>
+                <div id="dynamicLinks" class="flex flex-col gap-2"></div>
+                <p id="disclaimerText" class="text-[8px] text-slate-500 mt-5 leading-tight italic">Disclaimer: This is an AI-generated analysis for educational purposes, not certified financial advice.</p>
+            </div>
+            <div class="flex items-center justify-center gap-2 text-[9px] text-slate-500 uppercase tracking-widest mt-4">
+                <i class="fas fa-shield-alt text-amber-500/70"></i>
+                <span id="modalTrust">Bank-Level 256-bit Encryption | Zero Data Stored</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="relative flex flex-col xl:flex-row items-center w-full max-w-xl justify-center mt-10 xl:mt-0 mb-8">
+        <div class="w-full glass-card p-10 shadow-2xl text-center relative z-10 border-b-4 border-amber-500/50">
+            
+            <div class="lang-selector">
+                <img src="https://flagcdn.com/w40/es.png" onclick="changeLang('es')" id="lang-es" class="lang-btn w-6 h-auto rounded-[2px]" title="Español" alt="ES">
+                <span class="text-white/20">|</span>
+                <img src="https://flagcdn.com/w40/us.png" onclick="changeLang('en')" id="lang-en" class="lang-btn active w-6 h-auto rounded-[2px]" title="English" alt="US">
+            </div>
+
+            <header class="mb-6 xl:mb-8 pt-4">
+                <h1 id="mainTitle" class="text-4xl font-black mb-1 text-steel-elite">QUANT REWARD PLAN</h1>
+                <p id="subTitle" class="text-amber-500 font-bold uppercase tracking-[0.2em] text-[9px]">ELITE FINANCIAL ENGINEERING - US MARKET</p>
+                <p id="valueProp" class="mt-3 text-xs text-slate-400 max-w-sm mx-auto leading-relaxed">Discover how many hundreds of dollars in travel and rewards you are leaving on the table. Our AI securely analyzes your spending and reveals your ideal strategy in seconds.</p>
+            </header>
+            
+            <div class="card-3d-container">
+                <div id="visualCard" class="physical-card card-personal">
+                    <div class="card-chip"></div>
+                    <div class="card-contactless"><i class="fas fa-wifi rotate-90"></i></div>
+                    <div id="cardBrand" style="position: absolute; bottom: 25px; left: 30px; font-family: 'Courier New', monospace; color: rgba(255,255,255,0.7); font-size: 16px; font-weight: bold; letter-spacing: 2px;">SECURED CARD</div>
+                    <div id="cardNetwork" style="position: absolute; bottom: 20px; right: 25px; color: rgba(255,255,255,0.7); font-size: 30px;">
+                        <i class="fab fa-cc-visa"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-8 flex flex-col items-center justify-center opacity-70">
+                <p id="trustBarText" class="text-[8px] uppercase tracking-[0.2em] mb-2 text-slate-400">SUPPORTED NETWORKS</p>
+                <div class="flex gap-4 text-2xl text-slate-300">
+                    <i class="fab fa-cc-visa hover:text-white transition-colors"></i>
+                    <i class="fab fa-cc-mastercard hover:text-white transition-colors"></i>
+                    <i class="fab fa-cc-amex hover:text-white transition-colors"></i>
+                </div>
+            </div>
+            
+            <div class="mb-8 relative">
+                <p class="text-slate-500 font-bold uppercase tracking-[0.2em] text-[9px] mb-3">
+                    <span id="step1Text">1. SELECT YOUR PROFILE</span>
+                    <span class="help-tip">?<span class="tooltip-text" id="tt1">Select the tier that best fits your monthly spend. This allows our AI to recommend cards with real approval odds, preventing you from wasting time on out-of-reach options.</span></span>
+                </p>
+                <div class="flex gap-2 justify-center">
+                    <button onclick="setNiche('personal')" id="btn-personal" class="niche-btn active-personal px-4 py-2 rounded-full text-[10px] uppercase tracking-widest">STANDARD TIER</button>
+                    <button onclick="setNiche('business')" id="btn-business" class="niche-btn px-4 py-2 rounded-full text-[10px] uppercase tracking-widest">PREMIUM TIER</button>
+                    <button onclick="setNiche('elite')" id="btn-elite" class="niche-btn px-4 py-2 rounded-full text-[10px] uppercase tracking-widest">ELITE TIER</button>
+                </div>
+            </div>
+            <div class="mb-8 relative">
+                <p class="text-slate-500 font-bold uppercase tracking-[0.2em] text-[9px] mb-4">
+                    <span id="step2Text">2. SLIDE TO ADJUST YOUR MONTHLY SPEND ↔</span>
+                    <span class="help-tip">?<span class="tooltip-text" id="tt2">Adjust the slider based on your monthly spend. With this data, the AI instantly calculates how much money and rewards you are leaving on the table.</span></span>
+                </p>
+                <input type="range" id="gastoSlider" min="500" max="5000" step="100" value="1500" class="mb-6">
+                <div class="text-6xl font-black text-white mb-8">$<span id="gastoValor">1,500</span></div>
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-slate-900/60 p-4 rounded-2xl border border-white/5 flex flex-col justify-center">
+                        <p id="riskLabel" class="text-[9px] text-slate-500 uppercase tracking-tighter mb-2">POINTS YOU ARE LOSING</p>
+                        <div class="flex justify-between items-end mb-1">
+                            <span id="lblPuntosMensual" class="text-[10px] text-slate-400">Monthly:</span>
+                            <span id="puntosMensual" class="text-lg font-bold text-green-400">4,500</span>
+                        </div>
+                        <div class="flex justify-between items-end border-t border-white/5 pt-1">
+                            <span id="lblPuntosAnual" class="text-[10px] text-slate-400">Annually:</span>
+                            <span id="puntosAnual" class="text-xl font-black text-green-500">54,000</span>
+                        </div>
+                    </div>
+                    <div class="bg-slate-900/60 p-4 rounded-2xl border border-red-500/30 flex flex-col justify-center">
+                        <p id="recovLabel" class="text-[9px] text-red-400 uppercase tracking-tighter mb-2">MONEY LEFT ON THE TABLE</p>
+                        <div class="flex justify-between items-end mb-1">
+                            <span id="lblValorMensual" class="text-[10px] text-red-400/70">Monthly:</span>
+                            <span id="valorMensual" class="text-lg font-bold text-red-400">$67.50</span>
+                        </div>
+                        <div class="flex justify-between items-end border-t border-red-500/10 pt-1">
+                            <span id="lblValorAnual" class="text-[10px] text-red-400/70">Annually:</span>
+                            <span id="valorAnual" class="text-xl font-black text-red-500">$810.00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="relative group mb-8">
+                <p class="text-amber-500 font-bold uppercase tracking-[0.1em] text-[10px] mb-3">
+                    <span id="step3Text">3. NOW THAT YOU KNOW YOUR POTENTIAL, GET YOUR REAL DIAGNOSIS AND RECOVER THE MONEY YOU ARE LOSING NOW:</span>
+                    <span class="help-tip">?<span class="tooltip-text" id="tt3">100% Secure. The fastest way is to take a clear photo with your phone. For your peace of mind, feel free to hide or cross out your name and account number. Our AI focuses only on numbers. To protect your privacy, we don't ask for personal data. Your identity remains 100% anonymous.</span></span>
+                </p>
+                <div class="relative border-2 border-dashed border-amber-500/50 rounded-3xl p-8 bg-slate-900/40 hover:border-amber-500 transition-all flex flex-col items-center justify-center cursor-pointer">
+                    <input type="file" id="fileInput" accept=".pdf, .jpg, .jpeg, .png, .htm" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-20">
+                    <i class="fas fa-cloud-upload-alt text-4xl text-amber-500 mb-3 animate-pulse relative z-10 pointer-events-none"></i>
+                    <p id="fileName" class="font-bold text-white text-lg uppercase relative z-10 pointer-events-none tracking-wide">UPLOAD YOUR STATEMENT</p>
+                    <p id="fileSub" class="text-[10px] mt-1 text-amber-500 uppercase tracking-widest relative z-10 pointer-events-none">AS A PDF OR TAKE A PHOTO</p>
+                    <p id="privacyNote" class="text-[10px] mt-4 text-slate-400 italic relative z-10 pointer-events-none">Privacy Guaranteed: If you prefer, hide your name. We only read the numbers.</p>
+                </div>
+            </div>
+            <button id="mainBtn" onclick="ejecutarAuditoria()" class="w-full btn-premium py-5 rounded-2xl font-black text-lg uppercase tracking-widest text-slate-900 shadow-2xl">
+                START PRECISION AUDIT
+            </button>
+            <p id="status" class="mt-6 text-[10px] font-bold text-slate-500 uppercase tracking-widest"></p>
+        </div>
+    </div>
+
+    <div class="w-full max-w-xl glass-card p-8 shadow-xl text-center relative z-10 mx-auto border border-white/5">
+        <h2 id="contactTitle" class="text-xl font-bold text-slate-300 mb-2 uppercase tracking-widest">Contact Support</h2>
+        <p id="contactDesc" class="text-xs text-slate-400 mb-6">Need help with your analysis or have questions about our plans? We are here to assist.</p>
+        
+        <form id="contactForm" onsubmit="enviarContacto(event)" class="flex flex-col gap-4">
+            <input type="text" id="contactName" placeholder="Full Name" required class="input-premium w-full px-4 py-3 rounded-xl text-sm placeholder-slate-500">
+            <input type="email" id="contactEmail" placeholder="Email Address" required class="input-premium w-full px-4 py-3 rounded-xl text-sm placeholder-slate-500">
+            <textarea id="contactMessage" placeholder="How can we help you?" rows="3" required class="input-premium w-full px-4 py-3 rounded-xl text-sm placeholder-slate-500 custom-scrollbar resize-none"></textarea>
+            <button type="submit" id="contactBtn" class="w-full bg-slate-800 hover:bg-slate-700 border border-slate-600 py-3 rounded-xl font-bold text-[10px] uppercase text-white shadow-xl hover:scale-[1.02] transition-transform">
+                Send Message
+            </button>
+        </form>
+    </div>
+    
+    <footer class="w-full max-w-xl text-center mt-12 mb-4 text-[10px] text-slate-600 px-4 mx-auto">
+        <p id="ftcText" class="mb-3 leading-relaxed">Advertiser Disclosure: Quant Reward Plan is an independent, advertising-supported service. We may receive compensation from the credit card companies whose products appear on our site.</p>
+        <div class="flex justify-center gap-6 mb-3 uppercase tracking-widest font-bold">
+            <a href="#" id="privacyText" class="hover:text-amber-500 transition-colors" onclick="openLegalModal('privacyModal'); return false;">Privacy Policy</a>
+            <a href="#" id="termsText" class="hover:text-amber-500 transition-colors" onclick="openLegalModal('termsModal'); return false;">Terms of Service</a>
+        </div>
+        <p>&copy; 2026 Quant Reward Plan. All rights reserved.</p>
+    </footer>
+
+    <div id="privacyModal" class="fixed inset-0 z-[110] modal-overlay hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300">
+        <div class="modal-content w-full max-w-2xl rounded-3xl p-8 text-left relative transform scale-95 transition-transform duration-300">
+            <button onclick="closeLegalModal('privacyModal')" class="absolute top-4 right-5 text-slate-500 hover:text-white"><i class="fas fa-times text-xl"></i></button>
+            <h2 id="privacyModalTitle" class="text-2xl font-bold text-amber-500 mb-4 uppercase tracking-widest text-center">Privacy Policy</h2>
+            <div id="privacyModalBody" class="h-64 overflow-y-auto custom-scrollbar text-slate-300 text-sm space-y-4 pr-2"></div>
+        </div>
+    </div>
+
+    <div id="termsModal" class="fixed inset-0 z-[110] modal-overlay hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300">
+        <div class="modal-content w-full max-w-2xl rounded-3xl p-8 text-left relative transform scale-95 transition-transform duration-300">
+            <button onclick="closeLegalModal('termsModal')" class="absolute top-4 right-5 text-slate-500 hover:text-white"><i class="fas fa-times text-xl"></i></button>
+            <h2 id="termsModalTitle" class="text-2xl font-bold text-amber-500 mb-4 uppercase tracking-widest text-center">Terms of Service</h2>
+            <div id="termsModalBody" class="h-64 overflow-y-auto custom-scrollbar text-slate-300 text-sm space-y-4 pr-2"></div>
+        </div>
+    </div>
+
+    <script>
+        const slider = document.getElementById('gastoSlider');
+        const gastoDisplay = document.getElementById('gastoValor');
+        const fileInput = document.getElementById('fileInput');
+        const statusMsg = document.getElementById('status');
+        const visualCard = document.getElementById('visualCard');
+        const cardBrand = document.getElementById('cardBrand');
+        const cardNetwork = document.getElementById('cardNetwork');
+        const leadModal = document.getElementById('leadModal');
+        const modalBox = document.getElementById('modalBox');
+        const loadingOverlay = document.getElementById('loadingOverlay');
+        const loadingText = document.getElementById('loadingText');
+        const mainBtn = document.getElementById('mainBtn');
+
+        const niches = {
+            personal: { min: 500, max: 5000, multi: 3, cardClass: 'card-personal', brand: 'SECURED CARD', network: 'fab fa-cc-visa' },
+            business: { min: 5000, max: 20000, multi: 4, cardClass: 'card-business', brand: 'AMEX GOLD', network: 'fab fa-cc-amex' },
+            elite: { min: 20000, max: 75000, multi: 5, cardClass: 'card-elite', brand: 'AMEX PLATINUM', network: 'fab fa-cc-amex' }
+        };
+        const loadPhrases = {
+            en: ["SCANNING SPENDING PATTERNS...", "DETECTING CAPITAL LEAKS...", "CALCULATING LOST REWARDS...", "FINALIZING STRATEGIC BLUEPRINT..."],
+            es: ["ESCANEANDO PATRONES DE GASTO...", "DETECTANDO FUGAS DE CAPITAL...", "CALCULANDO RECOMPENSAS PERDIDAS...", "FINALIZANDO BLUEPRINT ESTRATÉGICO..."]
+        };
+        const translations = {
+            en: { 
+                title: "QUANT REWARD PLAN", sub: "ELITE FINANCIAL ENGINEERING - US MARKET", valueProp: "Discover how many hundreds of dollars in travel and rewards you are leaving on the table. Our AI securely analyzes your spending and reveals your ideal strategy in seconds.", step1: "1. SELECT YOUR PROFILE", step2: "2. SLIDE TO ADJUST YOUR MONTHLY SPEND ↔", 
+                step3: "3. NOW THAT YOU KNOW YOUR POTENTIAL, GET YOUR REAL DIAGNOSIS AND RECOVER THE MONEY YOU ARE LOSING NOW:", 
+                risk: "POINTS YOU ARE LOSING", recov: "MONEY LEFT ON THE TABLE", 
+                lblMonthly: "Monthly:", lblAnnually: "Annually:",
+                upload: "UPLOAD YOUR STATEMENT", 
+                file: "AS A PDF OR TAKE A PHOTO", 
+                priv: "Privacy Guaranteed: If you prefer, hide your name. We only read the numbers.", 
+                btn: "START PRECISION AUDIT", mTitle: "Diagnosis Ready", mDesc: "Enter your email to unlock your strategic report and the recommended exact plans.", mBtn: "UNLOCK FULL BLUEPRINT", mTrust: "Bank-Level 256-bit Encryption | Zero Data Stored", errMissing: "ERROR: FILE MISSING", rTitle: "YOUR STRATEGIC BLUEPRINT", 
+                
+                affBtnStdA: "PLAN A: APPLY FOR BASIC/SECURED CARD", affBtnStdB: "PLAN B: CREDIT REPAIR SERVICES", affBtnStdC: "PLAN C: ECONOMY TRAVEL & HOTELS", affBtnStdD: "PLAN D: ESSENTIAL AUTO PURCHASE/LEASE",
+                affBtnPremA: "PLAN A: PREMIUM CARD (CHASE/AMEX)", affBtnPremB: "PLAN B: ADVANCED CREDIT MONITORING", affBtnPremC: "PLAN C: EXCLUSIVE TRAVEL & LUXURY PACKAGES", affBtnPremD: "PLAN D: PREMIUM AUTO REFINANCE",
+                affBtnEliteA: "PLAN A: JUMBO MORTGAGES & REAL ESTATE", affBtnEliteB: "PLAN B: ELITE AUTOMATED INVESTMENTS", affBtnEliteC: "PLAN C: PRIVATE JET & VIP CONCIERGE", affBtnEliteD: "PLAN D: SUPER-LUXURY AUTO LEASING",
+                
+                disclaimer: "Disclaimer: This is an AI-generated analysis for educational purposes, not certified financial advice.", btnPersonal: "STANDARD TIER", btnBusiness: "PREMIUM TIER", btnElite: "ELITE TIER", ftc: "Advertiser Disclosure: Quant Reward Plan is an independent, advertising-supported service. We may receive compensation from the credit card companies whose products appear on our site.", privacy: "PRIVACY POLICY", terms: "TERMS OF SERVICE",
+                trustBar: "SUPPORTED NETWORKS",
+                tt1: "Select the tier that best fits your monthly spend. This allows our AI to recommend cards with real approval odds, preventing you from wasting time on out-of-reach options.",
+                tt2: "Adjust the slider based on your monthly spend. With this data, the AI instantly calculates how much money and rewards you are leaving on the table.",
+                tt3: "100% Secure. The fastest way is to take a clear photo with your phone. For your peace of mind, feel free to hide or cross out your name and account number. Our AI focuses only on numbers. To protect your privacy, we don't ask for personal data. Your identity remains 100% anonymous.",
+                
+                cTitle: "Contact Support", cDesc: "Need help with your analysis or have questions about our plans? We are here to assist.", cName: "Full Name", cEmail: "Email Address", cMsg: "How can we help you?", cBtn: "Send Message",
+
+                privacyTitle: "Privacy Policy",
+                privacyBody: "<p class='mb-2'><strong>1. Data Processing & Security:</strong> We prioritize your privacy. The financial statements you upload are processed entirely in memory by our AI and are <strong>never stored, saved, or shared</strong>.</p><p class='mb-2'><strong>2. Information Usage:</strong> The extracted numerical data is used strictly in real-time to generate your personalized reward strategy blueprint.</p><p class='mb-2'><strong>3. Anonymity:</strong> We do not require or process personally identifiable information (PII). You are encouraged to redact your name and account numbers before uploading.</p><p class='mb-2'><strong>4. Cookies:</strong> We use essential cookies to ensure the site functions correctly. We do not use third-party tracking cookies.</p><p class='mb-2'><strong>5. Third-Party Links:</strong> Our site contains affiliate links. Clicking these links does not share your data, but destination sites have their own policies.</p><p><strong>6. Modifications:</strong> We reserve the right to modify this privacy policy at any time without prior notice.</p>",
+                termsTitle: "Terms of Service",
+                termsBody: "<p class='mb-2'><strong>1. Educational Purposes Only:</strong> Quant Reward Plan is an AI-powered analytical tool designed for educational purposes. <strong>We do not provide certified financial, legal, or tax advice.</strong></p><p class='mb-2'><strong>2. Accuracy of Results:</strong> While our AI strives for precision, credit card offers and reward multipliers change frequently. Always verify terms directly with the issuing bank.</p><p class='mb-2'><strong>3. User Responsibility:</strong> Any action taken based on the generated blueprint is at the user's sole discretion and risk.</p><p class='mb-2'><strong>4. Affiliate Disclosure:</strong> We may receive compensation if you are approved for a card through our links. This does not impact your costs.</p><p class='mb-2'><strong>5. Intellectual Property:</strong> All content, designs, and AI algorithms are the exclusive property of Quant Reward Plan.</p><p><strong>6. Limitation of Liability:</strong> We shall not be held liable for any financial losses, denied applications, or score drops resulting from the use of this tool.</p>"
+            },
+            es: { 
+                title: "QUANT REWARD PLAN", sub: "INGENIERÍA FINANCIERA APLICADA - US MARKET", valueProp: "Descubre cuántos cientos de dólares en viajes y recompensas estás dejando sobre la mesa. Nuestra IA analiza tus gastos de forma segura y te revela tu estrategia ideal en segundos.", step1: "1. ESCOGE TU PERFIL", step2: "2. DESLIZA PARA AJUSTAR TU GASTO MENSUAL ↔", 
+                step3: "3. AHORA QUE CONOCES TU POTENCIAL, OBTÉN TU DIAGNÓSTICO REAL Y RECUPERA EL DINERO QUE ESTÁS PERDIENDO AHORA:", 
+                risk: "PUNTOS QUE ESTÁS PERDIENDO", recov: "DINERO DEJADO EN LA MESA", 
+                lblMonthly: "Mensual:", lblAnnually: "Anual:",
+                upload: "SUBE TU ESTADO DE CUENTA", 
+                file: "EN PDF O TÓMALE UNA FOTO", 
+                priv: "Privacidad garantizada: Si lo prefieres, oculta tu nombre. Solo leemos los números.", 
+                btn: "INICIAR AUDITORÍA DE PRECISIÓN", mTitle: "Diagnóstico Listo", mDesc: "Ingresa tu email para ver al instante tu reporte de IA y acceder a las estrategias recomendadas.", mBtn: "DESBLOQUEAR BLUEPRINT", mTrust: "Cifrado Bancario 256-bit | Cero Datos Almacenados", errMissing: "ERROR: FALTA ARCHIVO", rTitle: "TU BLUEPRINT ESTRATÉGICO", 
+                
+                affBtnStdA: "PLAN A: SOLICITAR TARJETA DE CRÉDITO BÁSICA", affBtnStdB: "PLAN B: SERVICIOS DE REPARACIÓN DE CRÉDITO", affBtnStdC: "PLAN C: VIAJES Y HOTELES ECONÓMICOS", affBtnStdD: "PLAN D: COMPRA O ALQUILER DE AUTOS ESENCIALES",
+                affBtnPremA: "PLAN A: TARJETA PREMIUM (CHASE/AMEX)", affBtnPremB: "PLAN B: MONITOREO DE CRÉDITO AVANZADO", affBtnPremC: "PLAN C: VIAJES EXCLUSIVOS Y PAQUETES DE LUJO", affBtnPremD: "PLAN D: REFINANCIAMIENTO O COMPRA PREMIUM",
+                affBtnEliteA: "PLAN A: HIPOTECAS JUMBO Y ACTIVOS INMOBILIARIOS", affBtnEliteB: "PLAN B: ESTRATEGIA DE INVERSIÓN AUTOMATIZADA", affBtnEliteC: "PLAN C: VIAJES DE LUJO Y RESERVAS DE JET PRIVADO", affBtnEliteD: "PLAN D: COMPRA O LEASING DE AUTOS DE SUPER-LUJO",
+                
+                disclaimer: "Aviso Legal: Análisis generado por IA con fines educativos, no es asesoramiento financiero certificado.", btnPersonal: "NIVEL ESTÁNDAR", btnBusiness: "NIVEL PREMIUM", btnElite: "NIVEL ÉLITE", ftc: "Divulgación del Anunciante: Quant Reward Plan es un servicio independiente. Podemos recibir compensación de las compañías de tarjetas de crédito cuyos productos aparecen en nuestro sitio.", privacy: "POLÍTICA DE PRIVACIDAD", terms: "TÉRMINOS DE SERVICIO",
+                trustBar: "REDES ANALIZADAS",
+                tt1: "Selecciona el nivel que mejor se ajuste a tu gasto mensual. Esto permite que nuestra IA te recomiende tarjetas con posibilidades reales de aprobación, evitando que pierdas tiempo en opciones inalcanzables.",
+                tt2: "Ajusta el control según lo que gastas al mes. Con este dato, la IA calcula al instante cuánto dinero y recompensas estás dejando sobre la mesa con tu estrategia financiera actual.",
+                tt3: "Totalmente seguro. Lo más rápido es tomarle una foto clara con tu celular. Para tu tranquilidad, si lo prefieres, oculta o tacha tu nombre y número de cuenta. Nuestra IA se enfoca únicamente en los números. Para proteger tu privacidad, no te pedimos datos personales. Tu identidad se mantiene 100% anónima.",
+                
+                cTitle: "Contacto y Soporte", cDesc: "¿Necesitas ayuda con tu análisis o tienes preguntas sobre nuestros planes? Estamos aquí para asistirte.", cName: "Nombre Completo", cEmail: "Correo Electrónico", cMsg: "¿En qué podemos ayudarte?", cBtn: "Enviar Mensaje",
+
+                privacyTitle: "Política de Privacidad",
+                privacyBody: "<p class='mb-2'><strong>1. Procesamiento de Datos y Seguridad:</strong> Priorizamos su privacidad. Los estados de cuenta que sube son procesados completamente en memoria por nuestra IA y <strong>nunca son almacenados, guardados ni compartidos</strong>.</p><p class='mb-2'><strong>2. Uso de la Información:</strong> Los datos numéricos se utilizan estrictamente en tiempo real para generar su estrategia de recompensas.</p><p class='mb-2'><strong>3. Anonimato:</strong> No requerimos ni procesamos información de identificación personal. Le sugerimos tachar su nombre y número de cuenta antes de subir el archivo.</p><p class='mb-2'><strong>4. Uso de Cookies:</strong> Utilizamos cookies esenciales para el funcionamiento del sitio. No usamos cookies de rastreo para publicidad de terceros.</p><p class='mb-2'><strong>5. Enlaces de Terceros:</strong> Nuestro sitio contiene enlaces de afiliados. Hacer clic en ellos no comparte sus datos, pero el sitio de destino tendrá sus propias políticas.</p><p><strong>6. Modificaciones:</strong> Nos reservamos el derecho de modificar esta política de privacidad en cualquier momento.</p>",
+                termsTitle: "Términos de Servicio",
+                termsBody: "<p class='mb-2'><strong>1. Solo para Fines Educativos:</strong> Quant Reward Plan es una herramienta analítica. <strong>No brindamos asesoramiento financiero, legal o fiscal certificado.</strong></p><p class='mb-2'><strong>2. Precisión de los Resultados:</strong> Aunque nuestra IA busca la máxima precisión, las ofertas bancarias cambian. Verifique siempre los términos con el banco emisor.</p><p class='mb-2'><strong>3. Responsabilidad del Usuario:</strong> Cualquier acción tomada basándose en nuestro diagnóstico es a total discreción y riesgo del usuario.</p><p class='mb-2'><strong>4. Divulgación de Afiliados:</strong> Podemos recibir compensación si es aprobado para una tarjeta a través de nuestros enlaces. Esto no afecta sus costos.</p><p class='mb-2'><strong>5. Propiedad Intelectual:</strong> Todo el contenido, diseños y algoritmos de IA son propiedad exclusiva de Quant Reward Plan.</p><p><strong>6. Limitación de Responsabilidad:</strong> No seremos responsables por pérdidas financieras, solicitudes denegadas o caídas de puntaje derivadas del uso de esta herramienta.</p>"
+            }
+        };
+
+        let currentNiche = 'personal';
+        let currentLang = 'en';
+        let loaderInterval;
+
+        function changeLang(lang) {
+            currentLang = lang;
+            document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(`lang-${lang}`).classList.add('active');
+            
+            const t = translations[lang];
+            document.getElementById('mainTitle').innerText = t.title;
+            document.getElementById('subTitle').innerText = t.sub;
+            document.getElementById('valueProp').innerText = t.valueProp;
+            document.getElementById('step1Text').innerText = t.step1;
+            document.getElementById('step2Text').innerText = t.step2;
+            document.getElementById('step3Text').innerText = t.step3;
+            document.getElementById('tt1').innerText = t.tt1;
+            document.getElementById('tt2').innerText = t.tt2;
+            document.getElementById('tt3').innerText = t.tt3;
+            
+            document.getElementById('riskLabel').innerText = t.risk;
+            document.getElementById('recovLabel').innerText = t.recov;
+            
+            document.getElementById('lblPuntosMensual').innerText = t.lblMonthly;
+            document.getElementById('lblPuntosAnual').innerText = t.lblAnnually;
+            document.getElementById('lblValorMensual').innerText = t.lblMonthly;
+            document.getElementById('lblValorAnual').innerText = t.lblAnnually;
+            
+            document.getElementById('fileName').innerText = fileInput.files.length > 0 ? fileInput.files[0].name.toUpperCase() : t.upload;
+            document.getElementById('fileSub').innerText = t.file;
+            document.getElementById('privacyNote').innerText = t.priv;
+            
+            document.getElementById('trustBarText').innerText = t.trustBar;
+            document.getElementById('mainBtn').innerText = t.btn;
+            document.getElementById('btn-personal').innerText = t.btnPersonal;
+            document.getElementById('btn-business').innerText = t.btnBusiness;
+            document.getElementById('btn-elite').innerText = t.btnElite;
+            
+            document.getElementById('contactTitle').innerText = t.cTitle;
+            document.getElementById('contactDesc').innerText = t.cDesc;
+            document.getElementById('contactName').placeholder = t.cName;
+            document.getElementById('contactEmail').placeholder = t.cEmail;
+            document.getElementById('contactMessage').placeholder = t.cMsg;
+            document.getElementById('contactBtn').innerText = t.cBtn;
+
+            document.getElementById('ftcText').innerText = t.ftc;
+            document.getElementById('privacyText').innerText = t.privacy;
+            document.getElementById('termsText').innerText = t.terms;
+            
+            document.getElementById('privacyModalTitle').innerText = t.privacyTitle;
+            document.getElementById('privacyModalBody').innerHTML = t.privacyBody;
+            document.getElementById('termsModalTitle').innerText = t.termsTitle;
+            document.getElementById('termsModalBody').innerHTML = t.termsBody;
+
+            if(document.getElementById('emailPhase').style.display !== 'none') { 
+                document.getElementById('modalTitle').innerText = t.mTitle;
+                document.getElementById('modalDesc').innerText = t.mDesc;
+            } else { 
+                document.getElementById('modalTitle').innerText = t.rTitle;
+            }
+            document.getElementById('modalBtn').innerText = t.mBtn;
+            document.getElementById('modalTrust').innerText = t.mTrust;
+            document.getElementById('disclaimerText').innerText = t.disclaimer;
+            if(statusMsg.innerText.includes("ERROR") || statusMsg.innerText.includes("FALTA")) { statusMsg.innerText = t.errMissing; }
+        }
+
+        function setNiche(niche) {
+            currentNiche = niche;
+            document.querySelectorAll('.niche-btn').forEach(btn => btn.classList.remove('active-personal', 'active-business', 'active-elite'));
+            document.getElementById(`btn-${niche}`).classList.add(`active-${niche}`);
+            slider.min = niches[niche].min; slider.max = niches[niche].max; slider.value = niches[niche].min;
+            visualCard.className = `physical-card ${niches[niche].cardClass}`;
+            cardBrand.innerText = niches[niche].brand;
+            cardNetwork.innerHTML = `<i class="${niches[niche].network}"></i>`;
+            updateCalculos();
+        }
+
+        function updateCalculos() {
+            const gasto = parseInt(slider.value);
+            const puntosMensual = gasto * niches[currentNiche].multi;
+            const puntosAnual = puntosMensual * 12;
+            const valorMensual = puntosMensual * 0.015;
+            const valorAnual = puntosAnual * 0.015;
+            
+            gastoDisplay.innerText = gasto.toLocaleString();
+            document.getElementById('puntosMensual').innerText = puntosMensual.toLocaleString();
+            document.getElementById('puntosAnual').innerText = puntosAnual.toLocaleString();
+            document.getElementById('valorMensual').innerText = `$${valorMensual.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+            document.getElementById('valorAnual').innerText = `$${valorAnual.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+        }
+        slider.oninput = updateCalculos;
+        
+        fileInput.addEventListener('change', (e) => {
+            if(e.target.files.length > 0) {
+                document.getElementById('fileName').innerText = e.target.files[0].name.toUpperCase();
+                statusMsg.innerText = "";
+            } else {
+                document.getElementById('fileName').innerText = translations[currentLang].upload;
+            }
+        });
+        
+        function resetModal() {
+            document.getElementById('emailPhase').style.display = 'block';
+            document.getElementById('resultPhase').style.display = 'none';
+            document.getElementById('modalDesc').style.display = 'block';
+            document.getElementById('userEmail').value = "";
+            document.getElementById('modalIcon').className = "fas fa-lock text-amber-500 text-2xl";
+            document.getElementById('modalIconContainer').className = "w-16 h-16 bg-amber-500/20 rounded-full flex items-center justify-center mx-auto mb-4 border border-amber-500/50";
+            document.getElementById('modalTitle').innerText = translations[currentLang].mTitle;
+        }
+
+        function openModal() {
+            resetModal();
+            leadModal.classList.remove('hidden'); leadModal.classList.add('flex');
+            setTimeout(() => { leadModal.classList.remove('opacity-0'); modalBox.classList.remove('scale-95'); modalBox.classList.add('scale-100'); }, 10);
+        }
+
+        function closeModal() {
+            leadModal.classList.add('opacity-0');
+            modalBox.classList.remove('scale-100'); modalBox.classList.add('scale-95');
+            setTimeout(() => { leadModal.classList.add('hidden'); leadModal.classList.remove('flex'); }, 300);
+        }
+
+        function openLegalModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.remove('hidden'); modal.classList.add('flex');
+            setTimeout(() => { modal.classList.remove('opacity-0'); modal.querySelector('.modal-content').classList.remove('scale-95'); modal.querySelector('.modal-content').classList.add('scale-100'); }, 10);
+        }
+
+        function closeLegalModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.add('opacity-0'); modal.querySelector('.modal-content').classList.remove('scale-100'); modal.querySelector('.modal-content').classList.add('scale-95');
+            setTimeout(() => { modal.classList.add('hidden'); modal.classList.remove('flex'); }, 300);
+        }
+
+        function startDynamicLoading() {
+            let i = 0;
+            loadingText.innerText = loadPhrases[currentLang][0];
+            loadingOverlay.classList.add('active');
+            loaderInterval = setInterval(() => {
+                i = (i + 1) % loadPhrases[currentLang].length;
+                loadingText.innerText = loadPhrases[currentLang][i];
+            }, 2500);
+        }
+
+        function stopDynamicLoading() {
+            clearInterval(loaderInterval);
+            loadingOverlay.classList.remove('active');
+        }
+
+        function ejecutarAuditoria() {
+            if(fileInput.files.length === 0) { 
+                statusMsg.innerText = translations[currentLang].errMissing;
+                return; 
+            }
+            statusMsg.innerText = "";
+            openModal();
+        }
+
+        async function unlockReport() {
+            const email = document.getElementById('userEmail').value;
+            if(!email.includes('@')) { 
+                alert(currentLang === 'en' ? "Please enter a valid email." : "Por favor ingresa un email válido.");
+                return; 
+            }
+            
+            startDynamicLoading();
+            const formData = new FormData();
+            formData.append('file', fileInput.files[0]);
+            formData.append('email', email);
+            formData.append('niche', currentNiche);
+            formData.append('lang', currentLang); // <-- AQUÍ SE ENVÍA EL IDIOMA AL SERVIDOR
+            
+            try {
+                const response = await fetch('/analizar-estado', { method: 'POST', body: formData });
+                const data = await response.json();
+                
+                if(response.ok && data.analisis) {
+                    const t = translations[currentLang];
+                    const linksContainer = document.getElementById('dynamicLinks');
+                    
+                    if(currentNiche === 'elite') {
+                        linksContainer.innerHTML = `
+                            <a href="TU_LINK_HIPOTECAS_ELITE" target="_blank" class="block w-full btn-premium py-3 rounded-xl font-bold text-[10px] uppercase shadow-xl hover:scale-[1.02] transition-transform"><i class="fas fa-home mr-2"></i> ${t.affBtnEliteA}</a>
+                            <a href="TU_LINK_INVERSION_ELITE" target="_blank" class="block w-full bg-slate-800 hover:bg-slate-700 py-3 rounded-xl font-bold text-[9px] uppercase text-slate-300 border border-slate-600 shadow-xl hover:scale-[1.02] transition-transform"><i class="fas fa-chart-line mr-2"></i> ${t.affBtnEliteB}</a>
+                            <a href="TU_LINK_VIAJES_ELITE" target="_blank" class="block w-full btn-vip py-3 rounded-xl font-black text-[11px] uppercase shadow-xl"><i class="fas fa-plane-departure mr-2"></i> ${t.affBtnEliteC}</a>
+                            <a href="TU_LINK_AUTOS_ELITE" target="_blank" class="block w-full btn-auto py-3 rounded-xl font-bold text-[10px] uppercase shadow-xl hover:scale-[1.02] transition-transform"><i class="fas fa-car-side mr-2"></i> ${t.affBtnEliteD}</a>
+                        `;
+                    } else if(currentNiche === 'business') {
+                        linksContainer.innerHTML = `
+                            <a href="TU_LINK_TARJETAS_PREMIUM" target="_blank" class="block w-full btn-premium py-3 rounded-xl font-bold text-[10px] uppercase shadow-xl hover:scale-[1.02] transition-transform"><i class="fas fa-star mr-2"></i> ${t.affBtnPremA}</a>
+                            <a href="TU_LINK_MONITOREO_PREMIUM" target="_blank" class="block w-full bg-slate-800 hover:bg-slate-700 py-3 rounded-xl font-bold text-[9px] uppercase text-slate-300 border border-slate-600 shadow-xl hover:scale-[1.02] transition-transform"><i class="fas fa-shield-alt mr-2"></i> ${t.affBtnPremB}</a>
+                            <a href="TU_LINK_VIAJES_PREMIUM" target="_blank" class="block w-full btn-affiliate py-3 rounded-xl font-bold text-[10px] uppercase shadow-xl hover:scale-[1.02] transition-transform"><i class="fas fa-plane mr-2"></i> ${t.affBtnPremC}</a>
+                            <a href="TU_LINK_AUTOS_PREMIUM" target="_blank" class="block w-full btn-auto py-3 rounded-xl font-bold text-[10px] uppercase shadow-xl hover:scale-[1.02] transition-transform"><i class="fas fa-car mr-2"></i> ${t.affBtnPremD}</a>
+                        `;
+                    } else {
+                        linksContainer.innerHTML = `
+                            <a href="TU_LINK_TARJETAS_ESTANDAR" target="_blank" class="block w-full btn-premium py-3 rounded-xl font-bold text-[10px] uppercase shadow-xl hover:scale-[1.02] transition-transform"><i class="fas fa-credit-card mr-2"></i> ${t.affBtnStdA}</a>
+                            <a href="TU_LINK_REPARACION_ESTANDAR" target="_blank" class="block w-full bg-slate-800 hover:bg-slate-700 py-3 rounded-xl font-bold text-[9px] uppercase text-slate-300 border border-slate-600 shadow-xl hover:scale-[1.02] transition-transform"><i class="fas fa-tools mr-2"></i> ${t.affBtnStdB}</a>
+                            <a href="TU_LINK_VIAJES_ESTANDAR" target="_blank" class="block w-full btn-affiliate py-3 rounded-xl font-bold text-[10px] uppercase shadow-xl hover:scale-[1.02] transition-transform"><i class="fas fa-plane mr-2"></i> ${t.affBtnStdC}</a>
+                            <a href="TU_LINK_AUTOS_ESTANDAR" target="_blank" class="block w-full btn-auto py-3 rounded-xl font-bold text-[10px] uppercase shadow-xl hover:scale-[1.02] transition-transform"><i class="fas fa-car mr-2"></i> ${t.affBtnStdD}</a>
+                        `;
+                    }
+
+                    document.getElementById('emailPhase').style.display = 'none';
+                    document.getElementById('modalDesc').style.display = 'none';
+                    document.getElementById('modalTitle').innerText = t.rTitle;
+                    document.getElementById('modalIcon').className = "fas fa-check-circle text-green-400 text-3xl";
+                    document.getElementById('modalIconContainer').className = "w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-4 border border-green-500/50";
+                    
+                    document.getElementById('reportContent').innerHTML = data.analisis.replace(/\n/g, '<br>');
+                    document.getElementById('resultPhase').style.display = 'block';
+                } else {
+                    alert("Error: " + (data.detail || "Error en el archivo."));
+                    closeModal();
+                }
+            } catch (e) { 
+                alert("EL ERROR REAL ES: " + e.message);
+                closeModal();
+            } finally { 
+                stopDynamicLoading();
+            }
+        }
+
+        async function enviarContacto(event) {
+            event.preventDefault();
+            const nombre = document.getElementById('contactName').value;
+            const email = document.getElementById('contactEmail').value;
+            const mensaje = document.getElementById('contactMessage').value;
+            const btn = document.getElementById('contactBtn');
+            const originalText = btn.innerText;
+
+            btn.innerText = currentLang === 'en' ? 'SENDING...' : 'ENVIANDO...';
+            btn.disabled = true;
+
+            const formData = new FormData();
+            formData.append('nombre', nombre);
+            formData.append('email', email);
+            formData.append('mensaje', mensaje);
+
+            try {
+                const response = await fetch('/contacto', { method: 'POST', body: formData });
+                if(response.ok) {
+                    alert(currentLang === 'en' ? 'Message sent successfully.' : 'Mensaje enviado exitosamente.');
+                    document.getElementById('contactForm').reset();
+                } else {
+                    alert(currentLang === 'en' ? 'Error sending message.' : 'Error al enviar el mensaje.');
+                }
+            } catch (e) {
+                alert(currentLang === 'en' ? 'Network error.' : 'Error de conexión.');
+            } finally {
+                btn.innerText = originalText;
+                btn.disabled = false;
+            }
+        }
+
+        changeLang(currentLang);
+        updateCalculos();
+    </script>
+</body>
+</html>
