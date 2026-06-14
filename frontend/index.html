@@ -7,6 +7,8 @@
     <link rel="icon" type="image/png" href="/favicon.png?v=2">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Librería para generar el PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
         body { background: radial-gradient(circle at top, #1e293b 0%, #0f172a 100%); color: white; font-family: 'Inter', sans-serif; transition: all 0.5s ease; overflow-x: hidden; }
         .glass-card { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.1); border-radius: 2rem; position: relative; z-index: 10; }
@@ -15,7 +17,6 @@
         .btn-affiliate { background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%); transition: all 0.3s ease; color: white; }
         .btn-auto { background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); transition: all 0.3s ease; color: white; }
         
-        /* Efecto Acero Industrial Iluminado para Título */
         .text-steel-elite { 
             background: linear-gradient(to bottom, #ffffff 0%, #e2e8f0 45%, #94a3b8 50%, #f8fafc 100%);
             -webkit-background-clip: text; 
@@ -24,7 +25,6 @@
             letter-spacing: -1px;
         }
 
-        /* Efecto VIP Vault */
         .btn-vip { background: linear-gradient(270deg, #fbbf24, #fffbeb, #fbbf24); background-size: 200% 200%; animation: shimmer 2s infinite; color: #0f172a; transition: all 0.3s; }
         @keyframes shimmer { 0% { background-position: 0% 50%; } 100% { background-position: 200% 50%; } }
         .btn-vip:hover { transform: scale(1.02); box-shadow: 0 0 20px rgba(251, 191, 36, 0.6); }
@@ -36,7 +36,6 @@
         input[type=range] { -webkit-appearance: none; background: #334155; height: 6px; border-radius: 5px; width: 100%; }
         input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 18px; width: 18px; border-radius: 50%; background: #fbbf24; cursor: pointer; border: 2px solid #0f172a; box-shadow: 0 0 10px rgba(251, 191, 36, 0.4); }
         
-        /* Banderas selector de idiomas */
         .lang-selector { position: absolute; top: 1.5rem; right: 1.5rem; display: flex; align-items: center; gap: 0.5rem; z-index: 50; }
         .lang-btn { cursor: pointer; transition: all 0.3s; filter: grayscale(100%); opacity: 0.4; }
         .lang-btn.active { filter: grayscale(0%); opacity: 1; transform: scale(1.15); }
@@ -44,7 +43,6 @@
         .card-3d-container { perspective: 1000px; position: relative; display: flex; justify-content: center; margin-bottom: 1rem; transform: scale(0.85); z-index: 20; }
         @media (min-width: 1250px) { .card-3d-container { position: absolute; left: -340px; top: 50%; transform: translateY(-50%) scale(1); margin-bottom: 0; } }
         
-        /* Efecto Glassmorphism Ultra-Realista para las Tarjetas */
         .physical-card { width: 340px; height: 215px; border-radius: 15px; position: relative; transform-style: preserve-3d; animation: rotateCard 10s infinite linear; box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.8), inset 0 0 20px rgba(255, 255, 255, 0.15); border: 1px solid rgba(255,255,255,0.2); backdrop-filter: blur(15px); transition: all 1s cubic-bezier(0.4, 0, 0.2, 1); }
         .card-personal { background: linear-gradient(135deg, rgba(30, 58, 138, 0.85) 0%, rgba(29, 78, 216, 0.65) 100%); } 
         .card-business { background: linear-gradient(135deg, rgba(217, 119, 6, 0.85) 0%, rgba(251, 191, 36, 0.65) 100%); } 
@@ -55,6 +53,7 @@
         .card-chip::before { content: ''; position: absolute; top: 0; left: 50%; width: 1px; height: 100%; background: rgba(0,0,0,0.2); }
         .card-contactless { position: absolute; top: 30px; right: 30px; color: rgba(255,255,255,0.5); font-size: 20px; }
         @keyframes rotateCard { 0% { transform: rotateY(0deg) rotateX(5deg); } 100% { transform: rotateY(360deg) rotateX(5deg); } }
+        
         .modal-overlay { background: rgba(15, 23, 42, 0.9); backdrop-filter: blur(8px); transition: opacity 0.3s; }
         .modal-content { background: #1e293b; border: 1px solid rgba(251, 191, 36, 0.3); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8); max-height: 95vh; overflow-y: auto;}
         .input-premium { background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); color: white; transition: all 0.3s; }
@@ -62,10 +61,10 @@
         .custom-scrollbar::-webkit-scrollbar { width: 6px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #475569; border-radius: 4px; }
+        
         #loadingOverlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(15, 23, 42, 0.95); backdrop-filter: blur(5px); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 9999; opacity: 0; visibility: hidden; transition: opacity 0.5s ease, visibility 0.5s ease; }
         #loadingOverlay.active { opacity: 1; visibility: visible; }
         
-        /* Tooltips Flotantes */
         .help-tip { display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; background: rgba(245, 158, 11, 0.15); color: #f59e0b; border-radius: 50%; font-size: 10px; font-weight: bold; cursor: help; margin-left: 6px; position: relative; bottom: 2px; z-index: 50; }
         .help-tip .tooltip-text { visibility: hidden; width: 280px; background-color: #0f172a; color: #cbd5e1; text-align: left; border-radius: 8px; padding: 12px; position: absolute; z-index: 99999; bottom: 150%; left: 50%; transform: translateX(-50%); opacity: 0; transition: opacity 0.3s; border: 1px solid rgba(245, 158, 11, 0.3); box-shadow: 0 10px 30px rgba(0,0,0,0.9); font-size: 11px; text-transform: none; letter-spacing: normal; font-weight: normal; line-height: 1.5; pointer-events: none; }
         .help-tip:hover .tooltip-text { visibility: visible; opacity: 1; }
@@ -76,6 +75,19 @@
 
     <div id="loadingOverlay"><div class="blueprint-loader"><div class="hex-icon"></div></div><div id="loadingText" class="text-amber-500 font-bold uppercase tracking-widest text-sm animate-pulse mt-4">ARCHITECTING BLUEPRINT...</div></div>
 
+    <!-- Modal Video -->
+    <div id="videoModal" class="fixed inset-0 z-[120] modal-overlay hidden items-center justify-center p-3 opacity-0 transition-opacity duration-300">
+        <div class="modal-content w-full max-w-3xl rounded-3xl p-2 md:p-4 text-center relative transform scale-95 transition-transform duration-300 bg-[#0f172a]">
+            <button onclick="closeVideo()" class="absolute -top-10 right-2 text-white hover:text-amber-500 transition-colors"><i class="fas fa-times text-2xl"></i></button>
+            <div class="aspect-video w-full bg-slate-800 rounded-xl overflow-hidden flex items-center justify-center border border-slate-700 relative">
+                <!-- Aquí pegarás el enlace de YouTube o Vimeo en el "src" cuando lo tengas listo -->
+                <p class="text-slate-400 font-mono text-xs md:text-sm absolute z-0">VIDEO PLACEHOLDER</p>
+                <iframe id="explainerVideo" class="absolute inset-0 w-full h-full z-10" src="" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Resultados e Ingreso de Email -->
     <div id="leadModal" class="fixed inset-0 z-[100] modal-overlay hidden items-center justify-center p-3 opacity-0">
         <div class="modal-content w-full max-w-lg rounded-3xl p-6 md:p-8 text-center relative transform scale-95 transition-transform duration-300" id="modalBox">
             <button onclick="closeModal()" class="absolute top-4 right-5 text-slate-500 hover:text-white"><i class="fas fa-times text-xl"></i></button>
@@ -84,15 +96,27 @@
             </div>
             <h2 id="modalTitle" class="text-2xl font-bold text-white mb-2">Diagnosis Ready</h2>
             <p id="modalDesc" class="text-slate-400 text-sm mb-6">Enter your email to unlock your strategic report and the recommended exact cards.</p>
+            
             <div id="emailPhase">
                 <input type="email" id="userEmail" placeholder="ceo@company.com" class="input-premium w-full px-4 py-4 rounded-xl text-center mb-4">
                 <button onclick="unlockReport()" id="modalBtn" class="w-full btn-premium py-4 rounded-xl font-bold text-sm uppercase tracking-widest text-slate-900 shadow-xl mb-4">UNLOCK FULL BLUEPRINT</button>
             </div>
+            
             <div id="resultPhase" class="hidden">
-                <div id="reportContent" class="text-left text-sm text-slate-300 bg-slate-900/50 p-5 rounded-xl mb-4 h-48 overflow-y-auto custom-scrollbar border border-white/10 font-mono leading-relaxed"></div>
-                <div id="dynamicLinks" class="flex flex-col gap-2"></div>
+                <!-- Contenedor maestro que se imprimirá en PDF -->
+                <div id="printableBlueprint" class="bg-[#0f172a] p-3 rounded-xl border border-white/5">
+                    <h2 id="pdfHeaderTitle" class="text-xl font-black text-amber-500 mb-4 text-center hidden tracking-widest">QUANT REWARD BLUEPRINT</h2>
+                    <div id="reportContent" class="text-left text-sm text-slate-300 bg-slate-900/50 p-5 rounded-xl mb-4 h-48 overflow-y-auto custom-scrollbar border border-white/10 font-mono leading-relaxed"></div>
+                    <div id="dynamicLinks" class="flex flex-col gap-2"></div>
+                </div>
+                
+                <button onclick="downloadPDF()" id="btnPdf" class="w-full bg-slate-700 hover:bg-slate-600 border border-slate-500 py-4 rounded-xl font-bold text-[12px] md:text-[10px] uppercase text-white shadow-xl hover:scale-[1.02] transition-transform mt-4">
+                    <i class="fas fa-file-pdf mr-2 text-red-400"></i> <span id="btnPdfText">DOWNLOAD BLUEPRINT (PDF)</span>
+                </button>
+                
                 <p id="disclaimerText" class="text-[10px] md:text-[8px] text-slate-500 mt-5 leading-tight italic">Disclaimer: This is an AI-generated analysis for educational purposes, not certified financial advice.</p>
             </div>
+            
             <div class="flex items-center justify-center gap-2 text-[11px] md:text-[9px] text-slate-500 uppercase tracking-widest mt-4">
                 <i class="fas fa-shield-alt text-amber-500/70"></i>
                 <span id="modalTrust">Bank-Level 256-bit Encryption | Zero Data Stored</span>
@@ -100,6 +124,7 @@
         </div>
     </div>
 
+    <!-- UI Principal -->
     <div class="relative flex flex-col xl:flex-row items-center w-full max-w-xl justify-center mt-10 xl:mt-0 mb-8">
         <div class="w-full glass-card p-6 md:p-10 shadow-2xl text-center relative z-10 border-b-4 border-amber-500/50">
             
@@ -111,8 +136,21 @@
 
             <header class="mb-6 xl:mb-8 pt-4">
                 <h1 id="mainTitle" class="text-3xl md:text-4xl font-black mb-1 text-steel-elite">QUANT REWARD PLAN</h1>
-                <p id="subTitle" class="text-amber-500 font-bold uppercase tracking-[0.2em] text-[11px] md:text-[9px]">ELITE FINANCIAL ENGINEERING - US MARKET</p>
-                <p id="valueProp" class="mt-3 text-sm md:text-xs text-slate-400 max-w-sm mx-auto leading-relaxed">Discover how many hundreds of dollars in travel and rewards you are leaving on the table. Our AI securely analyzes your spending and reveals your ideal strategy in seconds.</p>
+                <p id="subTitle" class="text-amber-500 font-bold uppercase tracking-[0.2em] text-[11px] md:text-[9px] mb-3">ELITE FINANCIAL ENGINEERING - US MARKET</p>
+                
+                <!-- Ajuste de Encabezado: Texto directo y Badges de confianza -->
+                <p id="valueProp" class="text-sm md:text-xs text-slate-300 max-w-sm mx-auto leading-relaxed mb-4">Discover how many hundreds of dollars in travel and rewards you are leaving on the table. Follow these 3 simple steps so our AI can securely analyze your spending and reveal your ideal strategy.</p>
+                
+                <div class="flex justify-center gap-2 flex-wrap mb-5">
+                    <span class="bg-green-500/10 text-green-400 text-[9px] md:text-[8px] font-bold px-2 py-1 rounded border border-green-500/30 uppercase tracking-widest"><i class="fas fa-check-circle mr-1"></i> <span id="badge1">100% FREE</span></span>
+                    <span class="bg-amber-500/10 text-amber-400 text-[9px] md:text-[8px] font-bold px-2 py-1 rounded border border-amber-500/30 uppercase tracking-widest"><i class="fas fa-shield-alt mr-1"></i> <span id="badge2">NO RISK</span></span>
+                    <span class="bg-blue-500/10 text-blue-400 text-[9px] md:text-[8px] font-bold px-2 py-1 rounded border border-blue-500/30 uppercase tracking-widest"><i class="fas fa-user-secret mr-1"></i> <span id="badge3">100% ANONYMOUS</span></span>
+                </div>
+                
+                <!-- Botón de Video Estratégico -->
+                <button onclick="openVideo()" class="text-amber-500 hover:text-amber-400 text-[10px] md:text-[11px] font-bold border border-amber-500/50 hover:border-amber-400 px-5 py-2 rounded-full transition-all bg-amber-500/10 tracking-widest">
+                    <span id="btnVideo">🎥 HOW IT WORKS (WATCH VIDEO)</span>
+                </button>
             </header>
             
             <div class="card-3d-container">
@@ -146,6 +184,7 @@
                     <button onclick="setNiche('elite')" id="btn-elite" class="niche-btn px-3 md:px-4 py-2 rounded-full text-[11px] md:text-[10px] uppercase tracking-widest">ELITE TIER</button>
                 </div>
             </div>
+            
             <div class="mb-8 relative">
                 <p class="text-slate-500 font-bold uppercase tracking-[0.2em] text-[11px] md:text-[9px] mb-4">
                     <span id="step2Text">2. SLIDE TO ADJUST YOUR MONTHLY SPEND ↔</span>
@@ -179,19 +218,29 @@
                     </div>
                 </div>
             </div>
-            <div class="relative group mb-8">
-                <p class="text-amber-500 font-bold uppercase tracking-[0.1em] text-[11px] md:text-[10px] mb-3">
-                    <span id="step3Text">3. NOW THAT YOU KNOW YOUR POTENTIAL, GET YOUR REAL DIAGNOSIS AND RECOVER THE MONEY YOU ARE LOSING NOW:</span>
-                    <span class="help-tip">?<span class="tooltip-text" id="tt3">100% Secure. The fastest way is to take a clear photo with your phone. For your peace of mind, feel free to hide or cross out your name and account number. Our AI focuses only on numbers. To protect your privacy, we don't ask for personal data. Your identity remains 100% anonymous.</span></span>
+            
+            <!-- Ajuste Paso 3 con CTA directo y Enlace de Privacidad interactivo -->
+            <div class="relative group mb-8 mt-10">
+                <p class="text-amber-500 font-bold uppercase tracking-[0.1em] text-[12px] md:text-[10px] mb-3 leading-relaxed">
+                    <span id="step3Text">3. GET YOUR EXACT DIAGNOSIS: UPLOAD A STATEMENT BELOW SO OUR AI CAN GENERATE YOUR STRATEGY.</span>
                 </p>
+                
+                <div class="mb-4 text-center cursor-pointer" onclick="togglePrivacy()">
+                    <span id="privacyLink" class="text-slate-400 text-[11px] md:text-[12px] font-bold underline hover:text-white transition-colors">👉 HOW TO UPLOAD MY FILE SECURELY? (Read here)</span>
+                </div>
+                
+                <div id="privacyExplanation" class="hidden bg-slate-800/80 border border-slate-600 rounded-xl p-4 mb-5 text-[12px] md:text-[11px] text-slate-300 text-left leading-relaxed shadow-inner">
+                    <p id="privacyNote"><i class="fas fa-lock text-amber-500 mr-2"></i> 100% Secure. The fastest way is to take a clear photo with your phone. For your peace of mind, feel free to hide or cross out your name and account number. Our AI focuses only on numbers. To protect your privacy, we don't ask for personal data. Your identity remains completely anonymous.</p>
+                </div>
+
                 <div class="relative border-2 border-dashed border-amber-500/50 rounded-3xl p-6 md:p-8 bg-slate-900/40 hover:border-amber-500 transition-all flex flex-col items-center justify-center cursor-pointer">
                     <input type="file" id="fileInput" accept=".pdf, .jpg, .jpeg, .png, .htm" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-20">
                     <i class="fas fa-cloud-upload-alt text-4xl text-amber-500 mb-3 animate-pulse relative z-10 pointer-events-none"></i>
                     <p id="fileName" class="font-bold text-white text-base md:text-lg uppercase relative z-10 pointer-events-none tracking-wide">UPLOAD YOUR STATEMENT</p>
                     <p id="fileSub" class="text-[12px] md:text-[10px] mt-1 text-amber-500 uppercase tracking-widest relative z-10 pointer-events-none">AS A PDF OR TAKE A PHOTO</p>
-                    <p id="privacyNote" class="text-[11px] md:text-[10px] mt-4 text-slate-400 italic relative z-10 pointer-events-none">Privacy Guaranteed: If you prefer, hide your name. We only read the numbers.</p>
                 </div>
             </div>
+            
             <button id="mainBtn" onclick="ejecutarAuditoria()" class="w-full btn-premium py-4 md:py-5 rounded-2xl font-black text-base md:text-lg uppercase tracking-widest text-slate-900 shadow-2xl">
                 START PRECISION AUDIT
             </button>
@@ -199,6 +248,7 @@
         </div>
     </div>
 
+    <!-- Contacto y Footer -->
     <div class="w-full max-w-xl glass-card p-6 md:p-8 shadow-xl text-center relative z-10 mx-auto border border-white/5">
         <h2 id="contactTitle" class="text-xl font-bold text-slate-300 mb-2 uppercase tracking-widest">Contact Support</h2>
         <p id="contactDesc" class="text-sm md:text-xs text-slate-400 mb-6">Need help with your analysis or have questions about our plans? We are here to assist.</p>
@@ -248,6 +298,7 @@
         const cardNetwork = document.getElementById('cardNetwork');
         const leadModal = document.getElementById('leadModal');
         const modalBox = document.getElementById('modalBox');
+        const videoModal = document.getElementById('videoModal');
         const loadingOverlay = document.getElementById('loadingOverlay');
         const loadingText = document.getElementById('loadingText');
         const mainBtn = document.getElementById('mainBtn');
@@ -261,16 +312,24 @@
             en: ["SCANNING SPENDING PATTERNS...", "DETECTING CAPITAL LEAKS...", "CALCULATING LOST REWARDS...", "FINALIZING STRATEGIC BLUEPRINT..."],
             es: ["ESCANEANDO PATRONES DE GASTO...", "DETECTANDO FUGAS DE CAPITAL...", "CALCULANDO RECOMPENSAS PERDIDAS...", "FINALIZANDO BLUEPRINT ESTRATÉGICO..."]
         };
+        
+        // Traducciones actualizadas con los nuevos textos
         const translations = {
             en: { 
-                title: "QUANT REWARD PLAN", sub: "ELITE FINANCIAL ENGINEERING - US MARKET", valueProp: "Discover how many hundreds of dollars in travel and rewards you are leaving on the table. Our AI securely analyzes your spending and reveals your ideal strategy in seconds.", step1: "1. SELECT YOUR PROFILE", step2: "2. SLIDE TO ADJUST YOUR MONTHLY SPEND ↔", 
-                step3: "3. NOW THAT YOU KNOW YOUR POTENTIAL, GET YOUR REAL DIAGNOSIS AND RECOVER THE MONEY YOU ARE LOSING NOW:", 
+                title: "QUANT REWARD PLAN", sub: "ELITE FINANCIAL ENGINEERING - US MARKET", 
+                valueProp: "Discover how many hundreds of dollars in travel and rewards you are leaving on the table. Follow these 3 simple steps so our AI can securely analyze your spending and reveal your ideal strategy.", 
+                badge1: "100% FREE", badge2: "NO RISK", badge3: "100% ANONYMOUS",
+                btnVideo: "🎥 HOW IT WORKS (WATCH VIDEO)",
+                step1: "1. SELECT YOUR PROFILE", step2: "2. SLIDE TO ADJUST YOUR MONTHLY SPEND ↔", 
+                step3: "3. GET YOUR EXACT DIAGNOSIS: UPLOAD A STATEMENT BELOW SO OUR AI CAN GENERATE YOUR STRATEGY.", 
+                privacyLink: "👉 HOW TO UPLOAD MY FILE SECURELY? (Read here)",
+                priv: "<i class='fas fa-lock text-amber-500 mr-2'></i> 100% Secure. The fastest way is to take a clear photo with your phone. For your peace of mind, feel free to hide or cross out your name and account number. Our AI focuses only on numbers. To protect your privacy, we don't ask for personal data. Your identity remains completely anonymous.",
                 risk: "POINTS YOU ARE LOSING", recov: "MONEY LEFT ON THE TABLE", 
                 lblMonthly: "Monthly:", lblAnnually: "Annually:",
                 upload: "UPLOAD YOUR STATEMENT", 
                 file: "AS A PDF OR TAKE A PHOTO", 
-                priv: "Privacy Guaranteed: If you prefer, hide your name. We only read the numbers.", 
                 btn: "START PRECISION AUDIT", mTitle: "Diagnosis Ready", mDesc: "Enter your email to unlock your strategic report and the recommended exact plans.", mBtn: "UNLOCK FULL BLUEPRINT", mTrust: "Bank-Level 256-bit Encryption | Zero Data Stored", errMissing: "ERROR: FILE MISSING", rTitle: "YOUR STRATEGIC BLUEPRINT", 
+                btnPdfText: "DOWNLOAD BLUEPRINT (PDF)", btnPdfGen: "GENERATING PDF...",
                 
                 affBtnStdA: "PLAN A: APPLY FOR BASIC/SECURED CARD", affBtnStdB: "PLAN B: CREDIT REPAIR SERVICES", affBtnStdC: "PLAN C: ECONOMY TRAVEL & HOTELS", affBtnStdD: "PLAN D: ESSENTIAL AUTO PURCHASE/LEASE",
                 affBtnPremA: "PLAN A: PREMIUM CARD (CHASE/AMEX)", affBtnPremB: "PLAN B: ADVANCED CREDIT MONITORING", affBtnPremC: "PLAN C: EXCLUSIVE TRAVEL & LUXURY PACKAGES", affBtnPremD: "PLAN D: PREMIUM AUTO REFINANCE",
@@ -280,7 +339,6 @@
                 trustBar: "SUPPORTED NETWORKS",
                 tt1: "Select the tier that best fits your monthly spend. This allows our AI to recommend cards with real approval odds, preventing you from wasting time on out-of-reach options.",
                 tt2: "Adjust the slider based on your monthly spend. With this data, the AI instantly calculates how much money and rewards you are leaving on the table.",
-                tt3: "100% Secure. The fastest way is to take a clear photo with your phone. For your peace of mind, feel free to hide or cross out your name and account number. Our AI focuses only on numbers. To protect your privacy, we don't ask for personal data. Your identity remains 100% anonymous.",
                 
                 cTitle: "Contact Support", cDesc: "Need help with your analysis or have questions about our plans? We are here to assist.", cName: "Full Name", cEmail: "Email Address", cMsg: "How can we help you?", cBtn: "Send Message",
 
@@ -290,14 +348,20 @@
                 termsBody: "<p class='mb-2'><strong>1. Educational Purposes Only:</strong> Quant Reward Plan is an AI-powered analytical tool designed for educational purposes. <strong>We do not provide certified financial, legal, or tax advice.</strong></p><p class='mb-2'><strong>2. Accuracy of Results:</strong> While our AI strives for precision, credit card offers and reward multipliers change frequently. Always verify terms directly with the issuing bank.</p><p class='mb-2'><strong>3. User Responsibility:</strong> Any action taken based on the generated blueprint is at the user's sole discretion and risk.</p><p class='mb-2'><strong>4. Affiliate Disclosure:</strong> We may receive compensation if you are approved for a card through our links. This does not impact your costs.</p><p class='mb-2'><strong>5. Intellectual Property:</strong> All content, designs, and AI algorithms are the exclusive property of Quant Reward Plan.</p><p><strong>6. Limitation of Liability:</strong> We shall not be held liable for any financial losses, denied applications, or score drops resulting from the use of this tool.</p>"
             },
             es: { 
-                title: "QUANT REWARD PLAN", sub: "INGENIERÍA FINANCIERA APLICADA - US MARKET", valueProp: "Descubre cuántos cientos de dólares en viajes y recompensas estás dejando sobre la mesa. Nuestra IA analiza tus gastos de forma segura y te revela tu estrategia ideal en segundos.", step1: "1. ESCOGE TU PERFIL", step2: "2. DESLIZA PARA AJUSTAR TU GASTO MENSUAL ↔", 
-                step3: "3. AHORA QUE CONOCES TU POTENCIAL, OBTÉN TU DIAGNÓSTICO REAL Y RECUPERA EL DINERO QUE ESTÁS PERDIENDO AHORA:", 
+                title: "QUANT REWARD PLAN", sub: "INGENIERÍA FINANCIERA APLICADA - US MARKET", 
+                valueProp: "Descubre cuántos cientos de dólares en viajes y recompensas estás dejando sobre la mesa. Sigue estos 3 sencillos pasos para que nuestra IA analice tus gastos de forma segura y revele tu estrategia ideal.", 
+                badge1: "100% GRATIS", badge2: "SIN RIESGO", badge3: "TOTALMENTE ANÓNIMO",
+                btnVideo: "🎥 CÓMO FUNCIONA (VER VIDEO)",
+                step1: "1. ESCOGE TU PERFIL", step2: "2. DESLIZA PARA AJUSTAR TU GASTO MENSUAL ↔", 
+                step3: "3. OBTÉN TU DIAGNÓSTICO EXACTO: SUBE UN ESTADO DE CUENTA AQUÍ ABAJO PARA QUE LA IA GENERE TU ESTRATEGIA.", 
+                privacyLink: "👉 ¿CÓMO SUBIR MI ARCHIVO DE FORMA SEGURA? (Lee aquí)",
+                priv: "<i class='fas fa-lock text-amber-500 mr-2'></i> Totalmente seguro. Lo más rápido es tomarle una foto clara con tu celular. Para tu tranquilidad, si lo prefieres, oculta o tacha tu nombre y número de cuenta. Nuestra IA se enfoca únicamente en los números. Para proteger tu privacidad, no te pedimos datos personales. Tu identidad se mantiene 100% anónima.", 
                 risk: "PUNTOS QUE ESTÁS PERDIENDO", recov: "DINERO DEJADO EN LA MESA", 
                 lblMonthly: "Mensual:", lblAnnually: "Anual:",
                 upload: "SUBE TU ESTADO DE CUENTA", 
                 file: "EN PDF O TÓMALE UNA FOTO", 
-                priv: "Privacidad garantizada: Si lo prefieres, oculta tu nombre. Solo leemos los números.", 
                 btn: "INICIAR AUDITORÍA DE PRECISIÓN", mTitle: "Diagnóstico Listo", mDesc: "Ingresa tu email para ver al instante tu reporte de IA y acceder a las estrategias recomendadas.", mBtn: "DESBLOQUEAR BLUEPRINT", mTrust: "Cifrado Bancario 256-bit | Cero Datos Almacenados", errMissing: "ERROR: FALTA ARCHIVO", rTitle: "TU BLUEPRINT ESTRATÉGICO", 
+                btnPdfText: "DESCARGAR BLUEPRINT (PDF)", btnPdfGen: "GENERANDO PDF...",
                 
                 affBtnStdA: "PLAN A: SOLICITAR TARJETA DE CRÉDITO BÁSICA", affBtnStdB: "PLAN B: SERVICIOS DE REPARACIÓN DE CRÉDITO", affBtnStdC: "PLAN C: VIAJES Y HOTELES ECONÓMICOS", affBtnStdD: "PLAN D: COMPRA O ALQUILER DE AUTOS ESENCIALES",
                 affBtnPremA: "PLAN A: TARJETA PREMIUM (CHASE/AMEX)", affBtnPremB: "PLAN B: MONITOREO DE CRÉDITO AVANZADO", affBtnPremC: "PLAN C: VIAJES EXCLUSIVOS Y PAQUETES DE LUJO", affBtnPremD: "PLAN D: REFINANCIAMIENTO O COMPRA PREMIUM",
@@ -307,7 +371,6 @@
                 trustBar: "REDES ANALIZADAS",
                 tt1: "Selecciona el nivel que mejor se ajuste a tu gasto mensual. Esto permite que nuestra IA te recomiende tarjetas con posibilidades reales de aprobación, evitando que pierdas tiempo en opciones inalcanzables.",
                 tt2: "Ajusta el control según lo que gastas al mes. Con este dato, la IA calcula al instante cuánto dinero y recompensas estás dejando sobre la mesa con tu estrategia financiera actual.",
-                tt3: "Totalmente seguro. Lo más rápido es tomarle una foto clara con tu celular. Para tu tranquilidad, si lo prefieres, oculta o tacha tu nombre y número de cuenta. Nuestra IA se enfoca únicamente en los números. Para proteger tu privacidad, no te pedimos datos personales. Tu identidad se mantiene 100% anónima.",
                 
                 cTitle: "Contacto y Soporte", cDesc: "¿Necesitas ayuda con tu análisis o tienes preguntas sobre nuestros planes? Estamos aquí para asistirte.", cName: "Nombre Completo", cEmail: "Correo Electrónico", cMsg: "¿En qué podemos ayudarte?", cBtn: "Enviar Mensaje",
 
@@ -331,16 +394,22 @@
             document.getElementById('mainTitle').innerText = t.title;
             document.getElementById('subTitle').innerText = t.sub;
             document.getElementById('valueProp').innerText = t.valueProp;
+            
+            document.getElementById('badge1').innerText = t.badge1;
+            document.getElementById('badge2').innerText = t.badge2;
+            document.getElementById('badge3').innerText = t.badge3;
+            document.getElementById('btnVideo').innerText = t.btnVideo;
+            
             document.getElementById('step1Text').innerText = t.step1;
             document.getElementById('step2Text').innerText = t.step2;
             document.getElementById('step3Text').innerText = t.step3;
             document.getElementById('tt1').innerText = t.tt1;
             document.getElementById('tt2').innerText = t.tt2;
-            document.getElementById('tt3').innerText = t.tt3;
+            document.getElementById('privacyLink').innerText = t.privacyLink;
+            document.getElementById('privacyNote').innerHTML = t.priv;
             
             document.getElementById('riskLabel').innerText = t.risk;
             document.getElementById('recovLabel').innerText = t.recov;
-            
             document.getElementById('lblPuntosMensual').innerText = t.lblMonthly;
             document.getElementById('lblPuntosAnual').innerText = t.lblAnnually;
             document.getElementById('lblValorMensual').innerText = t.lblMonthly;
@@ -348,7 +417,7 @@
             
             document.getElementById('fileName').innerText = fileInput.files.length > 0 ? fileInput.files[0].name.toUpperCase() : t.upload;
             document.getElementById('fileSub').innerText = t.file;
-            document.getElementById('privacyNote').innerText = t.priv;
+            document.getElementById('btnPdfText').innerText = t.btnPdfText;
             
             document.getElementById('trustBarText').innerText = t.trustBar;
             document.getElementById('mainBtn').innerText = t.btn;
@@ -409,6 +478,7 @@
             document.getElementById('valorAnual').innerText = `$${valorAnual.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
         }
         slider.oninput = updateCalculos;
+        
         fileInput.addEventListener('change', (e) => {
             if(e.target.files.length > 0) {
                 document.getElementById('fileName').innerText = e.target.files[0].name.toUpperCase();
@@ -417,6 +487,29 @@
                 document.getElementById('fileName').innerText = translations[currentLang].upload;
             }
         });
+        
+        // Control del texto de Privacidad
+        function togglePrivacy() {
+            const el = document.getElementById('privacyExplanation');
+            if(el.classList.contains('hidden')) {
+                el.classList.remove('hidden');
+            } else {
+                el.classList.add('hidden');
+            }
+        }
+
+        // Control del Video
+        function openVideo() {
+            videoModal.classList.remove('hidden'); videoModal.classList.add('flex');
+            setTimeout(() => { videoModal.classList.remove('opacity-0'); videoModal.querySelector('.modal-content').classList.remove('scale-95'); videoModal.querySelector('.modal-content').classList.add('scale-100'); }, 10);
+        }
+        function closeVideo() {
+            videoModal.classList.add('opacity-0'); videoModal.querySelector('.modal-content').classList.remove('scale-100'); videoModal.querySelector('.modal-content').classList.add('scale-95');
+            // Detener el video al cerrar
+            const iframe = document.getElementById('explainerVideo');
+            const iframeSrc = iframe.src; iframe.src = iframeSrc;
+            setTimeout(() => { videoModal.classList.add('hidden'); videoModal.classList.remove('flex'); }, 300);
+        }
         
         function resetModal() {
             document.getElementById('emailPhase').style.display = 'block';
@@ -488,7 +581,7 @@
             formData.append('file', fileInput.files[0]);
             formData.append('email', email);
             formData.append('niche', currentNiche);
-            formData.append('lang', currentLang); // <-- AQUÍ SE ENVÍA EL IDIOMA AL SERVIDOR
+            formData.append('lang', currentLang);
             
             try {
                 const response = await fetch('/analizar-estado', { method: 'POST', body: formData });
@@ -540,6 +633,38 @@
                 stopDynamicLoading();
             }
         }
+        
+        // Función Mágica para descargar el PDF
+        function downloadPDF() {
+            const element = document.getElementById('printableBlueprint');
+            const reportDiv = document.getElementById('reportContent');
+            const btnPdf = document.getElementById('btnPdf');
+            const btnPdfText = document.getElementById('btnPdfText');
+            
+            // 1. Preparamos la UI para la foto perfecta del PDF
+            document.getElementById('pdfHeaderTitle').classList.remove('hidden');
+            reportDiv.classList.remove('h-48', 'overflow-y-auto', 'custom-scrollbar'); // Quitamos el scroll para que salga todo el texto
+            
+            const opt = {
+              margin:       0.3,
+              filename:     'Quant-Reward-Blueprint.pdf',
+              image:        { type: 'jpeg', quality: 0.98 },
+              html2canvas:  { scale: 2, useCORS: true, backgroundColor: '#0f172a' }, // Forzamos el fondo oscuro
+              jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+            };
+
+            btnPdfText.innerText = translations[currentLang].btnPdfGen;
+            btnPdf.disabled = true;
+            
+            // 2. Generamos el PDF
+            html2pdf().set(opt).from(element).save().then(() => {
+                // 3. Devolvemos la UI a la normalidad
+                document.getElementById('pdfHeaderTitle').classList.add('hidden');
+                reportDiv.classList.add('h-48', 'overflow-y-auto', 'custom-scrollbar');
+                btnPdfText.innerText = translations[currentLang].btnPdfText;
+                btnPdf.disabled = false;
+            });
+        }
 
         async function enviarContacto(event) {
             event.preventDefault();
@@ -548,6 +673,7 @@
             const mensaje = document.getElementById('contactMessage').value;
             const btn = document.getElementById('contactBtn');
             const originalText = btn.innerText;
+
             btn.innerText = currentLang === 'en' ? 'SENDING...' : 'ENVIANDO...';
             btn.disabled = true;
 
@@ -576,4 +702,4 @@
         updateCalculos();
     </script>
 </body>
-</html> 
+</html>
