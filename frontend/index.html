@@ -132,11 +132,11 @@
                 </div>
             </div>
 
-            <header class="mb-6 xl:mb-8 pt-4">
+            <header class="mb-6 xl:mb-8 pt-12 md:pt-4">
                 <h1 id="mainTitle" class="text-3xl md:text-4xl font-black mb-1 text-steel-elite mt-4 md:mt-0">QUANT REWARD PLAN</h1>
                 <p id="subTitle" class="text-amber-500 font-bold uppercase tracking-[0.2em] text-[11px] md:text-[9px] mb-4">ELITE FINANCIAL ENGINEERING - US MARKET</p>
                 
-                <p id="valueProp" class="text-sm md:text-xs text-slate-300 max-w-sm mx-auto leading-relaxed mb-6">Discover how many hundreds of dollars in travel and rewards you are leaving on the table. Follow these 3 simple steps so our AI can securely analyze your spending and reveal your ideal strategy.</p>
+                <p id="valueProp" class="text-sm md:text-xs text-slate-300 max-w-sm mx-auto leading-relaxed mb-6">Discover how many hundreds of dollars in travel and rewards you are leaving on the table. Follow these 4 simple steps so our AI can securely analyze your spending and reveal your ideal strategy.</p>
                 
                 <div class="flex justify-center gap-4 md:gap-5 flex-wrap mb-6">
                     <span class="text-green-400 text-[11px] md:text-[10px] font-black uppercase tracking-widest flex items-center drop-shadow-md"><i class="fas fa-check-circle mr-2 text-green-500 text-lg"></i> <span id="badge1">100% FREE</span></span>
@@ -217,20 +217,22 @@
             
             <div class="relative group mb-6 mt-10 border-t border-white/10 pt-8">
                 <p class="text-amber-500 font-bold uppercase tracking-[0.1em] text-[12px] md:text-[11px] mb-5 text-center">
-                    <span id="step3Text">STEP 3. GET YOUR EXACT DIAGNOSIS: UPLOAD A STATEMENT BELOW.</span>
+                    <span id="step3Text">STEP 3: GET YOUR EXACT DIAGNOSIS: UPLOAD A STATEMENT BELOW.</span>
                 </p>
+                
+                <div class="mb-4 text-center cursor-pointer" onclick="togglePrivacy()">
+                    <span id="privacyLink" class="text-slate-400 text-[11px] md:text-[12px] font-bold underline hover:text-white transition-colors">👉 HOW TO UPLOAD MY FILE SECURELY? (Read here)</span>
+                </div>
+                
+                <div id="privacyExplanation" class="hidden bg-slate-800/80 border border-slate-600 rounded-xl p-4 mb-5 text-[12px] md:text-[11px] text-slate-300 text-left leading-relaxed shadow-inner">
+                    <p id="privacyNote"><i class="fas fa-lock text-amber-500 mr-2"></i> 100% Secure. The fastest way is to take a clear photo with your phone. For your peace of mind, feel free to hide or cross out your name and account number. Our AI focuses only on numbers. To protect your privacy, we don't ask for personal data. Your identity remains completely anonymous.</p>
+                </div>
                 
                 <div class="relative border-2 border-dashed border-amber-500/50 rounded-3xl p-6 md:p-8 bg-slate-900/40 hover:border-amber-500 transition-all flex flex-col items-center justify-center cursor-pointer">
                     <input type="file" id="fileInput" accept=".pdf, .jpg, .jpeg, .png, .htm" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-20">
                     <i class="fas fa-cloud-upload-alt text-4xl text-amber-500 mb-3 animate-pulse relative z-10 pointer-events-none"></i>
                     <p id="fileName" class="font-bold text-white text-base md:text-lg uppercase relative z-10 pointer-events-none tracking-wide text-center">UPLOAD YOUR STATEMENT</p>
                     <p id="fileSub" class="text-[12px] md:text-[10px] mt-1 text-amber-500 uppercase tracking-widest relative z-10 pointer-events-none text-center">AS A PDF OR TAKE A PHOTO</p>
-                </div>
-                
-                <div class="text-center mt-4">
-                    <p id="privacyNoteStatic" class="text-[11px] md:text-[10px] text-slate-400 italic leading-relaxed">
-                        <i class="fas fa-lock text-amber-500/70 mr-1"></i> 100% Secure & Anonymous. You can hide your name and account number. Our AI only reads amounts.
-                    </p>
                 </div>
             </div>
             
@@ -304,7 +306,7 @@
         let currentNiche = 'personal';
         let currentLang = 'en';
         let loaderInterval;
-        let finalFileToUpload = null; // Variable para el archivo comprimido
+        let finalFileToUpload = null;
 
         const niches = {
             personal: { min: 500, max: 5000, multi: 3, cardClass: 'card-personal', brand: 'SECURED CARD', network: 'fab fa-cc-visa' },
@@ -319,18 +321,18 @@
             en: "COMPRESSING IMAGE SECURELY...",
             es: "COMPRIMIENDO IMAGEN SEGURO..."
         };
-        
         const translations = {
             en: { 
                 title: "QUANT REWARD PLAN", sub: "ELITE FINANCIAL ENGINEERING - US MARKET", 
-                valueProp: "Discover how many hundreds of dollars in travel and rewards you are leaving on the table. Follow these 3 simple steps so our AI can securely analyze your spending and reveal your ideal strategy.", 
+                valueProp: "Discover how many hundreds of dollars in travel and rewards you are leaving on the table. Follow these 4 simple steps so our AI can securely analyze your spending and reveal your ideal strategy.", 
                 badge1: "100% FREE", badge2: "NO RISK", badge3: "100% ANONYMOUS",
                 btnVideo: "🎥 HOW IT WORKS (WATCH VIDEO)",
                 lblIdioma: "LANGUAGE",
                 step1: "STEP 1: SELECT YOUR PROFILE", step2: "STEP 2: SLIDE TO ADJUST YOUR MONTHLY SPEND ↔", 
                 step3: "STEP 3: GET YOUR EXACT DIAGNOSIS: UPLOAD A STATEMENT BELOW.", 
+                privacyLink: "👉 HOW TO UPLOAD MY FILE SECURELY? (Read here)",
+                priv: "<i class='fas fa-lock text-amber-500 mr-2'></i> 100% Secure. The fastest way is to take a clear photo with your phone. For your peace of mind, feel free to hide or cross out your name and account number. Our AI focuses only on numbers. To protect your privacy, we don't ask for personal data. Your identity remains completely anonymous.",
                 step4: "↓ STEP 4: CLICK 'START AUDIT' BELOW ↓",
-                privStatic: "<i class='fas fa-lock text-amber-500/70 mr-1'></i> 100% Secure & Anonymous. You can hide your name and account number. Our AI only reads amounts.",
                 risk: "POINTS YOU ARE LOSING", recov: "MONEY LEFT ON THE TABLE", 
                 lblMonthly: "Monthly:", lblAnnually: "Annually:",
                 upload: "UPLOAD YOUR STATEMENT", 
@@ -357,14 +359,15 @@
             },
             es: { 
                 title: "QUANT REWARD PLAN", sub: "INGENIERÍA FINANCIERA APLICADA - US MARKET", 
-                valueProp: "Descubre cuántos cientos de dólares en viajes y recompensas estás dejando sobre la mesa. Sigue estos 3 sencillos pasos para que nuestra IA analice tus gastos de forma segura y revele tu estrategia ideal.", 
+                valueProp: "Descubre cuántos cientos de dólares en viajes y recompensas estás dejando sobre la mesa. Sigue estos 4 sencillos pasos para que nuestra IA analice tus gastos de forma segura y revele tu estrategia ideal.", 
                 badge1: "100% GRATIS", badge2: "SIN RIESGO", badge3: "TOTALMENTE ANÓNIMO",
                 btnVideo: "🎥 CÓMO FUNCIONA (VER VIDEO)",
                 lblIdioma: "IDIOMA",
                 step1: "PASO 1: ESCOGE TU PERFIL", step2: "PASO 2: DESLIZA PARA AJUSTAR TU GASTO MENSUAL ↔", 
                 step3: "PASO 3: OBTÉN TU DIAGNÓSTICO EXACTO: SUBE UN ESTADO DE CUENTA.", 
+                privacyLink: "👉 ¿CÓMO SUBIR MI ARCHIVO DE FORMA SEGURA? (Lee aquí)",
+                priv: "<i class='fas fa-lock text-amber-500 mr-2'></i> Totalmente seguro. Lo más rápido es tomarle una foto clara con tu celular. Para tu tranquilidad, si lo prefieres, oculta o tacha tu nombre y número de cuenta. Nuestra IA se enfoca únicamente en los números. Para proteger tu privacidad, no te pedimos datos personales. Tu identidad se mantiene 100% anónima.", 
                 step4: "↓ PASO 4: HAZ CLIC EN 'INICIAR AUDITORÍA' ABAJO ↓",
-                privStatic: "<i class='fas fa-lock text-amber-500/70 mr-1'></i> 100% Seguro y Anónimo. Puedes ocultar tu nombre y cuenta. Nuestra IA solo lee los montos.", 
                 risk: "PUNTOS QUE ESTÁS PERDIENDO", recov: "DINERO DEJADO EN LA MESA", 
                 lblMonthly: "Mensual:", lblAnnually: "Anual:",
                 upload: "SUBE TU ESTADO DE CUENTA", 
@@ -411,7 +414,10 @@
             document.getElementById('step2Text').innerText = t.step2;
             document.getElementById('step3Text').innerText = t.step3;
             document.getElementById('step4Text').innerText = t.step4;
-            document.getElementById('privacyNoteStatic').innerHTML = t.privStatic;
+            
+            document.getElementById('privacyLink').innerText = t.privacyLink;
+            document.getElementById('privacyNote').innerHTML = t.priv;
+
             document.getElementById('tt1').innerText = t.tt1;
             document.getElementById('tt2').innerText = t.tt2;
             
@@ -495,6 +501,16 @@
         }
         slider.oninput = updateCalculos;
         
+        // Control de Privacidad
+        function togglePrivacy() {
+            const el = document.getElementById('privacyExplanation');
+            if(el.classList.contains('hidden')) {
+                el.classList.remove('hidden');
+            } else {
+                el.classList.add('hidden');
+            }
+        }
+
         // --- COMPRESOR DE IMÁGENES AUTOMÁTICO ---
         async function compressImage(file) {
             return new Promise((resolve) => {
@@ -709,12 +725,13 @@
             }
         }
         
-        // Función PDF Blanco de Alta Calidad
+        // Función PDF Blanco de Alta Calidad - Fix de scroll
         function downloadPDF() {
             const element = document.getElementById('printableBlueprint');
             const reportDiv = document.getElementById('reportContent');
             const btnPdf = document.getElementById('btnPdf');
             const btnPdfText = document.getElementById('btnPdfText');
+            const modalBox = document.getElementById('modalBox');
             
             // 1. Transformar colores de diseño oscuro a diseño de papel blanco
             document.getElementById('pdfHeaderTitle').classList.remove('hidden');
@@ -726,11 +743,15 @@
             reportDiv.classList.remove('text-slate-300', 'bg-slate-900/50', 'h-48', 'overflow-y-auto', 'custom-scrollbar', 'border-white/10');
             reportDiv.classList.add('text-black', 'bg-slate-50', 'border-slate-300'); // Fondo gris claro, letras negras
             
+            // FIX: Remover los límites de altura temporalmente para capturar el PDF completo
+            modalBox.style.maxHeight = 'none';
+            modalBox.style.overflow = 'visible';
+
             const opt = {
               margin:       0.4,
               filename:     'Quant-Reward-Blueprint.pdf',
               image:        { type: 'jpeg', quality: 0.98 },
-              html2canvas:  { scale: 2, useCORS: true, backgroundColor: '#ffffff' }, 
+              html2canvas:  { scale: 2, useCORS: true, backgroundColor: '#ffffff', scrollY: 0 }, 
               jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
             };
 
@@ -749,6 +770,10 @@
                 reportDiv.classList.add('text-slate-300', 'bg-slate-900/50', 'h-48', 'overflow-y-auto', 'custom-scrollbar', 'border-white/10');
                 reportDiv.classList.remove('text-black', 'bg-slate-50', 'border-slate-300');
                 
+                // FIX: Restaurar límites de altura de la ventana modal
+                modalBox.style.maxHeight = '';
+                modalBox.style.overflow = '';
+
                 btnPdfText.innerText = translations[currentLang].btnPdfText;
                 btnPdf.disabled = false;
             });
