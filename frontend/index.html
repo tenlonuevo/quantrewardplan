@@ -100,10 +100,26 @@
             </div>
             
             <div id="resultPhase" class="hidden">
-                <div id="printableBlueprint" class="bg-[#0f172a] p-3 rounded-xl border border-white/5 transition-colors duration-300">
-                    <h2 id="pdfHeaderTitle" class="text-xl font-black text-slate-900 mb-4 text-center hidden tracking-widest">QUANT REWARD BLUEPRINT</h2>
+                <div id="printableBlueprint" class="bg-[#0f172a] p-3 rounded-xl border border-white/5 transition-colors duration-300 relative">
+                    <!-- Elementos del PDF Oficial -->
+                    <div id="pdfOfficialHeader" class="hidden flex justify-between items-end border-b-2 border-slate-300 pb-2 mb-4">
+                        <div>
+                            <h2 class="text-lg font-black text-slate-900 tracking-widest">QUANT REWARD BLUEPRINT</h2>
+                            <p class="text-[10px] text-slate-500 uppercase font-bold tracking-wider mt-1">Elite Financial Engineering</p>
+                        </div>
+                        <div class="text-right">
+                            <p id="pdfDate" class="text-[10px] font-mono text-slate-500 font-bold"></p>
+                            <p id="pdfFolio" class="text-[10px] font-mono text-slate-400 mt-1">FOLIO: <span id="folioNumber"></span></p>
+                        </div>
+                    </div>
+
                     <div id="reportContent" class="text-left text-sm text-slate-300 bg-slate-900/50 p-5 rounded-xl mb-4 h-48 overflow-y-auto custom-scrollbar border border-white/10 font-mono leading-relaxed transition-colors duration-300"></div>
                     <div id="dynamicLinks" class="flex flex-col gap-2"></div>
+
+                    <!-- Firma PDF Oficial -->
+                    <div id="pdfOfficialFooter" class="hidden mt-6 pt-3 border-t border-slate-200 text-center">
+                        <p id="pdfSignatureText" class="text-[9px] text-slate-400 italic font-mono"></p>
+                    </div>
                 </div>
                 
                 <button onclick="downloadPDF()" id="btnPdf" class="w-full bg-slate-700 hover:bg-slate-600 border border-slate-500 py-4 rounded-xl font-bold text-[12px] md:text-[10px] uppercase text-white shadow-xl hover:scale-[1.02] transition-transform mt-4">
@@ -132,10 +148,12 @@
                 </div>
             </div>
 
-            <header class="mb-6 xl:mb-8 pt-12 md:pt-4">
+            <!-- Ajuste pt-16 en móviles para evitar el traslape con los idiomas -->
+            <header class="mb-6 xl:mb-8 pt-16 md:pt-4">
                 <h1 id="mainTitle" class="text-3xl md:text-4xl font-black mb-1 text-steel-elite mt-4 md:mt-0">QUANT REWARD PLAN</h1>
                 <p id="subTitle" class="text-amber-500 font-bold uppercase tracking-[0.2em] text-[11px] md:text-[9px] mb-4">ELITE FINANCIAL ENGINEERING - US MARKET</p>
                 
+                <!-- Actualizado a "4" pasos -->
                 <p id="valueProp" class="text-sm md:text-xs text-slate-300 max-w-sm mx-auto leading-relaxed mb-6">Discover how many hundreds of dollars in travel and rewards you are leaving on the table. Follow these 4 simple steps so our AI can securely analyze your spending and reveal your ideal strategy.</p>
                 
                 <div class="flex justify-center gap-4 md:gap-5 flex-wrap mb-6">
@@ -220,8 +238,9 @@
                     <span id="step3Text">STEP 3: GET YOUR EXACT DIAGNOSIS: UPLOAD A STATEMENT BELOW.</span>
                 </p>
                 
+                <!-- Enlace de privacidad acortado sin "MI" -->
                 <div class="mb-4 text-center cursor-pointer" onclick="togglePrivacy()">
-                    <span id="privacyLink" class="text-slate-400 text-[11px] md:text-[12px] font-bold underline hover:text-white transition-colors">👉 HOW TO UPLOAD MY FILE SECURELY? (Read here)</span>
+                    <span id="privacyLink" class="text-slate-400 text-[11px] md:text-[12px] font-bold underline hover:text-white transition-colors">👉 HOW TO UPLOAD FILE SECURELY? (Read here)</span>
                 </div>
                 
                 <div id="privacyExplanation" class="hidden bg-slate-800/80 border border-slate-600 rounded-xl p-4 mb-5 text-[12px] md:text-[11px] text-slate-300 text-left leading-relaxed shadow-inner">
@@ -233,6 +252,13 @@
                     <i class="fas fa-cloud-upload-alt text-4xl text-amber-500 mb-3 animate-pulse relative z-10 pointer-events-none"></i>
                     <p id="fileName" class="font-bold text-white text-base md:text-lg uppercase relative z-10 pointer-events-none tracking-wide text-center">UPLOAD YOUR STATEMENT</p>
                     <p id="fileSub" class="text-[12px] md:text-[10px] mt-1 text-amber-500 uppercase tracking-widest relative z-10 pointer-events-none text-center">AS A PDF OR TAKE A PHOTO</p>
+                </div>
+                
+                <!-- Candado Estático y Seguro -->
+                <div class="text-center mt-4">
+                    <p id="privacyNoteStatic" class="text-[11px] md:text-[10px] text-slate-400 italic leading-relaxed">
+                        <i class="fas fa-lock text-amber-500/70 mr-1"></i> 100% Secure & Anonymous. You can hide your name and account number. Our AI only reads amounts.
+                    </p>
                 </div>
             </div>
             
@@ -330,8 +356,9 @@
                 lblIdioma: "LANGUAGE",
                 step1: "STEP 1: SELECT YOUR PROFILE", step2: "STEP 2: SLIDE TO ADJUST YOUR MONTHLY SPEND ↔", 
                 step3: "STEP 3: GET YOUR EXACT DIAGNOSIS: UPLOAD A STATEMENT BELOW.", 
-                privacyLink: "👉 HOW TO UPLOAD MY FILE SECURELY? (Read here)",
+                privacyLink: "👉 HOW TO UPLOAD FILE SECURELY? (Read here)",
                 priv: "<i class='fas fa-lock text-amber-500 mr-2'></i> 100% Secure. The fastest way is to take a clear photo with your phone. For your peace of mind, feel free to hide or cross out your name and account number. Our AI focuses only on numbers. To protect your privacy, we don't ask for personal data. Your identity remains completely anonymous.",
+                privStatic: "<i class='fas fa-lock text-amber-500/70 mr-1'></i> 100% Secure & Anonymous. You can hide your name and account number. Our AI only reads amounts.",
                 step4: "↓ STEP 4: CLICK 'START AUDIT' BELOW ↓",
                 risk: "POINTS YOU ARE LOSING", recov: "MONEY LEFT ON THE TABLE", 
                 lblMonthly: "Monthly:", lblAnnually: "Annually:",
@@ -340,6 +367,7 @@
                 btn: "START PRECISION AUDIT", readyUpload: "FILE READY. CLICK START AUDIT.",
                 mTitle: "Diagnosis Ready", mDesc: "Enter your email to unlock your strategic report and the recommended exact plans.", mBtn: "UNLOCK FULL BLUEPRINT", mTrust: "Bank-Level 256-bit Encryption | Zero Data Stored", errMissing: "ERROR: FILE MISSING", rTitle: "YOUR STRATEGIC BLUEPRINT", 
                 btnPdfText: "DOWNLOAD BLUEPRINT (PDF)", btnPdfGen: "GENERATING PDF...",
+                pdfSignature: "Projective report generated automatically by Quant AI Engine.",
                 
                 affBtnStdA: "PLAN A: APPLY FOR BASIC/SECURED CARD", affBtnStdB: "PLAN B: CREDIT REPAIR SERVICES", affBtnStdC: "PLAN C: ECONOMY TRAVEL & HOTELS", affBtnStdD: "PLAN D: ESSENTIAL AUTO PURCHASE/LEASE",
                 affBtnPremA: "PLAN A: PREMIUM CARD (CHASE/AMEX)", affBtnPremB: "PLAN B: ADVANCED CREDIT MONITORING", affBtnPremC: "PLAN C: EXCLUSIVE TRAVEL & LUXURY PACKAGES", affBtnPremD: "PLAN D: PREMIUM AUTO REFINANCE",
@@ -365,8 +393,9 @@
                 lblIdioma: "IDIOMA",
                 step1: "PASO 1: ESCOGE TU PERFIL", step2: "PASO 2: DESLIZA PARA AJUSTAR TU GASTO MENSUAL ↔", 
                 step3: "PASO 3: OBTÉN TU DIAGNÓSTICO EXACTO: SUBE UN ESTADO DE CUENTA.", 
-                privacyLink: "👉 ¿CÓMO SUBIR MI ARCHIVO DE FORMA SEGURA? (Lee aquí)",
+                privacyLink: "👉 ¿CÓMO SUBIR ARCHIVO DE FORMA SEGURA? (Lee aquí)",
                 priv: "<i class='fas fa-lock text-amber-500 mr-2'></i> Totalmente seguro. Lo más rápido es tomarle una foto clara con tu celular. Para tu tranquilidad, si lo prefieres, oculta o tacha tu nombre y número de cuenta. Nuestra IA se enfoca únicamente en los números. Para proteger tu privacidad, no te pedimos datos personales. Tu identidad se mantiene 100% anónima.", 
+                privStatic: "<i class='fas fa-lock text-amber-500/70 mr-1'></i> 100% Seguro y Anónimo. Puedes ocultar tu nombre y cuenta. Nuestra IA solo lee los montos.", 
                 step4: "↓ PASO 4: HAZ CLIC EN 'INICIAR AUDITORÍA' ABAJO ↓",
                 risk: "PUNTOS QUE ESTÁS PERDIENDO", recov: "DINERO DEJADO EN LA MESA", 
                 lblMonthly: "Mensual:", lblAnnually: "Anual:",
@@ -375,6 +404,7 @@
                 btn: "INICIAR AUDITORÍA DE PRECISIÓN", readyUpload: "ARCHIVO LISTO. INICIA LA AUDITORÍA.",
                 mTitle: "Diagnóstico Listo", mDesc: "Ingresa tu email para ver al instante tu reporte de IA y acceder a las estrategias recomendadas.", mBtn: "DESBLOQUEAR BLUEPRINT", mTrust: "Cifrado Bancario 256-bit | Cero Datos Almacenados", errMissing: "ERROR: FALTA ARCHIVO", rTitle: "TU BLUEPRINT ESTRATÉGICO", 
                 btnPdfText: "DESCARGAR BLUEPRINT (PDF)", btnPdfGen: "GENERANDO PDF...",
+                pdfSignature: "Reporte proyectivo generado automáticamente por Quant AI Engine.",
                 
                 affBtnStdA: "PLAN A: SOLICITAR TARJETA DE CRÉDITO BÁSICA", affBtnStdB: "PLAN B: SERVICIOS DE REPARACIÓN DE CRÉDITO", affBtnStdC: "PLAN C: VIAJES Y HOTELES ECONÓMICOS", affBtnStdD: "PLAN D: COMPRA O ALQUILER DE AUTOS ESENCIALES",
                 affBtnPremA: "PLAN A: TARJETA PREMIUM (CHASE/AMEX)", affBtnPremB: "PLAN B: MONITOREO DE CRÉDITO AVANZADO", affBtnPremC: "PLAN C: VIAJES EXCLUSIVOS Y PAQUETES DE LUJO", affBtnPremD: "PLAN D: REFINANCIAMIENTO O COMPRA PREMIUM",
@@ -417,6 +447,7 @@
             
             document.getElementById('privacyLink').innerText = t.privacyLink;
             document.getElementById('privacyNote').innerHTML = t.priv;
+            document.getElementById('privacyNoteStatic').innerHTML = t.privStatic;
 
             document.getElementById('tt1').innerText = t.tt1;
             document.getElementById('tt2').innerText = t.tt2;
@@ -437,6 +468,7 @@
             
             document.getElementById('fileSub').innerText = t.file;
             document.getElementById('btnPdfText').innerText = t.btnPdfText;
+            document.getElementById('pdfSignatureText').innerText = t.pdfSignature;
             
             document.getElementById('trustBarText').innerText = t.trustBar;
             document.getElementById('mainBtn').innerText = t.btn;
@@ -501,7 +533,7 @@
         }
         slider.oninput = updateCalculos;
         
-        // Control de Privacidad
+        // Control de Privacidad interactivo
         function togglePrivacy() {
             const el = document.getElementById('privacyExplanation');
             if(el.classList.contains('hidden')) {
@@ -539,7 +571,7 @@
                         canvas.height = height;
                         ctx.drawImage(img, 0, 0, width, height);
                         
-                        // Comprime la imagen a JPEG con 70% de calidad
+                        // Comprime la imagen a JPEG con Calidad 70%
                         canvas.toBlob((blob) => {
                             const newFile = new File([blob], file.name.replace(/\.[^/.]+$/, "") + ".jpg", {
                                 type: 'image/jpeg',
@@ -642,14 +674,12 @@
         }
 
         function ejecutarAuditoria() {
-            // Verificamos si hay archivo comprimido o cargado
             if(!finalFileToUpload) { 
                 statusMsg.innerText = translations[currentLang].errMissing;
                 statusMsg.classList.remove('text-slate-500', 'text-green-500');
                 statusMsg.classList.add('text-red-500');
                 return; 
             }
-            // Bloquear si la imagen aún se está comprimiendo
             if(statusMsg.innerText === compressingMsgText[currentLang]) {
                 return; 
             }
@@ -668,7 +698,6 @@
             startDynamicLoading();
             const formData = new FormData();
             
-            // Enviamos la versión ligera/comprimida en vez del original pesado
             formData.append('file', finalFileToUpload);
             formData.append('email', email);
             formData.append('niche', currentNiche);
@@ -725,7 +754,7 @@
             }
         }
         
-        // Función PDF Blanco de Alta Calidad - Fix de scroll
+        // --- FUNCIÓN PDF OFICIAL MEJORADA CON MICRO-PAUSA ---
         function downloadPDF() {
             const element = document.getElementById('printableBlueprint');
             const reportDiv = document.getElementById('reportContent');
@@ -733,50 +762,59 @@
             const btnPdfText = document.getElementById('btnPdfText');
             const modalBox = document.getElementById('modalBox');
             
-            // 1. Transformar colores de diseño oscuro a diseño de papel blanco
-            document.getElementById('pdfHeaderTitle').classList.remove('hidden');
-            document.getElementById('pdfHeaderTitle').classList.add('text-slate-900');
+            // 1. Generar Datos Oficiales del Documento
+            const fechaActual = new Date().toLocaleDateString(currentLang === 'es' ? 'es-ES' : 'en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+            const folioAleatorio = 'QRP-' + Math.random().toString(36).substring(2, 8).toUpperCase() + '-' + new Date().getFullYear();
+            
+            document.getElementById('pdfDate').innerText = fechaActual;
+            document.getElementById('folioNumber').innerText = folioAleatorio;
+            
+            // 2. Transformar a Modo "Papel Blanco"
+            document.getElementById('pdfOfficialHeader').classList.remove('hidden');
+            document.getElementById('pdfOfficialFooter').classList.remove('hidden');
             
             element.classList.remove('bg-[#0f172a]', 'border-white/5');
             element.classList.add('bg-white', 'text-black', 'p-6'); 
             
             reportDiv.classList.remove('text-slate-300', 'bg-slate-900/50', 'h-48', 'overflow-y-auto', 'custom-scrollbar', 'border-white/10');
-            reportDiv.classList.add('text-black', 'bg-slate-50', 'border-slate-300'); // Fondo gris claro, letras negras
+            reportDiv.classList.add('text-black', 'bg-slate-50', 'border-slate-300'); 
             
-            // FIX: Remover los límites de altura temporalmente para capturar el PDF completo
+            // Remover límites de altura para que el texto salga completo
             modalBox.style.maxHeight = 'none';
             modalBox.style.overflow = 'visible';
-
-            const opt = {
-              margin:       0.4,
-              filename:     'Quant-Reward-Blueprint.pdf',
-              image:        { type: 'jpeg', quality: 0.98 },
-              html2canvas:  { scale: 2, useCORS: true, backgroundColor: '#ffffff', scrollY: 0 }, 
-              jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
-            };
 
             btnPdfText.innerText = translations[currentLang].btnPdfGen;
             btnPdf.disabled = true;
             
-            // 2. Tomar "foto" y generar PDF
-            html2pdf().set(opt).from(element).save().then(() => {
-                // 3. Regresar la página a su hermoso Modo Oscuro
-                document.getElementById('pdfHeaderTitle').classList.add('hidden');
-                document.getElementById('pdfHeaderTitle').classList.remove('text-slate-900');
-                
-                element.classList.add('bg-[#0f172a]', 'border-white/5');
-                element.classList.remove('bg-white', 'text-black', 'p-6'); 
-                
-                reportDiv.classList.add('text-slate-300', 'bg-slate-900/50', 'h-48', 'overflow-y-auto', 'custom-scrollbar', 'border-white/10');
-                reportDiv.classList.remove('text-black', 'bg-slate-50', 'border-slate-300');
-                
-                // FIX: Restaurar límites de altura de la ventana modal
-                modalBox.style.maxHeight = '';
-                modalBox.style.overflow = '';
+            // 3. LA MICRO-PAUSA MÁGICA (350 milisegundos)
+            setTimeout(() => {
+                const opt = {
+                  margin:       0.4,
+                  filename:     `Quant-Reward-Blueprint-${folioAleatorio}.pdf`,
+                  image:        { type: 'jpeg', quality: 0.98 },
+                  html2canvas:  { scale: 2, useCORS: true, backgroundColor: '#ffffff', scrollY: 0 }, 
+                  jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+                };
 
-                btnPdfText.innerText = translations[currentLang].btnPdfText;
-                btnPdf.disabled = false;
-            });
+                // 4. Tomar la foto final y guardar
+                html2pdf().set(opt).from(element).save().then(() => {
+                    // 5. Regresar todo a Modo Oscuro
+                    document.getElementById('pdfOfficialHeader').classList.add('hidden');
+                    document.getElementById('pdfOfficialFooter').classList.add('hidden');
+                    
+                    element.classList.add('bg-[#0f172a]', 'border-white/5');
+                    element.classList.remove('bg-white', 'text-black', 'p-6'); 
+                    
+                    reportDiv.classList.add('text-slate-300', 'bg-slate-900/50', 'h-48', 'overflow-y-auto', 'custom-scrollbar', 'border-white/10');
+                    reportDiv.classList.remove('text-black', 'bg-slate-50', 'border-slate-300');
+                    
+                    modalBox.style.maxHeight = '';
+                    modalBox.style.overflow = '';
+
+                    btnPdfText.innerText = translations[currentLang].btnPdfText;
+                    btnPdf.disabled = false;
+                });
+            }, 350); // <-- 350ms de pausa antes de tomar la foto
         }
 
         async function enviarContacto(event) {
