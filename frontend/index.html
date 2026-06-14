@@ -75,12 +75,15 @@
 
     <div id="loadingOverlay"><div class="blueprint-loader"><div class="hex-icon"></div></div><div id="loadingText" class="text-amber-500 font-bold uppercase tracking-widest text-sm animate-pulse mt-4">ARCHITECTING BLUEPRINT...</div></div>
 
-    <div id="videoModal" class="fixed inset-0 z-[120] modal-overlay hidden items-center justify-center p-3 opacity-0 transition-opacity duration-300">
-        <div class="modal-content w-full max-w-3xl rounded-3xl p-2 md:p-4 text-center relative transform scale-95 transition-transform duration-300 bg-[#0f172a]">
-            <button onclick="closeVideo()" class="absolute -top-10 right-2 text-white hover:text-amber-500 transition-colors"><i class="fas fa-times text-2xl"></i></button>
-            <div class="aspect-video w-full bg-slate-800 rounded-xl overflow-hidden flex items-center justify-center border border-slate-700 relative">
+    <!-- Ajuste UX Video: Click outside para cerrar y Botón X reubicado -->
+    <div id="videoModal" class="fixed inset-0 z-[120] modal-overlay hidden items-center justify-center p-3 opacity-0 transition-opacity duration-300" onclick="closeVideoOutside(event)">
+        <div class="modal-content w-full max-w-3xl rounded-2xl overflow-hidden text-center relative transform scale-95 transition-transform duration-300 bg-[#0f172a] shadow-2xl border border-slate-700 p-0">
+            <!-- Botón flotante X premium -->
+            <button onclick="closeVideo()" class="absolute top-3 right-3 z-[60] bg-black/60 backdrop-blur-md w-10 h-10 rounded-full flex items-center justify-center text-white hover:text-amber-500 transition-all border border-white/10 shadow-lg">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+            <div class="aspect-video w-full relative bg-slate-900 flex items-center justify-center">
                 <p class="text-slate-400 font-mono text-xs md:text-sm absolute z-0">VIDEO PLACEHOLDER</p>
-                <!-- Enlace de prueba insertado aquí -->
                 <iframe id="explainerVideo" class="absolute inset-0 w-full h-full z-10" src="https://www.youtube.com/embed/cs19RevoEXY" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
             </div>
         </div>
@@ -115,7 +118,6 @@
                     </div>
 
                     <div id="reportContent" class="text-left text-sm text-slate-300 bg-slate-900/50 p-5 rounded-xl mb-4 h-48 overflow-y-auto custom-scrollbar border border-white/10 font-mono leading-relaxed transition-colors duration-300"></div>
-                    <!-- Margen lateral agregado (px-2 sm:px-4) para centrar en el PDF -->
                     <div id="dynamicLinks" class="flex flex-col gap-3 px-2 sm:px-4 w-full mx-auto"></div>
 
                     <!-- Firma PDF Oficial -->
@@ -150,12 +152,10 @@
                 </div>
             </div>
 
-            <!-- Ajuste pt-10 en móviles para acercar el título al idioma de forma armónica -->
             <header class="mb-6 xl:mb-8 pt-10 md:pt-4">
                 <h1 id="mainTitle" class="text-3xl md:text-4xl font-black mb-1 text-steel-elite mt-4 md:mt-0">QUANT REWARD PLAN</h1>
                 <p id="subTitle" class="text-amber-500 font-bold uppercase tracking-[0.2em] text-[11px] md:text-[9px] mb-4">ELITE FINANCIAL ENGINEERING - US MARKET</p>
                 
-                <!-- Actualizado a "4" pasos -->
                 <p id="valueProp" class="text-sm md:text-xs text-slate-300 max-w-sm mx-auto leading-relaxed mb-6">Discover how many hundreds of dollars in travel and rewards you are leaving on the table. Follow these 4 simple steps so our AI can securely analyze your spending and reveal your ideal strategy.</p>
                 
                 <div class="flex justify-center gap-4 md:gap-5 flex-wrap mb-6">
@@ -240,7 +240,6 @@
                     <span id="step3Text">STEP 3: GET YOUR EXACT DIAGNOSIS: UPLOAD A STATEMENT BELOW.</span>
                 </p>
                 
-                <!-- Enlace de privacidad acortado sin "MI" -->
                 <div class="mb-4 text-center cursor-pointer" onclick="togglePrivacy()">
                     <span id="privacyLink" class="text-slate-400 text-[11px] md:text-[12px] font-bold underline hover:text-white transition-colors">👉 HOW TO UPLOAD FILE SECURELY? (Read here)</span>
                 </div>
@@ -256,7 +255,6 @@
                     <p id="fileSub" class="text-[12px] md:text-[10px] mt-1 text-amber-500 uppercase tracking-widest relative z-10 pointer-events-none text-center">AS A PDF OR TAKE A PHOTO</p>
                 </div>
                 
-                <!-- Candado Estático y Seguro -->
                 <div class="text-center mt-4">
                     <p id="privacyNoteStatic" class="text-[11px] md:text-[10px] text-slate-400 italic leading-relaxed">
                         <i class="fas fa-lock text-amber-500/70 mr-1"></i> 100% Secure & Anonymous. You can hide your name and account number. Our AI only reads amounts.
@@ -624,6 +622,14 @@
             const iframe = document.getElementById('explainerVideo');
             const iframeSrc = iframe.src; iframe.src = iframeSrc;
             setTimeout(() => { videoModal.classList.add('hidden'); videoModal.classList.remove('flex'); }, 300);
+        }
+        
+        // Control Táctil "Clic Afuera" para el Video
+        function closeVideoOutside(event) {
+            const modalContent = document.getElementById('videoModal').querySelector('.modal-content');
+            if (!modalContent.contains(event.target)) {
+                closeVideo();
+            }
         }
         
         function resetModal() {
