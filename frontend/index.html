@@ -80,7 +80,8 @@
             <button onclick="closeVideo()" class="absolute -top-10 right-2 text-white hover:text-amber-500 transition-colors"><i class="fas fa-times text-2xl"></i></button>
             <div class="aspect-video w-full bg-slate-800 rounded-xl overflow-hidden flex items-center justify-center border border-slate-700 relative">
                 <p class="text-slate-400 font-mono text-xs md:text-sm absolute z-0">VIDEO PLACEHOLDER</p>
-                <iframe id="explainerVideo" class="absolute inset-0 w-full h-full z-10" src="" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+                <!-- Enlace de prueba insertado aquí -->
+                <iframe id="explainerVideo" class="absolute inset-0 w-full h-full z-10" src="https://www.youtube.com/embed/cs19RevoEXY" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
             </div>
         </div>
     </div>
@@ -114,7 +115,8 @@
                     </div>
 
                     <div id="reportContent" class="text-left text-sm text-slate-300 bg-slate-900/50 p-5 rounded-xl mb-4 h-48 overflow-y-auto custom-scrollbar border border-white/10 font-mono leading-relaxed transition-colors duration-300"></div>
-                    <div id="dynamicLinks" class="flex flex-col gap-2"></div>
+                    <!-- Margen lateral agregado (px-2 sm:px-4) para centrar en el PDF -->
+                    <div id="dynamicLinks" class="flex flex-col gap-3 px-2 sm:px-4 w-full mx-auto"></div>
 
                     <!-- Firma PDF Oficial -->
                     <div id="pdfOfficialFooter" class="hidden mt-6 pt-3 border-t border-slate-200 text-center">
@@ -148,8 +150,8 @@
                 </div>
             </div>
 
-            <!-- Ajuste pt-16 en móviles para evitar el traslape con los idiomas -->
-            <header class="mb-6 xl:mb-8 pt-16 md:pt-4">
+            <!-- Ajuste pt-10 en móviles para acercar el título al idioma de forma armónica -->
+            <header class="mb-6 xl:mb-8 pt-10 md:pt-4">
                 <h1 id="mainTitle" class="text-3xl md:text-4xl font-black mb-1 text-steel-elite mt-4 md:mt-0">QUANT REWARD PLAN</h1>
                 <p id="subTitle" class="text-amber-500 font-bold uppercase tracking-[0.2em] text-[11px] md:text-[9px] mb-4">ELITE FINANCIAL ENGINEERING - US MARKET</p>
                 
@@ -793,7 +795,8 @@
                   filename:     `Quant-Reward-Blueprint-${folioAleatorio}.pdf`,
                   image:        { type: 'jpeg', quality: 0.98 },
                   html2canvas:  { scale: 2, useCORS: true, backgroundColor: '#ffffff', scrollY: 0 }, 
-                  jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+                  jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' },
+                  pagebreak:    { mode: 'avoid-all' }
                 };
 
                 // 4. Tomar la foto final y guardar
