@@ -8,6 +8,13 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    
+    <script>
+        // !function(f,b,e,v,n,t,s){...}(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
+        // fbq('init', 'TU_ID_DE_PIXEL');
+        // fbq('track', 'PageView');
+    </script>
+    
     <style>
         body { background: radial-gradient(circle at top, #1e293b 0%, #0f172a 100%); color: white; font-family: 'Inter', sans-serif; transition: all 0.5s ease; overflow-x: hidden; }
         .glass-card { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.1); border-radius: 2rem; position: relative; z-index: 10; }
@@ -15,6 +22,10 @@
         .btn-premium:hover { transform: translateY(-2px); box-shadow: 0 10px 20px -5px rgba(217, 119, 6, 0.5); }
         .btn-affiliate { background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%); transition: all 0.3s ease; color: white; }
         .btn-auto { background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); transition: all 0.3s ease; color: white; }
+        
+        /* Botón VIP Dedicado */
+        .btn-ai-vip { background: linear-gradient(135deg, #10b981 0%, #059669 50%, #d97706 100%); color: white; transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.2); }
+        .btn-ai-vip:hover { transform: translateY(-2px); box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.5); }
         
         .text-steel-elite { 
             background: linear-gradient(to bottom, #ffffff 0%, #e2e8f0 45%, #94a3b8 50%, #f8fafc 100%);
@@ -32,8 +43,9 @@
         .niche-btn.active-personal { background: #1d4ed8; color: white; border-color: #1d4ed8; font-weight: 800; box-shadow: 0 0 15px rgba(29, 78, 216, 0.4); }
         .niche-btn.active-business { background: #fbbf24; color: #0f172a; border-color: #fbbf24; font-weight: 800; box-shadow: 0 0 15px rgba(251, 191, 36, 0.4); }
         .niche-btn.active-elite { background: #94a3b8; color: #0f172a; border-color: #94a3b8; font-weight: 800; box-shadow: 0 0 15px rgba(148, 163, 184, 0.4); }
-        input[type=range] { -webkit-appearance: none; background: #334155; height: 6px; border-radius: 5px; width: 100%; }
-        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 18px; width: 18px; border-radius: 50%; background: #fbbf24; cursor: pointer; border: 2px solid #0f172a; box-shadow: 0 0 10px rgba(251, 191, 36, 0.4); }
+        
+        input[type=range] { -webkit-appearance: none; background: #334155; height: 8px; border-radius: 5px; width: 100%; touch-action: pan-y; }
+        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 24px; width: 24px; border-radius: 50%; background: #fbbf24; cursor: pointer; border: 2px solid #0f172a; box-shadow: 0 0 12px rgba(251, 191, 36, 0.5); }
         
         .card-3d-container { perspective: 1000px; position: relative; display: flex; justify-content: center; margin-bottom: 1rem; transform: scale(0.85); z-index: 20; }
         @media (min-width: 1250px) { .card-3d-container { position: absolute; left: -340px; top: 50%; transform: translateY(-50%) scale(1); margin-bottom: 0; } }
@@ -60,34 +72,23 @@
         #loadingOverlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(15, 23, 42, 0.95); backdrop-filter: blur(5px); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 9999; opacity: 0; visibility: hidden; transition: opacity 0.5s ease, visibility 0.5s ease; }
         #loadingOverlay.active { opacity: 1; visibility: visible; }
         
-        .help-tip { display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; background: rgba(245, 158, 11, 0.15); color: #f59e0b; border-radius: 50%; font-size: 10px; font-weight: bold; cursor: help; margin-left: 6px; position: relative; bottom: 2px; z-index: 50; }
-        .help-tip .tooltip-text { visibility: hidden; width: 280px; background-color: #0f172a; color: #cbd5e1; text-align: left; border-radius: 8px; padding: 12px; position: absolute; z-index: 99999; bottom: 150%; left: 50%; transform: translateX(-50%); opacity: 0; transition: opacity 0.3s; border: 1px solid rgba(245, 158, 11, 0.3); box-shadow: 0 10px 30px rgba(0,0,0,0.9); font-size: 11px; text-transform: none; letter-spacing: normal; font-weight: normal; line-height: 1.5; pointer-events: none; }
-        .help-tip:hover .tooltip-text { visibility: visible; opacity: 1; }
-        .help-tip .tooltip-text::after { content: ""; position: absolute; top: 100%; left: 50%; margin-left: -6px; border-width: 6px; border-style: solid; border-color: rgba(245, 158, 11, 0.3) transparent transparent transparent; }
-
-        /* Estilo para el selector de idiomas mejorado */
         .lang-selector { position: absolute; top: 1.5rem; right: 1.5rem; display: flex; flex-direction: column; align-items: flex-end; z-index: 50; }
         .lang-btn { cursor: pointer; transition: all 0.3s; filter: grayscale(100%); opacity: 0.4; }
         .lang-btn.active { filter: grayscale(0%); opacity: 1; transform: scale(1.15); }
+        
+        /* Efecto Verde de Carga Exitosa */
+        .file-box-success { border-color: #10b981 !important; background: rgba(6, 78, 59, 0.4) !important; box-shadow: 0 0 25px rgba(16, 185, 129, 0.3); }
+
+        /* Estilos Originales de Tooltips Restaurados */
+        .help-tip { display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; background: rgba(245, 158, 11, 0.15); color: #f59e0b; border-radius: 50%; font-size: 10px; font-weight: bold; cursor: help; margin-left: 6px; position: relative; bottom: 2px; z-index: 50; }
+        .help-tip .tooltip-text { visibility: hidden; width: 280px; max-width: 85vw; background-color: #0f172a; color: #cbd5e1; text-align: left; border-radius: 8px; padding: 12px; position: absolute; z-index: 99999; bottom: 150%; left: 50%; transform: translateX(-50%); opacity: 0; transition: opacity 0.3s; border: 1px solid rgba(245, 158, 11, 0.3); box-shadow: 0 10px 30px rgba(0,0,0,0.9); font-size: 11px; text-transform: none; letter-spacing: normal; font-weight: normal; line-height: 1.5; pointer-events: none; }
+        .help-tip:hover .tooltip-text { visibility: visible; opacity: 1; }
+        .help-tip .tooltip-text::after { content: ""; position: absolute; top: 100%; left: 50%; margin-left: -6px; border-width: 6px; border-style: solid; border-color: rgba(245, 158, 11, 0.3) transparent transparent transparent; }
     </style>
 </head>
 <body class="min-h-screen flex flex-col items-center justify-center p-3 md:p-6 py-8 md:py-12">
 
-    <div id="loadingOverlay"><div class="blueprint-loader"><div class="hex-icon"></div></div><div id="loadingText" class="text-amber-500 font-bold uppercase tracking-widest text-sm animate-pulse mt-4">ARCHITECTING BLUEPRINT...</div></div>
-
-    <!-- Ajuste UX Video: Click outside para cerrar y Botón X reubicado -->
-    <div id="videoModal" class="fixed inset-0 z-[120] modal-overlay hidden items-center justify-center p-3 opacity-0 transition-opacity duration-300" onclick="closeVideoOutside(event)">
-        <div class="modal-content w-full max-w-3xl rounded-2xl overflow-hidden text-center relative transform scale-95 transition-transform duration-300 bg-[#0f172a] shadow-2xl border border-slate-700 p-0">
-            <!-- Botón flotante X premium -->
-            <button onclick="closeVideo()" class="absolute top-3 right-3 z-[60] bg-black/60 backdrop-blur-md w-10 h-10 rounded-full flex items-center justify-center text-white hover:text-amber-500 transition-all border border-white/10 shadow-lg">
-                <i class="fas fa-times text-xl"></i>
-            </button>
-            <div class="aspect-video w-full relative bg-slate-900 flex items-center justify-center">
-                <p class="text-slate-400 font-mono text-xs md:text-sm absolute z-0">VIDEO PLACEHOLDER</p>
-                <iframe id="explainerVideo" class="absolute inset-0 w-full h-full z-10" src="https://www.youtube.com/embed/cs19RevoEXY" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
-            </div>
-        </div>
-    </div>
+    <div id="loadingOverlay"><div id="loadingText" class="text-amber-500 font-bold uppercase tracking-widest text-sm animate-pulse mt-4">ARCHITECTING BLUEPRINT...</div></div>
 
     <div id="leadModal" class="fixed inset-0 z-[100] modal-overlay hidden items-center justify-center p-3 opacity-0">
         <div class="modal-content w-full max-w-lg rounded-3xl p-6 md:p-8 text-center relative transform scale-95 transition-transform duration-300" id="modalBox">
@@ -96,7 +97,8 @@
                 <i id="modalIcon" class="fas fa-lock text-amber-500 text-2xl"></i>
             </div>
             <h2 id="modalTitle" class="text-2xl font-bold text-white mb-2">Diagnosis Ready</h2>
-            <p id="modalDesc" class="text-slate-400 text-sm mb-6">Enter your email to unlock your strategic report and the recommended exact cards.</p>
+            <p id="modalDesc" class="text-slate-400 text-sm mb-2">Enter your email to unlock your strategic report and the recommended exact cards.</p>
+            <p id="modalSpam" class="text-amber-500/80 text-xs italic mb-6">We will send your strategy to this email. Zero spam, only financial value.</p>
             
             <div id="emailPhase">
                 <input type="email" id="userEmail" placeholder="ceo@company.com" class="input-premium w-full px-4 py-4 rounded-xl text-center mb-4">
@@ -105,7 +107,6 @@
             
             <div id="resultPhase" class="hidden">
                 <div id="printableBlueprint" class="bg-[#0f172a] p-3 rounded-xl border border-white/5 transition-colors duration-300 relative">
-                    <!-- Elementos del PDF Oficial -->
                     <div id="pdfOfficialHeader" class="hidden flex justify-between items-end border-b-2 border-slate-300 pb-2 mb-4">
                         <div>
                             <h2 class="text-lg font-black text-slate-900 tracking-widest">QUANT REWARD BLUEPRINT</h2>
@@ -117,11 +118,10 @@
                         </div>
                     </div>
 
-                    <div id="reportContent" class="text-left text-sm text-slate-300 bg-slate-900/50 p-5 rounded-xl mb-4 h-48 overflow-y-auto custom-scrollbar border border-white/10 font-mono leading-relaxed transition-colors duration-300"></div>
-                    <!-- Margen lateral agregado (px-2 sm:px-4) para centrar en el PDF -->
+                    <div id="reportContent" class="text-left text-sm text-slate-300 bg-slate-900/50 p-5 rounded-xl mb-4 overflow-hidden border border-white/10 font-mono leading-relaxed transition-colors duration-300" style="max-height: 400px; overflow-y: auto;"></div>
+                    
                     <div id="dynamicLinks" class="flex flex-col gap-3 px-2 sm:px-4 w-full mx-auto"></div>
 
-                    <!-- Firma PDF Oficial -->
                     <div id="pdfOfficialFooter" class="hidden mt-6 pt-3 border-t border-slate-200 text-center">
                         <p id="pdfSignatureText" class="text-[9px] text-slate-400 italic font-mono"></p>
                     </div>
@@ -155,19 +155,15 @@
 
             <header class="mb-6 xl:mb-8 pt-10 md:pt-4">
                 <h1 id="mainTitle" class="text-3xl md:text-4xl font-black mb-1 text-steel-elite mt-4 md:mt-0">QUANT REWARD PLAN</h1>
-                <p id="subTitle" class="text-amber-500 font-bold uppercase tracking-[0.2em] text-[11px] md:text-[9px] mb-4">ELITE FINANCIAL ENGINEERING - US MARKET</p>
+                <p id="subTitle" class="text-amber-500 font-bold uppercase tracking-[0.15em] text-[11px] md:text-[10px] mb-4">STOP GIVING YOUR MONEY TO THE BANK</p>
                 
-                <p id="valueProp" class="text-sm md:text-xs text-slate-300 max-w-sm mx-auto leading-relaxed mb-6">Discover how many hundreds of dollars in travel and rewards you are leaving on the table. Follow these 4 simple steps so our AI can securely analyze your spending and reveal your ideal strategy.</p>
+                <p id="valueProp" class="text-sm md:text-xs text-slate-300 max-w-sm mx-auto leading-relaxed mb-6">Discover exactly how many dollars and free trips you are leaving on the table every month by not using the right strategy. Move the slider and find out in 10 seconds.</p>
                 
                 <div class="flex justify-center gap-4 md:gap-5 flex-wrap mb-6">
                     <span class="text-green-400 text-[11px] md:text-[10px] font-black uppercase tracking-widest flex items-center drop-shadow-md"><i class="fas fa-check-circle mr-2 text-green-500 text-lg"></i> <span id="badge1">100% FREE</span></span>
                     <span class="text-amber-400 text-[11px] md:text-[10px] font-black uppercase tracking-widest flex items-center drop-shadow-md"><i class="fas fa-shield-alt mr-2 text-amber-500 text-lg"></i> <span id="badge2">NO RISK</span></span>
                     <span class="text-blue-400 text-[11px] md:text-[10px] font-black uppercase tracking-widest flex items-center drop-shadow-md"><i class="fas fa-user-secret mr-2 text-blue-500 text-lg"></i> <span id="badge3">100% ANONYMOUS</span></span>
                 </div>
-                
-                <button onclick="openVideo()" class="text-amber-500 hover:text-slate-900 font-bold border border-amber-500/50 hover:bg-amber-500 px-6 py-3 rounded-full transition-all bg-amber-500/10 tracking-widest text-[11px] md:text-[12px] shadow-[0_0_15px_rgba(245,158,11,0.2)]">
-                    <span id="btnVideo">🎥 HOW IT WORKS (WATCH VIDEO)</span>
-                </button>
             </header>
             
             <div class="card-3d-container">
@@ -190,9 +186,9 @@
                 </div>
             </div>
             
-            <div class="mb-8 relative border-t border-white/10 pt-8">
+            <div class="mb-8 relative border-t border-white/10 pt-8 mt-6">
                 <p class="text-slate-500 font-bold uppercase tracking-[0.2em] text-[11px] md:text-[10px] mb-3">
-                    <span id="step1Text">STEP 1: SELECT YOUR PROFILE</span>
+                    <span id="step1Text">STEP 1: HOW DO YOU SPEND YOUR MONEY?</span>
                     <span class="help-tip">?<span class="tooltip-text" id="tt1">Select the tier that best fits your monthly spend. This allows our AI to recommend cards with real approval odds.</span></span>
                 </p>
                 <div class="flex flex-wrap gap-2 justify-center">
@@ -204,75 +200,76 @@
             
             <div class="mb-8 relative border-t border-white/10 pt-8">
                 <p class="text-slate-500 font-bold uppercase tracking-[0.2em] text-[11px] md:text-[10px] mb-4">
-                    <span id="step2Text">STEP 2: SLIDE TO ADJUST YOUR MONTHLY SPEND ↔</span>
+                    <span id="step2Text">STEP 2: HOW MUCH DO YOU SPEND MONTHLY? (Slide to see what you're losing)</span>
                     <span class="help-tip">?<span class="tooltip-text" id="tt2">Adjust the slider based on your monthly spend. The AI instantly calculates how much money you are leaving on the table.</span></span>
                 </p>
                 <input type="range" id="gastoSlider" min="500" max="5000" step="100" value="1500" class="mb-6">
                 <div class="text-5xl md:text-6xl font-black text-white mb-8">$<span id="gastoValor">1,500</span></div>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="bg-slate-900/60 p-4 rounded-2xl border border-white/5 flex flex-col justify-center">
-                        <p id="riskLabel" class="text-[11px] md:text-[9px] text-slate-500 uppercase tracking-tighter mb-2">POINTS YOU ARE LOSING</p>
-                        <div class="flex justify-between items-end mb-1">
-                            <span id="lblPuntosMensual" class="text-[12px] md:text-[10px] text-slate-400">Monthly:</span>
-                            <span id="puntosMensual" class="text-lg font-bold text-green-400">4,500</span>
-                        </div>
-                        <div class="flex justify-between items-end border-t border-white/5 pt-1">
-                            <span id="lblPuntosAnual" class="text-[12px] md:text-[10px] text-slate-400">Annually:</span>
-                            <span id="puntosAnual" class="text-xl font-black text-green-500">54,000</span>
-                        </div>
-                    </div>
                     <div class="bg-slate-900/60 p-4 rounded-2xl border border-red-500/30 flex flex-col justify-center">
-                        <p id="recovLabel" class="text-[11px] md:text-[9px] text-red-400 uppercase tracking-tighter mb-2">MONEY LEFT ON THE TABLE</p>
+                        <p id="recovLabel" class="text-[11px] md:text-[9px] text-red-400 uppercase tracking-tighter mb-2">WHAT THE BANK IS KEEPING</p>
                         <div class="flex justify-between items-end mb-1">
                             <span id="lblValorMensual" class="text-[12px] md:text-[10px] text-red-400/70">Monthly:</span>
-                            <span id="valorMensual" class="text-lg font-bold text-red-400">$67.50</span>
+                            <span id="valorMensual" class="text-lg font-bold text-red-400">$22.50</span>
                         </div>
                         <div class="flex justify-between items-end border-t border-red-500/10 pt-1">
                             <span id="lblValorAnual" class="text-[12px] md:text-[10px] text-red-400/70">Annually:</span>
-                            <span id="valorAnual" class="text-xl font-black text-red-500">$810.00</span>
+                            <span id="valorAnual" class="text-xl font-black text-red-500">$270.00</span>
                         </div>
                     </div>
-                </div>
-            </div>
-            
-            <div class="relative group mb-6 mt-10 border-t border-white/10 pt-8">
-                <p class="text-amber-500 font-bold uppercase tracking-[0.1em] text-[12px] md:text-[11px] mb-5 text-center">
-                    <span id="step3Text">STEP 3: GET YOUR EXACT DIAGNOSIS: UPLOAD A STATEMENT BELOW.</span>
-                </p>
-                
-                <div class="mb-4 text-center cursor-pointer" onclick="togglePrivacy()">
-                    <span id="privacyLink" class="text-slate-400 text-[11px] md:text-[12px] font-bold underline hover:text-white transition-colors">👉 HOW TO UPLOAD FILE SECURELY?</span>
-                </div>
-                
-                <div id="privacyExplanation" class="hidden bg-slate-800/80 border border-slate-600 rounded-xl p-4 mb-5 text-[12px] md:text-[11px] text-slate-300 text-left leading-relaxed shadow-inner">
-                    <p id="privacyNote"><i class="fas fa-lock text-amber-500 mr-2"></i> 100% Secure. The fastest way is to take a clear photo with your phone. For your peace of mind, feel free to hide or cross out your name and account number. Our AI focuses only on numbers. To protect your privacy, we don't ask for personal data. Your identity remains completely anonymous.</p>
-                </div>
-                
-                <div class="relative border-2 border-dashed border-amber-500/50 rounded-3xl p-6 md:p-8 bg-slate-900/40 hover:border-amber-500 transition-all flex flex-col items-center justify-center cursor-pointer">
-                    <input type="file" id="fileInput" accept=".pdf, .jpg, .jpeg, .png, .htm" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-20">
-                    <i class="fas fa-cloud-upload-alt text-4xl text-amber-500 mb-3 animate-pulse relative z-10 pointer-events-none"></i>
-                    <p id="fileName" class="font-bold text-white text-base md:text-lg uppercase relative z-10 pointer-events-none tracking-wide text-center">UPLOAD YOUR STATEMENT</p>
-                    <p id="fileSub" class="text-[12px] md:text-[10px] mt-1 text-amber-500 uppercase tracking-widest relative z-10 pointer-events-none text-center">AS A PDF OR TAKE A PHOTO</p>
-                </div>
-                
-                <div class="text-center mt-4">
-                    <p id="privacyNoteStatic" class="text-[11px] md:text-[10px] text-slate-400 italic leading-relaxed">
-                        <i class="fas fa-lock text-amber-500/70 mr-1"></i> 100% Secure & Anonymous. You can hide your name and account number. Our AI only reads amounts.
-                    </p>
+                    <div class="bg-slate-900/60 p-4 rounded-2xl border border-white/5 flex flex-col justify-center">
+                        <p id="riskLabel" class="text-[11px] md:text-[9px] text-slate-500 uppercase tracking-tighter mb-2">WHAT YOU COULD BE ENJOYING</p>
+                        <div class="flex justify-between items-end mb-1">
+                            <span id="lblPuntosMensual" class="text-[12px] md:text-[10px] text-slate-400">Pts/Month:</span>
+                            <span id="puntosMensual" class="text-lg font-bold text-green-400">4,500</span>
+                        </div>
+                        <div class="flex justify-between items-end border-t border-white/5 pt-1">
+                            <span id="lblPuntosAnual" class="text-[12px] md:text-[10px] text-slate-400">Pts/Year:</span>
+                            <span id="puntosAnual" class="text-xl font-black text-green-500">54,000</span>
+                        </div>
+                    </div>
                 </div>
             </div>
             
             <div class="mt-8 mb-4 text-center">
-                <p id="step4Text" class="text-amber-400 font-black uppercase tracking-[0.15em] text-[13px] md:text-[12px] animate-pulse drop-shadow-[0_0_8px_rgba(251,191,36,0.5)]">
-                    ↓ STEP 4: CLICK 'START AUDIT' BELOW ↓
+                <p class="text-amber-400 font-black uppercase tracking-[0.15em] text-[13px] md:text-[12px] drop-shadow-[0_0_8px_rgba(251,191,36,0.5)]">
+                    <span id="step4Text">↓ STEP 3: REVEAL YOUR PLAN BELOW ↓</span>
+                    <span class="help-tip" style="bottom: 0px; background: rgba(255,255,255,0.1); color: #fff;">?<span class="tooltip-text" id="tt3" style="text-shadow: none;">Click to instantly unlock your strategic blueprint using your estimated monthly spend.</span></span>
                 </p>
             </div>
 
-            <button id="mainBtn" onclick="ejecutarAuditoria()" class="w-full btn-premium py-4 md:py-5 rounded-2xl font-black text-base md:text-lg uppercase tracking-widest text-slate-900 shadow-2xl">
-                START PRECISION AUDIT
+            <button id="mainBtn" onclick="ejecutarAuditoria(false)" class="w-full btn-premium py-4 md:py-5 rounded-2xl font-black text-base md:text-lg uppercase tracking-widest text-slate-900 shadow-2xl">
+                REVEAL MY STRATEGIC BLUEPRINT
             </button>
             <p id="status" class="mt-6 text-[12px] md:text-[10px] font-bold text-slate-500 uppercase tracking-widest"></p>
+
+            <div class="relative group mb-6 mt-10 border-t border-white/10 pt-8 opacity-90 hover:opacity-100 transition-opacity">
+                <p class="text-slate-400 font-extrabold uppercase tracking-[0.1em] text-[12px] mb-3 text-center flex items-center justify-center gap-2">
+                    <span id="stepOptionalText" class="text-amber-400 font-black">(*OPTIONAL) VIP PRECISION AUDIT</span>
+                </p>
+                
+                <p id="vipPersuasiveText" class="text-[13px] md:text-sm text-slate-300 text-center max-w-md mx-auto mb-5 leading-relaxed font-medium">
+                    Upload your statement as a PDF or photo. The AI will perform a deep scan of your financial situation to deliver a precise report with new alternatives.
+                </p>
+
+                <div class="bg-slate-800/80 border border-slate-600/50 rounded-xl p-4 md:p-5 mb-6 text-[11px] md:text-[12px] text-slate-300 text-left leading-relaxed shadow-inner max-w-lg mx-auto">
+                    <p id="vipSecurityText"></p>
+                </div>
+                
+                <div id="dropZone" class="relative border-2 border-dashed border-slate-600 rounded-3xl p-6 bg-slate-900/40 hover:border-amber-500 transition-all duration-300 flex flex-col items-center justify-center cursor-pointer mb-5">
+                    <input type="file" id="fileInput" accept=".pdf, .jpg, .jpeg, .png" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-20">
+                    <i id="uploadIcon" class="fas fa-cloud-upload-alt text-3xl text-slate-400 mb-2 z-10 pointer-events-none transition-colors duration-300"></i>
+                    <p id="uploadTitle" class="font-bold text-white text-base md:text-lg uppercase relative z-10 pointer-events-none tracking-wide text-center">UPLOAD YOUR STATEMENT</p>
+                    <p id="fileName" class="font-bold text-slate-300 text-xs uppercase z-10 pointer-events-none text-center tracking-wider transition-colors duration-300 mt-1">IN PDF OR TAKE A PHOTO</p>
+                </div>
+
+                <button id="btnVipAudit" onclick="ejecutarAuditoria(true)" class="w-full btn-ai-vip py-4 md:py-5 rounded-2xl font-black text-base md:text-lg uppercase tracking-widest shadow-xl flex items-center justify-center gap-3">
+                    <i class="fas fa-wand-magic-sparkles text-amber-300 text-xl animate-spin" style="animation-duration: 4s;"></i>
+                    <span id="btnVipText">GENERATE VIP AI REPORT</span>
+                </button>
+            </div>
+
         </div>
     </div>
 
@@ -303,7 +300,7 @@
         <div class="modal-content w-full max-w-2xl rounded-3xl p-6 md:p-8 text-left relative transform scale-95 transition-transform duration-300">
             <button onclick="closeLegalModal('privacyModal')" class="absolute top-4 right-5 text-slate-500 hover:text-white"><i class="fas fa-times text-xl"></i></button>
             <h2 id="privacyModalTitle" class="text-xl md:text-2xl font-bold text-amber-500 mb-4 uppercase tracking-widest text-center">Privacy Policy</h2>
-            <div id="privacyModalBody" class="h-64 overflow-y-auto custom-scrollbar text-slate-300 text-sm space-y-4 pr-2"></div>
+            <div id="privacyModalBody" class="h-72 overflow-y-auto custom-scrollbar text-slate-300 text-xs md:text-sm space-y-4 pr-3 leading-relaxed"></div>
         </div>
     </div>
 
@@ -311,7 +308,7 @@
         <div class="modal-content w-full max-w-2xl rounded-3xl p-6 md:p-8 text-left relative transform scale-95 transition-transform duration-300">
             <button onclick="closeLegalModal('termsModal')" class="absolute top-4 right-5 text-slate-500 hover:text-white"><i class="fas fa-times text-xl"></i></button>
             <h2 id="termsModalTitle" class="text-xl md:text-2xl font-bold text-amber-500 mb-4 uppercase tracking-widest text-center">Terms of Service</h2>
-            <div id="termsModalBody" class="h-64 overflow-y-auto custom-scrollbar text-slate-300 text-sm space-y-4 pr-2"></div>
+            <div id="termsModalBody" class="h-72 overflow-y-auto custom-scrollbar text-slate-300 text-xs md:text-sm space-y-4 pr-3 leading-relaxed"></div>
         </div>
     </div>
 
@@ -319,21 +316,27 @@
         const slider = document.getElementById('gastoSlider');
         const gastoDisplay = document.getElementById('gastoValor');
         const fileInput = document.getElementById('fileInput');
+        const dropZone = document.getElementById('dropZone');
+        const uploadIcon = document.getElementById('uploadIcon');
         const statusMsg = document.getElementById('status');
         const visualCard = document.getElementById('visualCard');
         const cardBrand = document.getElementById('cardBrand');
         const cardNetwork = document.getElementById('cardNetwork');
         const leadModal = document.getElementById('leadModal');
         const modalBox = document.getElementById('modalBox');
-        const videoModal = document.getElementById('videoModal');
         const loadingOverlay = document.getElementById('loadingOverlay');
         const loadingText = document.getElementById('loadingText');
-        const mainBtn = document.getElementById('mainBtn');
 
         let currentNiche = 'personal';
         let currentLang = 'en';
         let loaderInterval;
         let finalFileToUpload = null;
+        let isVipExecution = false;
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const utmSource = urlParams.get('utm_source') || '';
+        const utmMedium = urlParams.get('utm_medium') || '';
+        const utmCampaign = urlParams.get('utm_campaign') || '';
 
         const niches = {
             personal: { min: 500, max: 5000, multi: 3, cardClass: 'card-personal', brand: 'SECURED CARD', network: 'fab fa-cc-visa' },
@@ -344,29 +347,31 @@
             en: ["SCANNING SPENDING PATTERNS...", "DETECTING CAPITAL LEAKS...", "CALCULATING LOST REWARDS...", "FINALIZING STRATEGIC BLUEPRINT..."],
             es: ["ESCANEANDO PATRONES DE GASTO...", "DETECTANDO FUGAS DE CAPITAL...", "CALCULANDO RECOMPENSAS PERDIDAS...", "FINALIZANDO BLUEPRINT ESTRATÉGICO..."]
         };
-        const compressingMsgText = {
-            en: "COMPRESSING IMAGE SECURELY...",
-            es: "COMPRIMIENDO IMAGEN SEGURO..."
-        };
+
         const translations = {
             en: { 
-                title: "QUANT REWARD PLAN", sub: "ELITE FINANCIAL ENGINEERING - US MARKET", 
-                valueProp: "Discover how many hundreds of dollars in travel and rewards you are leaving on the table. Follow these 4 simple steps so our AI can securely analyze your spending and reveal your ideal strategy.", 
+                title: "QUANT REWARD PLAN", sub: "STOP GIVING YOUR MONEY TO THE BANK", 
+                valueProp: "Discover exactly how many dollars and free trips you are leaving on the table every month by not using the right strategy. Move the slider and find out in 10 seconds.", 
                 badge1: "100% FREE", badge2: "NO RISK", badge3: "100% ANONYMOUS",
-                btnVideo: "🎥 HOW IT WORKS (WATCH VIDEO)",
                 lblIdioma: "LANGUAGE",
-                step1: "STEP 1: SELECT YOUR PROFILE", step2: "STEP 2: SLIDE TO ADJUST YOUR MONTHLY SPEND ↔", 
-                step3: "STEP 3: GET YOUR EXACT DIAGNOSIS: UPLOAD A STATEMENT BELOW.", 
-                privacyLink: "👉 HOW TO UPLOAD FILE SECURELY?",
-                priv: "<i class='fas fa-lock text-amber-500 mr-2'></i> 100% Secure. The fastest way is to take a clear photo with your phone. For your peace of mind, feel free to hide or cross out your name and account number. Our AI focuses only on numbers. To protect your privacy, we don't ask for personal data. Your identity remains completely anonymous.",
-                privStatic: "<i class='fas fa-lock text-amber-500/70 mr-1'></i> 100% Secure & Anonymous. You can hide your name and account number. Our AI only reads amounts.",
-                step4: "↓ STEP 4: CLICK 'START AUDIT' BELOW ↓",
-                risk: "POINTS YOU ARE LOSING", recov: "MONEY LEFT ON THE TABLE", 
-                lblMonthly: "Monthly:", lblAnnually: "Annually:",
-                upload: "UPLOAD YOUR STATEMENT", 
-                file: "AS A PDF OR TAKE A PHOTO", 
-                btn: "START PRECISION AUDIT", readyUpload: "FILE READY. CLICK START AUDIT.",
-                mTitle: "Diagnosis Ready", mDesc: "Enter your email to unlock your strategic report and the recommended exact plans.", mBtn: "UNLOCK FULL BLUEPRINT", mTrust: "Bank-Level 256-bit Encryption | Zero Data Stored", errMissing: "ERROR: FILE MISSING", rTitle: "YOUR STRATEGIC BLUEPRINT", 
+                step1: "STEP 1: HOW DO YOU SPEND YOUR MONEY?", 
+                step2: "STEP 2: HOW MUCH DO YOU SPEND MONTHLY? (Slide to see what you're losing)", 
+                stepOptional: "(*OPTIONAL) VIP PRECISION AUDIT",
+                vipPersuasive: "Upload your statement as a PDF or photo. The AI will perform a deep scan of your financial situation to deliver a precise report with new alternatives.",
+                uploadTitle: "UPLOAD YOUR STATEMENT",
+                fileSub: "IN PDF OR TAKE A PHOTO",
+                vipSecurity: "<i class='fas fa-lock text-amber-500 text-sm md:text-base mr-1'></i> <strong>100% Secure.</strong> The fastest way is to take a clear photo with your phone. For your peace of mind, feel free to hide or cross out your name and account number. Our AI focuses only on numbers. To protect your privacy, we don't ask for personal data. Your identity remains completely anonymous.",
+                step4: "↓ STEP 3: REVEAL YOUR PLAN BELOW ↓",
+                risk: "WHAT YOU COULD BE ENJOYING", recov: "WHAT THE BANK IS KEEPING", 
+                lblMonthly: "Pts/Month:", lblAnnually: "Pts/Year:",
+                lblValMonthly: "Monthly:", lblValAnnually: "Annually:",
+                btn: "REVEAL MY STRATEGIC BLUEPRINT", 
+                btnVip: "GENERATE VIP AI REPORT",
+                readyUpload: "FILE READY. GENERATE VIP REPORT.",
+                mTitle: "Diagnosis Ready", 
+                mDesc: "Enter your email to unlock your strategic report and the recommended exact cards.", 
+                mSpam: "We will send your strategy to this email. Zero spam, only financial value.",
+                mBtn: "UNLOCK FULL BLUEPRINT", mTrust: "Bank-Level 256-bit Encryption | Zero Data Stored", errMissing: "ERROR: FILE MISSING", rTitle: "YOUR STRATEGIC BLUEPRINT", 
                 btnPdfText: "DOWNLOAD BLUEPRINT (PDF)", btnPdfGen: "GENERATING PDF...",
                 pdfSignature: "Projective report generated automatically by Quant AI Engine.",
                 
@@ -374,10 +379,16 @@
                 affBtnPremA: "PLAN A: PREMIUM CARD (CHASE/AMEX)", affBtnPremB: "PLAN B: ADVANCED CREDIT MONITORING", affBtnPremC: "PLAN C: EXCLUSIVE TRAVEL & LUXURY PACKAGES", affBtnPremD: "PLAN D: PREMIUM AUTO REFINANCE",
                 affBtnEliteA: "PLAN A: JUMBO MORTGAGES & REAL ESTATE", affBtnEliteB: "PLAN B: ELITE AUTOMATED INVESTMENTS", affBtnEliteC: "PLAN C: PRIVATE JET & VIP CONCIERGE", affBtnEliteD: "PLAN D: SUPER-LUXURY AUTO LEASING",
                 
+                bridgeElite: "To optimize your liquidity and leverage high-tier financing, our AI Architecture dictates the execution of the following exclusive plans:",
+                bridgePremium: "To neutralize these losses and start earning high-yield multipliers, our AI recommends executing one of the following strategies:",
+                bridgeStandard: "To stop this capital leak and rebuild your profile, our AI Engine recommends taking one of the following immediate actions:",
+                
                 disclaimer: "Disclaimer: This is an AI-generated analysis for educational purposes, not certified financial advice.", btnPersonal: "STANDARD TIER", btnBusiness: "PREMIUM TIER", btnElite: "ELITE TIER", ftc: "Advertiser Disclosure: Quant Reward Plan is an independent, advertising-supported service. We may receive compensation from the credit card companies whose products appear on our site.", privacy: "PRIVACY POLICY", terms: "TERMS OF SERVICE",
                 trustBar: "SUPPORTED NETWORKS",
+                
                 tt1: "Select the tier that best fits your monthly spend. This allows our AI to recommend cards with real approval odds.",
                 tt2: "Adjust the slider based on your monthly spend. The AI instantly calculates how much money you are leaving on the table.",
+                tt3: "Click to instantly unlock your strategic blueprint using your estimated monthly spend.",
                 
                 cTitle: "Contact Support", cDesc: "Need help with your analysis or have questions about our plans? We are here to assist.", cName: "Full Name", cEmail: "Email Address", cMsg: "How can we help you?", cBtn: "Send Message",
 
@@ -387,23 +398,28 @@
                 termsBody: "<p class='mb-2'><strong>1. Educational Purposes Only:</strong> Quant Reward Plan is an AI-powered analytical tool designed for educational purposes. <strong>We do not provide certified financial, legal, or tax advice.</strong></p><p class='mb-2'><strong>2. Accuracy of Results:</strong> While our AI strives for precision, credit card offers and reward multipliers change frequently. Always verify terms directly with the issuing bank.</p><p class='mb-2'><strong>3. User Responsibility:</strong> Any action taken based on the generated blueprint is at the user's sole discretion and risk.</p><p class='mb-2'><strong>4. Affiliate Disclosure:</strong> We may receive compensation if you are approved for a card through our links. This does not impact your costs.</p><p class='mb-2'><strong>5. Intellectual Property:</strong> All content, designs, and AI algorithms are the exclusive property of Quant Reward Plan.</p><p><strong>6. Limitation of Liability:</strong> We shall not be held liable for any financial losses, denied applications, or score drops resulting from the use of this tool.</p>"
             },
             es: { 
-                title: "QUANT REWARD PLAN", sub: "INGENIERÍA FINANCIERA APLICADA - US MARKET", 
-                valueProp: "Descubre cuántos cientos de dólares en viajes y recompensas estás dejando sobre la mesa. Sigue estos 4 sencillos pasos para que nuestra IA analice tus gastos de forma segura y revele tu estrategia ideal.", 
+                title: "QUANT REWARD PLAN", sub: "DEJA DE REGALARLE TU DINERO AL BANCO", 
+                valueProp: "Descubre exactamente cuántos dólares y viajes gratis estás dejando sobre la mesa cada mes por no usar la estrategia correcta. Mueve la barra y descúbrelo en 10 segundos.", 
                 badge1: "100% GRATIS", badge2: "SIN RIESGO", badge3: "TOTALMENTE ANÓNIMO",
-                btnVideo: "🎥 CÓMO FUNCIONA (VER VIDEO)",
                 lblIdioma: "IDIOMA",
-                step1: "PASO 1: ESCOGE TU PERFIL", step2: "PASO 2: DESLIZA PARA AJUSTAR TU GASTO MENSUAL ↔", 
-                step3: "PASO 3: OBTÉN TU DIAGNÓSTICO EXACTO: SUBE UN ESTADO DE CUENTA.", 
-                privacyLink: "👉 ¿CÓMO SUBIR ARCHIVO DE FORMA SEGURA?",
-                priv: "<i class='fas fa-lock text-amber-500 mr-2'></i> Totalmente seguro. Lo más rápido es tomarle una foto clara con tu celular. Para tu tranquilidad, si lo prefieres, oculta o tacha tu nombre y número de cuenta. Nuestra IA se enfoca únicamente en los números. Para proteger tu privacidad, no te pedimos datos personales. Tu identidad se mantiene 100% anónima.", 
-                privStatic: "<i class='fas fa-lock text-amber-500/70 mr-1'></i> 100% Seguro y Anónimo. Puedes ocultar tu nombre y cuenta. Nuestra IA solo lee los montos.", 
-                step4: "↓ PASO 4: HAZ CLIC EN 'INICIAR AUDITORÍA' ABAJO ↓",
-                risk: "PUNTOS QUE ESTÁS PERDIENDO", recov: "DINERO DEJADO EN LA MESA", 
-                lblMonthly: "Mensual:", lblAnnually: "Anual:",
-                upload: "SUBE TU ESTADO DE CUENTA", 
-                file: "EN PDF O TÓMALE UNA FOTO", 
-                btn: "INICIAR AUDITORÍA DE PRECISIÓN", readyUpload: "ARCHIVO LISTO. INICIA LA AUDITORÍA.",
-                mTitle: "Diagnóstico Listo", mDesc: "Ingresa tu email para ver al instante tu reporte de IA y acceder a las estrategias recomendadas.", mBtn: "DESBLOQUEAR BLUEPRINT", mTrust: "Cifrado Bancario 256-bit | Cero Datos Almacenados", errMissing: "ERROR: FALTA ARCHIVO", rTitle: "TU BLUEPRINT ESTRATÉGICO", 
+                step1: "PASO 1: ¿CÓMO GASTAS TU DINERO HOY?", 
+                step2: "PASO 2: ¿CUÁNTO GASTAS AL MES? (Desliza y mira lo que estás perdiendo)", 
+                stepOptional: "(*OPCIONAL) AUDITORÍA VIP CON ESTADO DE CUENTA",
+                vipPersuasive: "Sube tu estado de cuenta en PDF o foto. La IA hará un escaneo profundo de tu situación financiera para entregarte un informe exacto con nuevas alternativas.",
+                uploadTitle: "SUBE TU ESTADO DE CUENTA",
+                fileSub: "EN PDF O TÓMALE UNA FOTO",
+                vipSecurity: "<i class='fas fa-lock text-amber-500 text-sm md:text-base mr-1'></i> <strong>Totalmente seguro.</strong> Lo más rápido es tomarle una foto clara con tu celular. Para tu tranquilidad, si lo prefieres, oculta o tacha tu nombre y número de cuenta. Nuestra IA se enfoca únicamente en los números. Para proteger tu privacidad, no te pedimos datos personales. Tu identidad se mantiene 100% anónima.",
+                step4: "↓ PASO 3: REVELAR MI BLUEPRINT ESTRATÉGICO ↓",
+                risk: "LO QUE PODRÍAS ESTAR DISFRUTANDO", recov: "LO QUE EL BANCO SE ESTÁ QUEDANDO", 
+                lblMonthly: "Pts/Mes:", lblAnnually: "Pts/Año:",
+                lblValMonthly: "Mensual:", lblValAnnually: "Anual:",
+                btn: "REVELAR MI BLUEPRINT ESTRATÉGICO", 
+                btnVip: "GENERAR INFORME VIP CON IA",
+                readyUpload: "ARCHIVO LISTO. GENERA EL INFORME VIP.",
+                mTitle: "Diagnóstico Listo", 
+                mDesc: "Ingresa tu email para ver al instante tu reporte de IA y acceder a las estrategias recomendadas.", 
+                mSpam: "Enviaremos tu estrategia a este correo. Cero spam, solo valor financiero.",
+                mBtn: "DESBLOQUEAR BLUEPRINT", mTrust: "Cifrado Bancario 256-bit | Cero Datos Almacenados", errMissing: "ERROR: FALTA ARCHIVO", rTitle: "TU BLUEPRINT ESTRATÉGICO", 
                 btnPdfText: "DESCARGAR BLUEPRINT (PDF)", btnPdfGen: "GENERANDO PDF...",
                 pdfSignature: "Reporte proyectivo generado automáticamente por Quant AI Engine.",
                 
@@ -411,16 +427,22 @@
                 affBtnPremA: "PLAN A: TARJETA PREMIUM (CHASE/AMEX)", affBtnPremB: "PLAN B: MONITOREO DE CRÉDITO AVANZADO", affBtnPremC: "PLAN C: VIAJES EXCLUSIVOS Y PAQUETES DE LUJO", affBtnPremD: "PLAN D: REFINANCIAMIENTO O COMPRA PREMIUM",
                 affBtnEliteA: "PLAN A: HIPOTECAS JUMBO Y ACTIVOS INMOBILIARIOS", affBtnEliteB: "PLAN B: ESTRATEGIA DE INVERSIÓN AUTOMATIZADA", affBtnEliteC: "PLAN C: VIAJES DE LUJO Y RESERVAS DE JET PRIVADO", affBtnEliteD: "PLAN D: COMPRA O LEASING DE AUTOS DE SUPER-LUJO",
                 
-                disclaimer: "Aviso Legal: Análisis generado por IA con fines educativos, no es asesoramiento financiero certificado.", btnPersonal: "NIVEL ESTÁNDAR", btnBusiness: "NIVEL PREMIUM", btnElite: "NIVEL ÉLITE", ftc: "Divulgación del Anunciante: Quant Reward Plan es un servicio independiente. Podemos recibir compensación de las compañías de tarjetas de crédito cuyos productos aparecen en nuestro sitio.", privacy: "POLÍTICA DE PRIVACIDAD", terms: "TÉRMINOS DE SERVICIO",
+                bridgeElite: "Para optimizar tu liquidez y apalancar financiamiento de alto nivel, nuestra Arquitectura de IA dicta la ejecución de los siguientes planes exclusivos:",
+                bridgePremium: "Para neutralizar estas pérdidas y empezar a ganar multiplicadores de alto rendimiento, nuestra IA recomienda ejecutar una de las siguientes estrategias:",
+                bridgeStandard: "Para detener esta fuga de capital y reconstruir tu perfil, nuestro Motor de IA te recomienda tomar una de las siguientes acciones inmediatas:",
+                
+                disclaimer: "Aviso Legal: Análisis generado por IA con fines educativos, no es asesoramiento financiero certificado.", btnPersonal: "NIVEL ESTÁNDAR", btnBusiness: "NIVEL PREMIUM", btnElite: "NIVEL ÉLITE", ftc: "Divulgación del Anunciante: Quant Reward Plan es un servicio independiente. Podemos recibir compensación de los anunciantes.", privacy: "POLÍTICA DE PRIVACIDAD", terms: "TÉRMINOS DE SERVICIO",
                 trustBar: "REDES ANALIZADAS",
+                
                 tt1: "Selecciona el nivel que mejor se ajuste a tu gasto mensual. Esto permite que nuestra IA te recomiende tarjetas con posibilidades reales de aprobación.",
                 tt2: "Ajusta el control según lo que gastas al mes. La IA calcula al instante cuánto dinero estás dejando sobre la mesa.",
+                tt3: "Haz clic para generar tu blueprint estratégico al instante utilizando tu gasto estimado.",
                 
-                cTitle: "Contacto y Soporte", cDesc: "¿Necesitas ayuda con tu análisis o tienes preguntas sobre nuestros planes? Estamos aquí para asistirte.", cName: "Nombre Completo", cEmail: "Correo Electrónico", cMsg: "¿En qué podemos ayudarte?", cBtn: "Enviar Mensaje",
+                cTitle: "Contacto y Soporte", cDesc: "¿Necesitas ayuda con tu análisis? Estamos aquí para asistirte.", cName: "Nombre Completo", cEmail: "Correo Electrónico", cMsg: "¿En qué podemos ayudarte?", cBtn: "Enviar Mensaje",
 
-                privacyTitle: "Política de Privacidad",
+                privacyTitle: "POLÍTICA DE PRIVACIDAD",
                 privacyBody: "<p class='mb-2'><strong>1. Procesamiento de Datos y Seguridad:</strong> Priorizamos su privacidad. Los estados de cuenta que sube son procesados completamente en memoria por nuestra IA y <strong>nunca son almacenados, guardados ni compartidos</strong>.</p><p class='mb-2'><strong>2. Uso de la Información:</strong> Los datos numéricos se utilizan estrictamente en tiempo real para generar su estrategia de recompensas.</p><p class='mb-2'><strong>3. Anonimato:</strong> No requerimos ni procesamos información de identificación personal. Le sugerimos tachar su nombre y número de cuenta antes de subir el archivo.</p><p class='mb-2'><strong>4. Uso de Cookies:</strong> Utilizamos cookies esenciales para el funcionamiento del sitio. No usamos cookies de rastreo para publicidad de terceros.</p><p class='mb-2'><strong>5. Enlaces de Terceros:</strong> Nuestro sitio contiene enlaces de afiliados. Hacer clic en ellos no comparte sus datos, pero el sitio de destino tendrá sus propias políticas.</p><p><strong>6. Modificaciones:</strong> Nos reservamos el derecho de modificar esta política de privacidad en cualquier momento.</p>",
-                termsTitle: "Términos de Servicio",
+                termsTitle: "TÉRMINOS DE SERVICIO",
                 termsBody: "<p class='mb-2'><strong>1. Solo para Fines Educativos:</strong> Quant Reward Plan es una herramienta analítica. <strong>No brindamos asesoramiento financiero, legal o fiscal certificado.</strong></p><p class='mb-2'><strong>2. Precisión de los Resultados:</strong> Aunque nuestra IA busca la máxima precisión, las ofertas bancarias cambian. Verifique siempre los términos con el banco emisor.</p><p class='mb-2'><strong>3. Responsabilidad del Usuario:</strong> Cualquier acción tomada basándose en nuestro diagnóstico es a total discreción y riesgo del usuario.</p><p class='mb-2'><strong>4. Divulgación de Afiliados:</strong> Podemos recibir compensación si es aprobado para una tarjeta a través de nuestros enlaces. Esto no afecta sus costos.</p><p class='mb-2'><strong>5. Propiedad Intelectual:</strong> Todo el contenido, diseños y algoritmos de IA son propiedad exclusiva de Quant Reward Plan.</p><p><strong>6. Limitación de Responsabilidad:</strong> No seremos responsables por pérdidas financieras, solicitudes denegadas o caídas de puntaje derivadas del uso de esta herramienta.</p>"
             }
         };
@@ -438,41 +460,42 @@
             document.getElementById('badge1').innerText = t.badge1;
             document.getElementById('badge2').innerText = t.badge2;
             document.getElementById('badge3').innerText = t.badge3;
-            document.getElementById('btnVideo').innerText = t.btnVideo;
             document.getElementById('lblIdioma').innerText = t.lblIdioma;
             
             document.getElementById('step1Text').innerText = t.step1;
             document.getElementById('step2Text').innerText = t.step2;
-            document.getElementById('step3Text').innerText = t.step3;
             document.getElementById('step4Text').innerText = t.step4;
+            document.getElementById('stepOptionalText').innerText = t.stepOptional;
+            document.getElementById('vipPersuasiveText').innerText = t.vipPersuasive;
+            document.getElementById('uploadTitle').innerText = t.uploadTitle;
+            document.getElementById('fileName').innerText = t.fileSub;
             
-            document.getElementById('privacyLink').innerText = t.privacyLink;
-            document.getElementById('privacyNote').innerHTML = t.priv;
-            document.getElementById('privacyNoteStatic').innerHTML = t.privStatic;
-
+            // Usamos innerHTML para soportar íconos y negritas en el texto de seguridad
+            document.getElementById('vipSecurityText').innerHTML = t.vipSecurity;
+            
+            // Textos Tooltips interactivos
             document.getElementById('tt1').innerText = t.tt1;
             document.getElementById('tt2').innerText = t.tt2;
+            document.getElementById('tt3').innerText = t.tt3;
             
             document.getElementById('riskLabel').innerText = t.risk;
             document.getElementById('recovLabel').innerText = t.recov;
             document.getElementById('lblPuntosMensual').innerText = t.lblMonthly;
             document.getElementById('lblPuntosAnual').innerText = t.lblAnnually;
-            document.getElementById('lblValorMensual').innerText = t.lblMonthly;
-            document.getElementById('lblValorAnual').innerText = t.lblAnnually;
+            document.getElementById('lblValorMensual').innerText = t.lblValMonthly;
+            document.getElementById('lblValorAnual').innerText = t.lblValAnnually;
             
             if(finalFileToUpload) {
                 document.getElementById('fileName').innerText = finalFileToUpload.name.toUpperCase();
                 statusMsg.innerText = t.readyUpload;
-            } else {
-                document.getElementById('fileName').innerText = t.upload;
-            }
+            } 
             
-            document.getElementById('fileSub').innerText = t.file;
             document.getElementById('btnPdfText').innerText = t.btnPdfText;
             document.getElementById('pdfSignatureText').innerText = t.pdfSignature;
             
             document.getElementById('trustBarText').innerText = t.trustBar;
             document.getElementById('mainBtn').innerText = t.btn;
+            document.getElementById('btnVipText').innerText = t.btnVip;
             document.getElementById('btn-personal').innerText = t.btnPersonal;
             document.getElementById('btn-business').innerText = t.btnBusiness;
             document.getElementById('btn-elite').innerText = t.btnElite;
@@ -496,6 +519,7 @@
             if(document.getElementById('emailPhase').style.display !== 'none') { 
                 document.getElementById('modalTitle').innerText = t.mTitle;
                 document.getElementById('modalDesc').innerText = t.mDesc;
+                document.getElementById('modalSpam').innerText = t.mSpam;
             } else { 
                 document.getElementById('modalTitle').innerText = t.rTitle;
             }
@@ -534,117 +558,40 @@
         }
         slider.oninput = updateCalculos;
         
-        // Control de Privacidad interactivo
-        function togglePrivacy() {
-            const el = document.getElementById('privacyExplanation');
-            if(el.classList.contains('hidden')) {
-                el.classList.remove('hidden');
-            } else {
-                el.classList.add('hidden');
-            }
-        }
-
-        // --- COMPRESOR DE IMÁGENES AUTOMÁTICO ---
-        async function compressImage(file) {
-            return new Promise((resolve) => {
-                const reader = new FileReader();
-                reader.readAsDataURL(file);
-                reader.onload = (event) => {
-                    const img = new Image();
-                    img.src = event.target.result;
-                    img.onload = () => {
-                        const canvas = document.createElement('canvas');
-                        const ctx = canvas.getContext('2d');
-                        
-                        // Máxima resolución permitida
-                        const MAX_WIDTH = 1200;
-                        const MAX_HEIGHT = 1200;
-                        let width = img.width;
-                        let height = img.height;
-
-                        if (width > height) {
-                            if (width > MAX_WIDTH) { height *= MAX_WIDTH / width; width = MAX_WIDTH; }
-                        } else {
-                            if (height > MAX_HEIGHT) { width *= MAX_HEIGHT / height; height = MAX_HEIGHT; }
-                        }
-                        
-                        canvas.width = width;
-                        canvas.height = height;
-                        ctx.drawImage(img, 0, 0, width, height);
-                        
-                        // Comprime la imagen a JPEG con Calidad 70%
-                        canvas.toBlob((blob) => {
-                            const newFile = new File([blob], file.name.replace(/\.[^/.]+$/, "") + ".jpg", {
-                                type: 'image/jpeg',
-                                lastModified: Date.now()
-                            });
-                            resolve(newFile);
-                        }, 'image/jpeg', 0.7); 
-                    };
-                };
-            });
-        }
-
         fileInput.addEventListener('change', async (e) => {
             if(e.target.files.length > 0) {
-                const file = e.target.files[0];
-                document.getElementById('fileName').innerText = file.name.toUpperCase();
+                finalFileToUpload = e.target.files[0];
+                const fileNameEl = document.getElementById('fileName');
+                fileNameEl.innerText = finalFileToUpload.name.toUpperCase();
+                fileNameEl.classList.remove('text-slate-300');
+                fileNameEl.classList.add('text-emerald-400');
                 
-                if (file.type.startsWith('image/')) {
-                    statusMsg.innerText = compressingMsgText[currentLang];
-                    statusMsg.classList.remove('text-slate-500', 'text-red-500');
-                    statusMsg.classList.add('text-amber-500', 'animate-pulse');
-                    
-                    finalFileToUpload = await compressImage(file);
-                    
-                    statusMsg.innerText = translations[currentLang].readyUpload;
-                    statusMsg.classList.remove('text-amber-500', 'animate-pulse');
-                    statusMsg.classList.add('text-green-500');
-                } else {
-                    finalFileToUpload = file;
-                    statusMsg.innerText = translations[currentLang].readyUpload;
-                    statusMsg.classList.remove('text-slate-500', 'text-red-500');
-                    statusMsg.classList.add('text-green-500');
-                }
-            } else {
-                document.getElementById('fileName').innerText = translations[currentLang].upload;
-                finalFileToUpload = null;
-                statusMsg.innerText = "";
+                // Efecto Verde Neón de Carga Exitosa
+                dropZone.classList.add('file-box-success');
+                uploadIcon.className = "fas fa-file-circle-check text-4xl text-emerald-400 mb-2 z-10 pointer-events-none transition-all duration-300 scale-110";
+                
+                statusMsg.innerText = translations[currentLang].readyUpload;
+                statusMsg.className = "mt-6 text-[12px] md:text-[10px] font-bold text-emerald-400 uppercase tracking-widest animate-pulse text-center block";
             }
         });
 
-        // Control del Video
-        function openVideo() {
-            videoModal.classList.remove('hidden'); videoModal.classList.add('flex');
-            setTimeout(() => { videoModal.classList.remove('opacity-0'); videoModal.querySelector('.modal-content').classList.remove('scale-95'); videoModal.querySelector('.modal-content').classList.add('scale-100'); }, 10);
-        }
-        function closeVideo() {
-            videoModal.classList.add('opacity-0'); videoModal.querySelector('.modal-content').classList.remove('scale-100'); videoModal.querySelector('.modal-content').classList.add('scale-95');
-            const iframe = document.getElementById('explainerVideo');
-            const iframeSrc = iframe.src; iframe.src = iframeSrc;
-            setTimeout(() => { videoModal.classList.add('hidden'); videoModal.classList.remove('flex'); }, 300);
-        }
-        
-        // Control Táctil "Clic Afuera" para el Video
-        function closeVideoOutside(event) {
-            const modalContent = document.getElementById('videoModal').querySelector('.modal-content');
-            if (!modalContent.contains(event.target)) {
-                closeVideo();
+        // Lógica de validación del botón
+        function ejecutarAuditoria(isVip) {
+            isVipExecution = isVip;
+            
+            if(isVip && !finalFileToUpload) {
+                alert(currentLang === 'en' ? "Please select or upload your statement first." : "Por favor sube o selecciona tu documento primero.");
+                return;
             }
-        }
-        
-        function resetModal() {
+
             document.getElementById('emailPhase').style.display = 'block';
             document.getElementById('resultPhase').style.display = 'none';
             document.getElementById('modalDesc').style.display = 'block';
-            document.getElementById('userEmail').value = "";
+            document.getElementById('modalSpam').style.display = 'block';
+            document.getElementById('modalTitle').innerText = translations[currentLang].mTitle;
             document.getElementById('modalIcon').className = "fas fa-lock text-amber-500 text-2xl";
             document.getElementById('modalIconContainer').className = "w-16 h-16 bg-amber-500/20 rounded-full flex items-center justify-center mx-auto mb-4 border border-amber-500/50";
-            document.getElementById('modalTitle').innerText = translations[currentLang].mTitle;
-        }
-
-        function openModal() {
-            resetModal();
+            
             leadModal.classList.remove('hidden'); leadModal.classList.add('flex');
             setTimeout(() => { leadModal.classList.remove('opacity-0'); modalBox.classList.remove('scale-95'); modalBox.classList.add('scale-100'); }, 10);
         }
@@ -653,18 +600,6 @@
             leadModal.classList.add('opacity-0');
             modalBox.classList.remove('scale-100'); modalBox.classList.add('scale-95');
             setTimeout(() => { leadModal.classList.add('hidden'); leadModal.classList.remove('flex'); }, 300);
-        }
-
-        function openLegalModal(modalId) {
-            const modal = document.getElementById(modalId);
-            modal.classList.remove('hidden'); modal.classList.add('flex');
-            setTimeout(() => { modal.classList.remove('opacity-0'); modal.querySelector('.modal-content').classList.remove('scale-95'); modal.querySelector('.modal-content').classList.add('scale-100'); }, 10);
-        }
-
-        function closeLegalModal(modalId) {
-            const modal = document.getElementById(modalId);
-            modal.classList.add('opacity-0'); modal.querySelector('.modal-content').classList.remove('scale-100'); modal.querySelector('.modal-content').classList.add('scale-95');
-            setTimeout(() => { modal.classList.add('hidden'); modal.classList.remove('flex'); }, 300);
         }
 
         function startDynamicLoading() {
@@ -682,35 +617,31 @@
             loadingOverlay.classList.remove('active');
         }
 
-        function ejecutarAuditoria() {
-            if(!finalFileToUpload) { 
-                statusMsg.innerText = translations[currentLang].errMissing;
-                statusMsg.classList.remove('text-slate-500', 'text-green-500');
-                statusMsg.classList.add('text-red-500');
-                return; 
-            }
-            if(statusMsg.innerText === compressingMsgText[currentLang]) {
-                return; 
-            }
-            
-            statusMsg.innerText = "";
-            openModal();
-        }
-
         async function unlockReport() {
             const email = document.getElementById('userEmail').value;
             if(!email.includes('@')) { 
                 alert(currentLang === 'en' ? "Please enter a valid email." : "Por favor ingresa un email válido.");
                 return; 
             }
+
+            if(typeof fbq !== 'undefined') {
+                fbq('track', 'Lead');
+            }
             
             startDynamicLoading();
             const formData = new FormData();
             
-            formData.append('file', finalFileToUpload);
             formData.append('email', email);
             formData.append('niche', currentNiche);
             formData.append('lang', currentLang);
+            formData.append('gasto', slider.value);
+            formData.append('utm_source', utmSource);
+            formData.append('utm_medium', utmMedium);
+            formData.append('utm_campaign', utmCampaign);
+            
+            if(isVipExecution && finalFileToUpload) {
+                formData.append('file', finalFileToUpload);
+            }
             
             try {
                 const response = await fetch('/analizar-estado', { method: 'POST', body: formData });
@@ -720,32 +651,39 @@
                     const t = translations[currentLang];
                     const linksContainer = document.getElementById('dynamicLinks');
                     
+                    // Inyección del Puente de Conversión (Texto persuasivo)
+                    let bridgeText = "";
+                    
                     if(currentNiche === 'elite') {
-                        linksContainer.innerHTML = `
-                            <a href="TU_LINK_HIPOTECAS_ELITE" target="_blank" class="block w-full btn-premium py-3 rounded-xl font-bold text-[10px] uppercase shadow-xl hover:scale-[1.02] transition-transform"><i class="fas fa-home mr-2"></i> ${t.affBtnEliteA}</a>
-                            <a href="TU_LINK_INVERSION_ELITE" target="_blank" class="block w-full bg-slate-800 hover:bg-slate-700 py-3 rounded-xl font-bold text-[9px] uppercase text-slate-300 border border-slate-600 shadow-xl hover:scale-[1.02] transition-transform"><i class="fas fa-chart-line mr-2"></i> ${t.affBtnEliteB}</a>
-                            <a href="TU_LINK_VIAJES_ELITE" target="_blank" class="block w-full btn-vip py-3 rounded-xl font-black text-[11px] uppercase shadow-xl"><i class="fas fa-plane-departure mr-2"></i> ${t.affBtnEliteC}</a>
-                            <a href="TU_LINK_AUTOS_ELITE" target="_blank" class="block w-full btn-auto py-3 rounded-xl font-bold text-[10px] uppercase shadow-xl hover:scale-[1.02] transition-transform"><i class="fas fa-car-side mr-2"></i> ${t.affBtnEliteD}</a>
+                        bridgeText = `<p class="text-[12px] md:text-[13px] text-amber-400 font-bold mb-4 italic text-center leading-relaxed tracking-wide px-2">${t.bridgeElite}</p>`;
+                        linksContainer.innerHTML = bridgeText + `
+                            <a href="TU_LINK_HIPOTECAS_ELITE" target="_blank" class="block w-full bg-gradient-to-r from-amber-500 to-orange-500 text-slate-900 py-3 rounded-xl font-bold text-[10px] uppercase shadow-xl hover:scale-[1.02] transition-transform text-center"><i class="fas fa-home mr-2 opacity-70"></i> ${t.affBtnEliteA}</a>
+                            <a href="TU_LINK_INVERSION_ELITE" target="_blank" class="block w-full bg-slate-800 hover:bg-slate-700 py-3 rounded-xl font-bold text-[9px] uppercase text-slate-300 border border-slate-600 shadow-xl hover:scale-[1.02] transition-transform text-center"><i class="fas fa-chart-line mr-2 opacity-70"></i> ${t.affBtnEliteB}</a>
+                            <a href="TU_LINK_VIAJES_ELITE" target="_blank" class="block w-full bg-emerald-500 hover:bg-emerald-400 text-white py-3 rounded-xl font-bold text-[10px] uppercase shadow-xl hover:scale-[1.02] transition-transform text-center"><i class="fas fa-plane-departure mr-2 opacity-70"></i> ${t.affBtnEliteC}</a>
+                            <a href="TU_LINK_AUTOS_ELITE" target="_blank" class="block w-full bg-blue-600 hover:bg-blue-500 text-white py-3 rounded-xl font-bold text-[10px] uppercase shadow-xl hover:scale-[1.02] transition-transform text-center"><i class="fas fa-car-side mr-2 opacity-70"></i> ${t.affBtnEliteD}</a>
                         `;
                     } else if(currentNiche === 'business') {
-                        linksContainer.innerHTML = `
-                            <a href="TU_LINK_TARJETAS_PREMIUM" target="_blank" class="block w-full btn-premium py-3 rounded-xl font-bold text-[10px] uppercase shadow-xl hover:scale-[1.02] transition-transform"><i class="fas fa-star mr-2"></i> ${t.affBtnPremA}</a>
-                            <a href="TU_LINK_MONITOREO_PREMIUM" target="_blank" class="block w-full bg-slate-800 hover:bg-slate-700 py-3 rounded-xl font-bold text-[9px] uppercase text-slate-300 border border-slate-600 shadow-xl hover:scale-[1.02] transition-transform"><i class="fas fa-shield-alt mr-2"></i> ${t.affBtnPremB}</a>
-                            <a href="TU_LINK_VIAJES_PREMIUM" target="_blank" class="block w-full btn-affiliate py-3 rounded-xl font-bold text-[10px] uppercase shadow-xl hover:scale-[1.02] transition-transform"><i class="fas fa-plane mr-2"></i> ${t.affBtnPremC}</a>
-                            <a href="TU_LINK_AUTOS_PREMIUM" target="_blank" class="block w-full btn-auto py-3 rounded-xl font-bold text-[10px] uppercase shadow-xl hover:scale-[1.02] transition-transform"><i class="fas fa-car mr-2"></i> ${t.affBtnPremD}</a>
+                        bridgeText = `<p class="text-[12px] md:text-[13px] text-amber-400 font-bold mb-4 italic text-center leading-relaxed tracking-wide px-2">${t.bridgePremium}</p>`;
+                        linksContainer.innerHTML = bridgeText + `
+                            <a href="TU_LINK_TARJETAS_PREMIUM" target="_blank" class="block w-full bg-gradient-to-r from-amber-500 to-orange-500 text-slate-900 py-3 rounded-xl font-bold text-[10px] uppercase shadow-xl hover:scale-[1.02] transition-transform text-center"><i class="fas fa-star mr-2 opacity-70"></i> ${t.affBtnPremA}</a>
+                            <a href="TU_LINK_MONITOREO_PREMIUM" target="_blank" class="block w-full bg-slate-800 hover:bg-slate-700 py-3 rounded-xl font-bold text-[9px] uppercase text-slate-300 border border-slate-600 shadow-xl hover:scale-[1.02] transition-transform text-center"><i class="fas fa-shield-alt mr-2 opacity-70"></i> ${t.affBtnPremB}</a>
+                            <a href="TU_LINK_VIAJES_PREMIUM" target="_blank" class="block w-full bg-emerald-500 hover:bg-emerald-400 text-white py-3 rounded-xl font-bold text-[10px] uppercase shadow-xl hover:scale-[1.02] transition-transform text-center"><i class="fas fa-plane mr-2 opacity-70"></i> ${t.affBtnPremC}</a>
+                            <a href="TU_LINK_AUTOS_PREMIUM" target="_blank" class="block w-full bg-blue-600 hover:bg-blue-500 text-white py-3 rounded-xl font-bold text-[10px] uppercase shadow-xl hover:scale-[1.02] transition-transform text-center"><i class="fas fa-car mr-2 opacity-70"></i> ${t.affBtnPremD}</a>
                         `;
                     } else {
-                        linksContainer.innerHTML = `
-                            <a href="TU_LINK_TARJETAS_ESTANDAR" target="_blank" class="block w-full btn-premium py-3 rounded-xl font-bold text-[10px] uppercase shadow-xl hover:scale-[1.02] transition-transform"><i class="fas fa-credit-card mr-2"></i> ${t.affBtnStdA}</a>
-                            <a href="TU_LINK_REPARACION_ESTANDAR" target="_blank" class="block w-full bg-slate-800 hover:bg-slate-700 py-3 rounded-xl font-bold text-[9px] uppercase text-slate-300 border border-slate-600 shadow-xl hover:scale-[1.02] transition-transform"><i class="fas fa-tools mr-2"></i> ${t.affBtnStdB}</a>
-                            <a href="TU_LINK_VIAJES_ESTANDAR" target="_blank" class="block w-full btn-affiliate py-3 rounded-xl font-bold text-[10px] uppercase shadow-xl hover:scale-[1.02] transition-transform"><i class="fas fa-plane mr-2"></i> ${t.affBtnStdC}</a>
-                            <a href="TU_LINK_AUTOS_ESTANDAR" target="_blank" class="block w-full btn-auto py-3 rounded-xl font-bold text-[10px] uppercase shadow-xl hover:scale-[1.02] transition-transform"><i class="fas fa-car mr-2"></i> ${t.affBtnStdD}</a>
+                        bridgeText = `<p class="text-[12px] md:text-[13px] text-amber-400 font-bold mb-4 italic text-center leading-relaxed tracking-wide px-2">${t.bridgeStandard}</p>`;
+                        linksContainer.innerHTML = bridgeText + `
+                            <a href="TU_LINK_TARJETAS_ESTANDAR" target="_blank" class="block w-full bg-gradient-to-r from-amber-500 to-orange-500 text-slate-900 py-3 rounded-xl font-bold text-[10px] uppercase shadow-xl hover:scale-[1.02] transition-transform text-center"><i class="fas fa-credit-card mr-2 opacity-70"></i> ${t.affBtnStdA}</a>
+                            <a href="TU_LINK_REPARACION_ESTANDAR" target="_blank" class="block w-full bg-slate-800 hover:bg-slate-700 py-3 rounded-xl font-bold text-[9px] uppercase text-slate-300 border border-slate-600 shadow-xl hover:scale-[1.02] transition-transform text-center"><i class="fas fa-tools mr-2 opacity-70"></i> ${t.affBtnStdB}</a>
+                            <a href="TU_LINK_VIAJES_ESTANDAR" target="_blank" class="block w-full bg-emerald-500 hover:bg-emerald-400 text-white py-3 rounded-xl font-bold text-[10px] uppercase shadow-xl hover:scale-[1.02] transition-transform text-center"><i class="fas fa-plane mr-2 opacity-70"></i> ${t.affBtnStdC}</a>
+                            <a href="TU_LINK_AUTOS_ESTANDAR" target="_blank" class="block w-full bg-blue-600 hover:bg-blue-500 text-white py-3 rounded-xl font-bold text-[10px] uppercase shadow-xl hover:scale-[1.02] transition-transform text-center"><i class="fas fa-car mr-2 opacity-70"></i> ${t.affBtnStdD}</a>
                         `;
                     }
 
                     document.getElementById('emailPhase').style.display = 'none';
                     document.getElementById('modalDesc').style.display = 'none';
-                    document.getElementById('modalTitle').innerText = t.rTitle;
+                    document.getElementById('modalSpam').style.display = 'none';
+                    document.getElementById('modalTitle').innerText = isVipExecution ? (currentLang === 'en' ? "YOUR VIP AUDIT" : "TU AUDITORÍA VIP") : t.rTitle;
                     document.getElementById('modalIcon').className = "fas fa-check-circle text-green-400 text-3xl";
                     document.getElementById('modalIconContainer').className = "w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-4 border border-green-500/50";
                     
@@ -756,14 +694,13 @@
                     closeModal();
                 }
             } catch (e) { 
-                alert("EL ERROR REAL ES: " + e.message);
+                alert("Error de conexión. / Network error.");
                 closeModal();
             } finally { 
                 stopDynamicLoading();
             }
         }
         
-        // --- FUNCIÓN PDF OFICIAL MEJORADA CON MICRO-PAUSA ---
         function downloadPDF() {
             const element = document.getElementById('printableBlueprint');
             const reportDiv = document.getElementById('reportContent');
@@ -771,31 +708,30 @@
             const btnPdfText = document.getElementById('btnPdfText');
             const modalBox = document.getElementById('modalBox');
             
-            // 1. Generar Datos Oficiales del Documento
             const fechaActual = new Date().toLocaleDateString(currentLang === 'es' ? 'es-ES' : 'en-US', { year: 'numeric', month: 'long', day: 'numeric' });
             const folioAleatorio = 'QRP-' + Math.random().toString(36).substring(2, 8).toUpperCase() + '-' + new Date().getFullYear();
             
             document.getElementById('pdfDate').innerText = fechaActual;
             document.getElementById('folioNumber').innerText = folioAleatorio;
             
-            // 2. Transformar a Modo "Papel Blanco"
             document.getElementById('pdfOfficialHeader').classList.remove('hidden');
             document.getElementById('pdfOfficialFooter').classList.remove('hidden');
             
             element.classList.remove('bg-[#0f172a]', 'border-white/5');
             element.classList.add('bg-white', 'text-black', 'p-6'); 
             
-            reportDiv.classList.remove('text-slate-300', 'bg-slate-900/50', 'h-48', 'overflow-y-auto', 'custom-scrollbar', 'border-white/10');
+            // Fix para el salto de página
+            reportDiv.classList.remove('text-slate-300', 'bg-slate-900/50', 'overflow-hidden');
+            reportDiv.style.maxHeight = 'none';
+            reportDiv.style.overflowY = 'visible';
             reportDiv.classList.add('text-black', 'bg-slate-50', 'border-slate-300'); 
             
-            // Remover límites de altura para que el texto salga completo
             modalBox.style.maxHeight = 'none';
             modalBox.style.overflow = 'visible';
 
             btnPdfText.innerText = translations[currentLang].btnPdfGen;
             btnPdf.disabled = true;
             
-            // 3. LA MICRO-PAUSA MÁGICA (350 milisegundos)
             setTimeout(() => {
                 const opt = {
                   margin:       0.4,
@@ -803,19 +739,19 @@
                   image:        { type: 'jpeg', quality: 0.98 },
                   html2canvas:  { scale: 2, useCORS: true, backgroundColor: '#ffffff', scrollY: 0 }, 
                   jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' },
-                  pagebreak:    { mode: 'avoid-all' }
+                  pagebreak:    { mode: ['css', 'legacy'] } 
                 };
 
-                // 4. Tomar la foto final y guardar
                 html2pdf().set(opt).from(element).save().then(() => {
-                    // 5. Regresar todo a Modo Oscuro
                     document.getElementById('pdfOfficialHeader').classList.add('hidden');
                     document.getElementById('pdfOfficialFooter').classList.add('hidden');
                     
                     element.classList.add('bg-[#0f172a]', 'border-white/5');
                     element.classList.remove('bg-white', 'text-black', 'p-6'); 
                     
-                    reportDiv.classList.add('text-slate-300', 'bg-slate-900/50', 'h-48', 'overflow-y-auto', 'custom-scrollbar', 'border-white/10');
+                    reportDiv.classList.add('text-slate-300', 'bg-slate-900/50', 'overflow-hidden');
+                    reportDiv.style.maxHeight = '400px';
+                    reportDiv.style.overflowY = 'auto';
                     reportDiv.classList.remove('text-black', 'bg-slate-50', 'border-slate-300');
                     
                     modalBox.style.maxHeight = '';
@@ -824,7 +760,7 @@
                     btnPdfText.innerText = translations[currentLang].btnPdfText;
                     btnPdf.disabled = false;
                 });
-            }, 350); // <-- 350ms de pausa antes de tomar la foto
+            }, 350); 
         }
 
         async function enviarContacto(event) {
@@ -857,6 +793,18 @@
                 btn.innerText = originalText;
                 btn.disabled = false;
             }
+        }
+
+        function openLegalModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.remove('hidden'); modal.classList.add('flex');
+            setTimeout(() => { modal.classList.remove('opacity-0'); modal.querySelector('.modal-content').classList.remove('scale-95'); modal.querySelector('.modal-content').classList.add('scale-100'); }, 10);
+        }
+
+        function closeLegalModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.add('opacity-0'); modal.querySelector('.modal-content').classList.remove('scale-100'); modal.querySelector('.modal-content').classList.add('scale-95');
+            setTimeout(() => { modal.classList.add('hidden'); modal.classList.remove('flex'); }, 300);
         }
 
         changeLang(currentLang);
