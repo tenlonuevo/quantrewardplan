@@ -1,8 +1,8 @@
 {
-    "tarjetas_principales": [
-        {"nombre": "Wells Fargo Autograph", "multiplicador": 3, "categoria": "Viajes y Gasolina"},
-        {"nombre": "Amex Gold", "multiplicador": 4, "categoria": "Restaurantes y Supermercado"},
-        {"nombre": "Chase Sapphire Preferred", "multiplicador": 2, "categoria": "Viajes"}
-    ],
-    "valor_punto_promedio": 0.015
+    "valor_punto_promedio": 0.015,
+    "multiplicadores_nicho": {
+        "personal": 3,
+        "business": 4,
+        "elite": 5
+    }
 }
